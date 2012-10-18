@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nome:</b>
+  <%= @clube.nome %>
+</p>
+
+<p>
+  <b>Sigla:</b>
+  <%= @clube.sigla %>
+</p>
+
+
+<%= link_to 'Edit', edit_clube_path(@clube) %> |
+<%= link_to 'Back', clubes_path %>
