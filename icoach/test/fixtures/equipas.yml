@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  epoca: 
+  nome: MyString
+  clube: 
+
+two:
+  epoca: 
+  nome: MyString
+  clube: 

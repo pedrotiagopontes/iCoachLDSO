@@ -1,0 +1,30 @@
+<%= form_for(@equipa) do |f| %>
+  <% if @equipa.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@equipa.errors.count, "error") %> prohibited this equipa from being saved:</h2>
+
+      <ul>
+      <% @equipa.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :epoca %><br />
+    <%= f.text_field :epoca %>
+  </div>
+  <div class="field">
+    <%= f.label :nome %><br />
+    <%= f.text_field :nome %>
+  </div>
+  <div>
+    <em>Nota, a inserir em:</em>
+    <%= Clube.find(1).nome %><br />
+    
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
