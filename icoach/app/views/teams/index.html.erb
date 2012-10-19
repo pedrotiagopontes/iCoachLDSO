@@ -1,0 +1,28 @@
+<h1>Listing teams</h1>
+
+<table>
+  <tr>
+    <th>Season</th>
+    <th>Name</th>
+    <th>Club</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @teams.each do |team| %>
+<% club = Club.find(team.club_id).name %>
+  <tr>
+    <td><%= team.season %></td>
+    <td><%= team.name %></td>
+    <td><%= club %></td>
+    <td><%= link_to 'Show', team %></td>
+    <td><%= link_to 'Edit', edit_team_path(team) %></td>
+    <td><%= link_to 'Destroy', team, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Team', new_team_path %>

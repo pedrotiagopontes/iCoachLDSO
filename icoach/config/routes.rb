@@ -1,7 +1,7 @@
 Icoach::Application.routes.draw do
-  resources :equipas
+  resources :teams
 
-  resources :clubes
+  resources :clubs
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -50,7 +50,7 @@ Icoach::Application.routes.draw do
   #     resources :products
   #   end
 
-root :to => 'clubes#index'
+root :to => 'clubs#index'
 
   # See how all your routes lay out with "rake routes"
 

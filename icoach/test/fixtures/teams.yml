@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  nome: MyString
-  sigla: MyString
+  season: MyString
+  name: MyString
+  club: 
 
 two:
-  nome: MyString
-  sigla: MyString
+  season: MyString
+  name: MyString
+  club: 

@@ -11,11 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121018174513) do
+ActiveRecord::Schema.define(:version => 20121019104643) do
 
   create_table "clubes", :force => true do |t|
     t.string   "nome"
     t.string   "sigla"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "clubs", :force => true do |t|
+    t.string   "name"
+    t.string   "acronym"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -29,5 +36,15 @@ ActiveRecord::Schema.define(:version => 20121018174513) do
   end
 
   add_index "equipas", ["clube_id"], :name => "index_equipas_on_clube_id"
+
+  create_table "teams", :force => true do |t|
+    t.string   "season"
+    t.string   "name"
+    t.integer  "club_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "teams", ["club_id"], :name => "index_teams_on_club_id"
 
 end
