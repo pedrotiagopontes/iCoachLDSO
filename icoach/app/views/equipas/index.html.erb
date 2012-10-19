@@ -12,9 +12,11 @@
 
 <% @equipas.each do |equipa| %>
   <tr>
+    <% clubeEquipa = Clube.find(equipa.clube_id).nome %>
+
     <td><%= equipa.epoca %></td>
     <td><%= equipa.nome %></td>
-    <td><%= equipa.clube %></td>
+    <td><%= clubeEquipa %></td>
     <td><%= link_to 'Show', equipa %></td>
     <td><%= link_to 'Edit', edit_equipa_path(equipa) %></td>
     <td><%= link_to 'Destroy', equipa, confirm: 'Are you sure?', method: :delete %></td>

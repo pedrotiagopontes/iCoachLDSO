@@ -12,7 +12,8 @@
 
 <p>
   <b>Clube:</b>
-  <%= @clube.nome %>
+  <% clubeEquipa = Clube.find(@equipa.clube_id).nome %>
+  <%= clubeEquipa %>
 </p>
 
 

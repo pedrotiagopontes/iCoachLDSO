@@ -14,7 +14,7 @@ class EquipasController < ApplicationController
   # GET /equipas/1.json
   def show
     @equipa = Equipa.find(params[:id])
-    @clube = Clube.find(@equipa.clube_id)
+    #@clube = Clube.find(@equipa.clube_id)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -42,8 +42,8 @@ class EquipasController < ApplicationController
   # POST /equipas.json
   def create
     clube = Clube.find(1)
-    params = {:equipa => {:clube_id => clube.id}}
-    @equipa = Equipa.new(params[:equipa])
+    #nota 
+    @equipa = clube.equipas.new(params[:equipa])
 
     respond_to do |format|
       if @equipa.save
