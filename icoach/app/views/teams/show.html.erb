@@ -15,6 +15,26 @@
   <%= @club.name %>
 </p>
 
+<h2>Jogadores</h2>
+<% @team.players.each do |player| %>
+  <p>
+    <b>Player:</b>
+    <%= player.name %>
+  </p>
+  
+<% end %>
+
+<h2>Add a player:</h2>
+<%= form_for([@team, @team.players.build]) do |f| %>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
 
 <%= link_to 'Edit', edit_team_path(@team) %> |
 <%= link_to 'Back', teams_path %>

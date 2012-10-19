@@ -1,5 +1,6 @@
 Icoach::Application.routes.draw do
   resources :teams
+    resources :players
 
   resources :clubs
 
