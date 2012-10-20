@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  height: 9.99
+  date_of_birth: 
+  nacionality: MyString
+  weight: 9.99
+  position: MyString
+  team: 
+
+two:
+  name: MyString
+  height: 9.99
+  date_of_birth: 
+  nacionality: MyString
+  weight: 9.99
+  position: MyString
+  team: 
