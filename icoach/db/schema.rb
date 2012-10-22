@@ -13,29 +13,12 @@
 
 ActiveRecord::Schema.define(:version => 20121019115516) do
 
-  create_table "clubes", :force => true do |t|
-    t.string   "nome"
-    t.string   "sigla"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "clubs", :force => true do |t|
     t.string   "name"
     t.string   "acronym"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
-
-  create_table "equipas", :force => true do |t|
-    t.string   "epoca"
-    t.string   "nome"
-    t.integer  "clube_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "equipas", ["clube_id"], :name => "index_equipas_on_clube_id"
 
   create_table "players", :force => true do |t|
     t.string   "name"

@@ -1,7 +1,8 @@
 Icoach::Application.routes.draw do
-  resources :teams
+  resources :teams do
     resources :players
-
+  end
+  
   resources :clubs
 
   # The priority is based upon order of creation:
