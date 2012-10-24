@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(:version => 20121019115516) do
     t.string   "name"
     t.decimal  "height"
     t.date     "date_of_birth"
-    t.string   "nacionality"
+    t.string   "nationality"
     t.decimal  "weight"
     t.string   "position"
     t.integer  "team_id"
