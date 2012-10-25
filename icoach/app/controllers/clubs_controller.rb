@@ -1,4 +1,5 @@
 class ClubsController < ApplicationController
+  load_and_authorize_resource
   # GET /clubs
   # GET /clubs.json
   def index
@@ -13,7 +14,7 @@ class ClubsController < ApplicationController
   # GET /clubs/1
   # GET /clubs/1.json
   def show
-    @club = Club.find(params[:id])
+    #@club = Club.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +25,7 @@ class ClubsController < ApplicationController
   # GET /clubs/new
   # GET /clubs/new.json
   def new
-    @club = Club.new
+    #@club = Club.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,13 +35,13 @@ class ClubsController < ApplicationController
 
   # GET /clubs/1/edit
   def edit
-    @club = Club.find(params[:id])
+    #@club = Club.find(params[:id])
   end
 
   # POST /clubs
   # POST /clubs.json
   def create
-    @club = Club.new(params[:club])
+    #@club = Club.new(params[:club])
 
     respond_to do |format|
       if @club.save
