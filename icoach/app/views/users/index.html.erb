@@ -1,0 +1,19 @@
+<h1>Listing users</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% @users.each do |u| %>
+    <tr>
+      <td><%= "#{u.email}" %></td>
+      <td><%= link_to_if(can?(:edit, User), 'Edit', edit_user_path(u.id)) {} %></td>
+      <td><%= link_to_if(can?(:delete, u), 'Delete', u, :confirm => "Are you sure?", :method => :delete) {} %></td>
+    </tr>
+<% end %>
+
+<br />
+
+<%= link_to 'New User', new_user_path %>

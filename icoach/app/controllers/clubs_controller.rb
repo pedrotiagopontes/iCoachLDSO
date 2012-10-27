@@ -2,7 +2,7 @@ class ClubsController < ApplicationController
   load_and_authorize_resource
   # GET /clubs
   # GET /clubs.json
-  def index
+  def index    
     @clubs = Club.all
 
     respond_to do |format|
@@ -25,7 +25,8 @@ class ClubsController < ApplicationController
   # GET /clubs/new
   # GET /clubs/new.json
   def new
-    #@club = Club.new
+    @user = User.find(current_user.id)
+    @club = @user.build_club
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,7 +42,8 @@ class ClubsController < ApplicationController
   # POST /clubs
   # POST /clubs.json
   def create
-    #@club = Club.new(params[:club])
+    @user = User.find(current_user.id)
+    @club = @user.create_club(params[:club])
 
     respond_to do |format|
       if @club.save

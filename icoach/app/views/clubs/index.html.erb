@@ -8,15 +8,18 @@
   <tr>
     <th>Name</th>
     <th>Acronym</th>
+    <th>Owner</th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
 
 <% @clubs.each do |club| %>
+  <% user = User.find(club.user_id) %>
   <tr>
     <td><%= club.name %></td>
     <td><%= club.acronym %></td>
+    <td><%= user.email %></td>
     <td><%= link_to 'Show', club %></td>
     <td><%= link_to 'Edit', edit_club_path(club) %></td>
     <td><%= link_to 'Destroy', club, confirm: 'Are you sure?', method: :delete %></td>

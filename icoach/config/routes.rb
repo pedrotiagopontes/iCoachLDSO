@@ -1,6 +1,8 @@
 Icoach::Application.routes.draw do
-  devise_for :users
-  resources :users
+  devise_for :users, :path_prefix => 'my'
+  resources :users do
+    resources :clubs
+  end
 
   resources :teams do
     resources :players
