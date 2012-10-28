@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-	has_one :club
+has_many :roles
+has_many :clubs, :through => :roles
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable

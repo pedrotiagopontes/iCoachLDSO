@@ -1,25 +1,24 @@
-<% if current_user.try(:is_admin?) %>
-  <p>This user is admin!</p>
-<% end %>
-
 <h1>Listing clubs</h1>
 
 <table class="table">
   <tr>
     <th>Name</th>
     <th>Acronym</th>
-    <th>Owner</th>
+    <th>Users</th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
 
 <% @clubs.each do |club| %>
-  <% user = User.find(club.user_id) %>
   <tr>
     <td><%= club.name %></td>
     <td><%= club.acronym %></td>
-    <td><%= user.email %></td>
+    <td>
+    <% club.users.each do |user| %>
+      <%= user.email %>
+    <% end %>
+    </td>
     <td><%= link_to 'Show', club %></td>
     <td><%= link_to 'Edit', edit_club_path(club) %></td>
     <td><%= link_to 'Destroy', club, confirm: 'Are you sure?', method: :delete %></td>

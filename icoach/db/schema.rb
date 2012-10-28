@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121027010449) do
+ActiveRecord::Schema.define(:version => 20121028114022) do
 
   create_table "clubes", :force => true do |t|
     t.string   "nome"
@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(:version => 20121027010449) do
     t.string   "acronym"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "user_id"
   end
 
   create_table "equipas", :force => true do |t|
@@ -55,6 +54,20 @@ ActiveRecord::Schema.define(:version => 20121027010449) do
     t.integer "team_id"
   end
 
+  create_table "roles", :force => true do |t|
+    t.boolean  "is_admin"
+    t.boolean  "is_doctor"
+    t.boolean  "is_coach"
+    t.boolean  "is_manager"
+    t.integer  "user_id"
+    t.integer  "club_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "roles", ["club_id"], :name => "index_roles_on_club_id"
+  add_index "roles", ["user_id"], :name => "index_roles_on_user_id"
+
   create_table "teams", :force => true do |t|
     t.string   "season"
     t.string   "name"
@@ -78,10 +91,6 @@ ActiveRecord::Schema.define(:version => 20121027010449) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
-    t.boolean  "is_admin"
-    t.boolean  "is_doctor"
-    t.boolean  "is_coach"
-    t.boolean  "is_manager"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

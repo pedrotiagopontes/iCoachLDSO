@@ -19,6 +19,9 @@
     <%= f.label :acronym %><br />
     <%= f.text_field :acronym %>
   </div>
+
+  <% f.fields_for :roles do |builder| %>
+  <%end%>
   <div class="actions">
     <%= f.submit %>
   </div>

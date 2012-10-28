@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  is_admin: false
+  is_doctor: false
+  is_coach: false
+  is_manager: false
+  user: 
+  club: 
+
+two:
+  is_admin: false
+  is_doctor: false
+  is_coach: false
+  is_manager: false
+  user: 
+  club: 

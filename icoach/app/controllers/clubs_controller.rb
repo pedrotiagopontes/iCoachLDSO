@@ -26,7 +26,10 @@ class ClubsController < ApplicationController
   # GET /clubs/new.json
   def new
     @user = User.find(current_user.id)
-    @club = @user.build_club
+    #@club = @user.clubs.build
+
+    @club = @user.clubs.new
+    #@club.users << @user
 
     respond_to do |format|
       format.html # new.html.erb
@@ -43,7 +46,8 @@ class ClubsController < ApplicationController
   # POST /clubs.json
   def create
     @user = User.find(current_user.id)
-    @club = @user.create_club(params[:club])
+    @club = @user.clubs.new(params[:club])
+    @club.save && @club.roles.create(:user => @user, :is_admin => true)
 
     respond_to do |format|
       if @club.save
