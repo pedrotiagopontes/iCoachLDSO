@@ -10,6 +10,13 @@
   <%= @club.acronym %>
 </p>
 
+<h3>Users working for this club:</h3>
+
+<% @club.users.each do |user| %>
+    <p><%= user.email %>
+    <%= user.roles.find_all_by_club_id(@club.id) %></p>
+<% end %>
+
 
 <%= link_to 'Edit', edit_club_path(@club) %> |
 <%= link_to 'Back', clubs_path %>

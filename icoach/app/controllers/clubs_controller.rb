@@ -64,7 +64,9 @@ class ClubsController < ApplicationController
   # PUT /clubs/1.json
   def update
     @club = Club.find(params[:id])
+    logger.debug(params.inspect)
 
+    params[:club][:user_ids] ||= []
     respond_to do |format|
       if @club.update_attributes(params[:club])
         format.html { redirect_to @club, notice: 'Club was successfully updated.' }
