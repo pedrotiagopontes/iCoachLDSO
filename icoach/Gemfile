@@ -37,3 +37,5 @@ gem 'bootstrap-sass'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
+gem 'thin'

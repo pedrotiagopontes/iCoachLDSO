@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  opponent: MyString
+  date: 2012-10-24
+  hour: 2012-10-24 16:39:34
+  at_home: false
+  played: false
+  team: 
+
+two:
+  opponent: MyString
+  date: 2012-10-24
+  hour: 2012-10-24 16:39:34
+  at_home: false
+  played: false
+  team: 

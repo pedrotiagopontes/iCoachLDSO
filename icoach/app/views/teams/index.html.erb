@@ -10,13 +10,13 @@
   </tr>
 
 <% @teams.each do |team| %>
-<% club = Club.find(team.club_id).name %>
   <tr>
     <td><%= team.season %></td>
-    <td><%= club %></td>
+    <td><%= team.club.name %></td>
     <td><%= link_to team.name, team %></td>
     <td><%= link_to 'Edit', edit_team_path(team) %></td>
     <td><%= link_to 'Destroy', team, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Games', team_games_path(team) %></td>
   </tr>
 <% end %>
 </table>
