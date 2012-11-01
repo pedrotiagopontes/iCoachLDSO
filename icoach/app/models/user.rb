@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-has_many :roles
+has_many :roles, :dependent => :destroy
 has_many :clubs, :through => :roles
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

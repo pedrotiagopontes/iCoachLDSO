@@ -28,7 +28,7 @@ class ClubsController < ApplicationController
     @user = User.find(current_user.id)
     #@club = @user.clubs.build
 
-    @club = @user.clubs.new
+    #@club = @user.clubs.new
     #@club.users << @user
 
     respond_to do |format|

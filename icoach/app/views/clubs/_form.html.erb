@@ -20,13 +20,33 @@
     <%= f.text_field :acronym %>
   </div>
 
-  <div class="field">
-    <%= hidden_field_tag "club[user_ids][]", nil %>
-    <% User.all.each do |user| %>
-      <%= check_box_tag "club[user_ids][]", user.id, @club.user_ids.include?(user.id), id: dom_id(user) %>
-      <%= label_tag dom_id(user), user.email %> <br>
+  <%= render "addUsers" %>
+
+  <% if !@club.roles.empty? %>
+  <table class="table">
+  <tr>
+      <th>Mail</th>
+      <th>Admin</th>
+      <th>Coach</th>
+      <th>Manager</th>
+      <th>Doctor</th>
+      <th></th>
+   </tr>
+    <div class="field">
+    <%= f.fields_for :roles do |builder| %>
+      <tr class="fields">
+        <td><%= builder.label :blal %></td>
+        <td><%= builder.check_box :is_admin %></td>
+        <td><%= builder.check_box :is_coach %></td>
+        <td><%= builder.check_box :is_manager %></td>
+        <td><%= builder.check_box :is_doctor %></td>
+        <%= builder.hidden_field :_destroy %>
+        <td><%= link_to_remove_fields "remove", builder %></td>
+      </tr>
     <% end %>
-  </div>
+    </div>
+  </table>
+  <%end%>
   <div class="actions">
     <%= f.submit %>
   </div>

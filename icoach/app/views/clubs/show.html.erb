@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <b>Name:</b>
   <%= @club.name %>
@@ -12,10 +10,27 @@
 
 <h3>Users working for this club:</h3>
 
+<table class="table">
+<tr>
+    <th>Mail</th>
+    <th>Admin</th>
+    <th>Coach</th>
+    <th>Manager</th>
+    <th>Doctor</th>
+ </tr>
+
 <% @club.users.each do |user| %>
-    <p><%= user.email %>
-    <%= user.roles.find_all_by_club_id(@club.id) %></p>
+
+<tr>
+    <td><%= user.email %></td>
+    <% r = user.roles.find_all_by_club_id(@club.id).first %>
+    <td><%= check_box_tag "admin", true , r.is_admin, {:disabled => true} %></td>
+    <td><%= check_box_tag "coach", true , r.is_coach, {:disabled => true} %></td>
+    <td><%= check_box_tag "manager", true , r.is_manager, {:disabled => true} %></td>
+    <td><%= check_box_tag "doctor", true , r.is_doctor, {:disabled => true} %></td>
+</tr>
 <% end %>
+</table>
 
 
 <%= link_to 'Edit', edit_club_path(@club) %> |
