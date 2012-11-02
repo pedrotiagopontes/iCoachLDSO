@@ -5,7 +5,7 @@ Icoach::Application.routes.draw do
   end
 
   resources :teams do
-    resources :players
+    resources :players, :games
   end
   
   resources :clubs

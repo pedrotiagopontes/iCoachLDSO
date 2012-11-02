@@ -6,6 +6,7 @@ class TeamsController < ApplicationController
   # GET /teams.json
   def index
     @teams = Team.all
+    @games = Game.all
 
     respond_to do |format|
       format.html # index.html.erb
