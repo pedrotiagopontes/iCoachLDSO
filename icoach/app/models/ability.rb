@@ -6,7 +6,16 @@ class Ability
     #
        user ||= User.new # guest user (not logged in)
        if user
-         can :manage, :all
+        can :manage, :all
+        #can :manage, Club do |club|
+        #  club.admin? user
+        #end
+        #can :read, Club do |club|
+        #  (club.coach? user) || (club.manager? user) || (club.doctor? user)
+        #end
+
+         #can :manage, Team
+         #can :manage, Player
        end
     #
     # The first argument to `can` is the action you are giving the user permission to do.

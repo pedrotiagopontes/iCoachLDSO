@@ -2,8 +2,13 @@ class ClubsController < ApplicationController
   load_and_authorize_resource
   # GET /clubs
   # GET /clubs.json
-  def index    
-    @clubs = Club.all
+  def index
+    if(current_user)
+      @user = User.find(current_user.id) 
+      @clubs = @user.clubs
+    else
+      @clubs = Club.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -46,11 +51,11 @@ class ClubsController < ApplicationController
   # POST /clubs.json
   def create
     @user = User.find(current_user.id)
-    @club = @user.clubs.new(params[:club])
-    @club.save && @club.roles.create(:user => @user, :is_admin => true)
+    #@club = @user.clubs.new(params[:club])
+    #@club.save && @club.roles.create(:user => @user, :is_admin => true)
 
     respond_to do |format|
-      if @club.save
+      if @club.save && @club.roles.create(:user => @user, :is_admin => true)
         format.html { redirect_to @club, notice: 'Club was successfully created.' }
         format.json { render json: @club, status: :created, location: @club }
       else
@@ -63,8 +68,8 @@ class ClubsController < ApplicationController
   # PUT /clubs/1
   # PUT /clubs/1.json
   def update
-    @club = Club.find(params[:id])
-    logger.debug(params.inspect)
+ #   @club = Club.find(params[:id])
+#    logger.debug(params.inspect)
 
     params[:club][:user_ids] ||= []
     respond_to do |format|
@@ -81,7 +86,7 @@ class ClubsController < ApplicationController
   # DELETE /clubs/1
   # DELETE /clubs/1.json
   def destroy
-    @club = Club.find(params[:id])
+  #  @club = Club.find(params[:id])
     @club.destroy
 
     respond_to do |format|

@@ -20,12 +20,19 @@
     <% end %>
     </td>
     <td><%= link_to 'Show', club %></td>
-    <td><%= link_to 'Edit', edit_club_path(club) %></td>
-    <td><%= link_to 'Destroy', club, confirm: 'Are you sure?', method: :delete %></td>
+    
+    <% if can? :update, club %>
+      <td><%= link_to 'Edit', edit_club_path(club) %></td>
+    <% end %>
+    <% if can? :destroy, club %>
+      <td><%= link_to 'Destroy', club, confirm: 'Are you sure?', method: :delete %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Club', new_club_path %>
+<% if can? :create, Club %>
+  <%= link_to 'New Club', new_club_path %>
+<% end %>

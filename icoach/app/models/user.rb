@@ -9,4 +9,25 @@ has_many :clubs, :through => :roles
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
+
+  def admin?(club)
+  	r = self.roles.find_by_club_id(club.id)
+    return r.is_admin
+  end
+
+  def coach?(club)
+  	r = self.roles.find_by_club_id(club.id)
+    return r.is_coach
+  end
+
+  def doctor?(club)
+  	r = self.roles.find_by_club_id(club.id)
+    return r.is_doctor
+  end
+
+  def manager?(club)
+  	r = self.roles.find_by_club_id(club.id)
+    return r.is_manager
+  end
+
 end

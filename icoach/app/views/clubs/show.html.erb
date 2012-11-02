@@ -22,12 +22,16 @@
 <% @club.users.each do |user| %>
 
 <tr>
-    <td><%= user.email %></td>
-    <% r = user.roles.find_all_by_club_id(@club.id).first %>
-    <td><%= check_box_tag "admin", true , r.is_admin, {:disabled => true} %></td>
-    <td><%= check_box_tag "coach", true , r.is_coach, {:disabled => true} %></td>
-    <td><%= check_box_tag "manager", true , r.is_manager, {:disabled => true} %></td>
-    <td><%= check_box_tag "doctor", true , r.is_doctor, {:disabled => true} %></td>
+  <% isAdmin = @club.admin? user %>
+  <% isCoach = @club.coach? user %>
+  <% isManager = @club.manager? user %>
+  <% isDoctor = @club.doctor? user %>
+
+  <td><%= user.email %></td>
+  <td><%= check_box_tag "admin", true , isAdmin, {:disabled => true} %></td>
+  <td><%= check_box_tag "coach", true , isCoach, {:disabled => true} %></td>
+  <td><%= check_box_tag "manager", true ,isManager, {:disabled => true} %></td>
+  <td><%= check_box_tag "doctor", true ,isDoctor, {:disabled => true} %></td>
 </tr>
 <% end %>
 </table>
