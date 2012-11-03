@@ -1,14 +1,13 @@
 Icoach::Application.routes.draw do
-  devise_for :users, :path_prefix => 'my'
-  resources :users do
-    resources :clubs
-  end
+  devise_for :users
 
   resources :teams do
     resources :players, :games
   end
   
   resources :clubs
+
+  root :to => 'clubs#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -57,7 +56,6 @@ Icoach::Application.routes.draw do
   #     resources :products
   #   end
 
-  root :to => 'clubs#index'
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
