@@ -32,7 +32,7 @@
 <% end %>
 
 <h2>Add a player:</h2>
-<%= form_for([@team, @team.players.build]) do |f| %>
+<%= form_for([@team.club, @team, @team.players.build]) do |f| %>
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>

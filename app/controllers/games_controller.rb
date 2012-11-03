@@ -14,7 +14,8 @@ class GamesController < ApplicationController
   # GET /games/1
   # GET /games/1.json
   def show
-    @game = Game.find(params[:id])
+    @team = Team.find(params[:team_id])
+    @game = @team.games.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,8 +26,8 @@ class GamesController < ApplicationController
   # GET /games/new
   # GET /games/new.json
   def new
-    @game = Game.new
-    @game.team = Team.find(params[:team_id])
+    @team = Team.find(params[:team_id])
+    @game = @team.games.new
     @game.played = false
 
     respond_to do |format|
@@ -37,19 +38,20 @@ class GamesController < ApplicationController
 
   # GET /games/1/edit
   def edit
-    @game = Game.find(params[:id])
+    @team = Team.find(params[:team_id])
+    @game = @team.games.find(params[:id])
   end
 
   # POST /games
   # POST /games.json
   def create
-    @game = Game.new(params[:game])
-    @game.team = Team.find(params[:team_id])
+    @team = Team.find(params[:team_id])
+    @game = @team.games.new(params[:game])
     @game.played = false
 
     respond_to do |format|
       if @game.save
-        format.html { redirect_to team_games_path(@game.team), notice: 'Game was successfully created.' }
+        format.html { redirect_to club_team_games_path(@team.club, @team), notice: 'Game was successfully created.' }
         format.json { render json: @game, status: :created, location: @game }
       else
         format.html { render action: "new" }
@@ -61,11 +63,12 @@ class GamesController < ApplicationController
   # PUT /games/1
   # PUT /games/1.json
   def update
-    @game = Game.find(params[:id])
+    @team = Team.find(params[:team_id])
+    @game = @team.games.find(params[:id])
 
     respond_to do |format|
       if @game.update_attributes(params[:game])
-        format.html { redirect_to team_games_path(@game.team), notice: 'Game was successfully updated.' }
+        format.html { redirect_to club_team_games_path(@team.club, @team), notice: 'Game was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -77,13 +80,13 @@ class GamesController < ApplicationController
   # DELETE /games/1
   # DELETE /games/1.json
   def destroy
-    @game = Game.find(params[:id])
-    @team = @game.team
+    @team = Team.find(params[:team_id])
+    @game = @team.games.find(params[:id])
     @game.destroy
 
     respond_to do |format|
       #format.html { redirect_to games_url }
-      format.html { redirect_to team_games_path(@team) }
+      format.html { redirect_to club_team_games_path(@team.club, @team) }
       format.json { head :no_content }
     end
   end
