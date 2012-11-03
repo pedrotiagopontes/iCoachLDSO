@@ -1,11 +1,11 @@
 Icoach::Application.routes.draw do
   devise_for :users
 
-  resources :teams do
-    resources :players, :games
+  resources :clubs do
+    resources :teams do
+      resources :players, :games
+    end
   end
-  
-  resources :clubs
 
   root :to => 'clubs#index'
 

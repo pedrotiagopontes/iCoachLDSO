@@ -1,12 +1,13 @@
 class TeamsController < ApplicationController
-  before_filter :authenticate_user!
+#  before_filter :authenticate_user!
   load_and_authorize_resource
   
   # GET /teams
   # GET /teams.json
   def index
-    @teams = Team.all
-    @games = Game.all
+    @club = Club.find(params[:club_id])
+    @teams = @club.teams
+    #@games = @teams.games
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,8 +18,8 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
-    @team = Team.find(params[:id])
-    @club = Club.find(@team.club_id)
+    @club = Club.find(params[:club_id])
+    @team = @club.teams.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -29,7 +30,8 @@ class TeamsController < ApplicationController
   # GET /teams/new
   # GET /teams/new.json
   def new
-    @team = Team.new
+    @club = Club.find(params[:club_id])
+    @team = @club.teams.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -39,22 +41,20 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/edit
   def edit
-    @team = Team.find(params[:id])
+    @club = Club.find(params[:club_id])
+    @team = @club.teams.find(params[:id])
   end
 
   # POST /teams
   # POST /teams.json
   def create
-    ###TODO change this!
-    club = Club.find(1)
-    ######
-
-    @team = club.teams.new(params[:team])
+    @club = Club.find(params[:club_id])
+    @team = @club.teams.new(params[:team])
 
     respond_to do |format|
       if @team.save
-        format.html { redirect_to @team, notice: 'Team was successfully created.' }
-        format.json { render json: @team, status: :created, location: @team }
+        format.html { redirect_to club_teams_path(@club), notice: 'Team was successfully created.' }
+        format.json { render json: @team, status: :created, location: club_teams_path(@club) }
       else
         format.html { render action: "new" }
         format.json { render json: @team.errors, status: :unprocessable_entity }
@@ -65,7 +65,8 @@ class TeamsController < ApplicationController
   # PUT /teams/1
   # PUT /teams/1.json
   def update
-    @team = Team.find(params[:id])
+    @club = Club.find(params[:club_id])
+    @team = @club.teams.find(params[:id])
 
     respond_to do |format|
       if @team.update_attributes(params[:team])
@@ -81,7 +82,8 @@ class TeamsController < ApplicationController
   # DELETE /teams/1
   # DELETE /teams/1.json
   def destroy
-    @team = Team.find(params[:id])
+    @club = Club.find(params[:club_id])
+    @team = @club.teams.find(params[:id])
     @team.destroy
 
     respond_to do |format|
