@@ -13,6 +13,8 @@ class Ability
           (club.coach? user) || (club.manager? user) || (club.doctor? user)
         end
 
+        can :create, Club
+
         can :manage, Team
         can :manage, Player
         can :manage, Game
