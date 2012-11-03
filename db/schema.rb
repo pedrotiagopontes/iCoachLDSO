@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20121028114022) do
   add_index "games", ["team_id"], :name => "index_games_on_team_id"
 
   create_table "players", :force => true do |t|
+    t.integer  "number"
     t.string   "name"
     t.decimal  "height"
     t.date     "date_of_birth"
