@@ -1,0 +1,11 @@
+<h2>Jogadores</h2>
+<% if @team.players.count == 0 %>
+<em>The team doesn't have any players.</em>
+<% end %>
+
+<% @team.players.each do |player| %>
+  <p>
+    <b>Player:</b>
+    <%= player.name %>
+  </p>
+<% end %>

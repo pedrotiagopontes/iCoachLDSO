@@ -1,9 +1,8 @@
-<h1>Listing teams</h1>
+<h1>Listing teams of <%= @club.name %></h1>
 
 <table class="table">
   <tr>
     <th>Season</th>
-    <th>Club</th>
     <th>Name</th>
     <th></th>
     <th></th>
@@ -13,7 +12,6 @@
 <% @teams.each do |team| %>
   <tr>
     <td><%= team.season %></td>
-    <td><%= team.club.name %></td>
     <td><%= link_to team.name, club_team_path(@club, team) %></td>
     <td><%= link_to 'Edit', edit_club_team_path(@club, team) %></td>
     <td><%= link_to 'Destroy', club_team_path(@club, team), confirm: 'Are you sure?', method: :delete %></td>
