@@ -1,0 +1,85 @@
+<h1>Play Game</h1>
+
+<%#= form_for([@game.team.club, @game.team, @game, @event]) do |f| %>
+<%= form_for(@event, :url => play_club_team_game_path) do |f| %>
+  <% if @game.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@game.errors.count, "error") %> prohibited this game from being saved:</h2>
+
+      <ul>
+      <% @game.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Yellow Cards</th>
+        <th>Red Cards</th>
+        <th>Goals Scored</th>
+        <th>Goals Suffered</th>
+        <th>Assistances</th>
+        <th>Injuries</th>
+      </tr>
+    </thead>
+
+  <% @team.players.each do |player| %>
+    <tr>
+      <td><%= player.number %></td>
+      <td><%= check_box_tag(player.id) %>
+          <%= label_tag(player.id, player.name) %></td>
+      <td><%= player.position %></td>
+      <td><%= @game.events.where(:code => 5).where(:player_id => player.id).count %></td>
+      <td><%= @game.events.where(:code => 6).where(:player_id => player.id).count %></td>
+      <td><%= @game.events.where(:code => 3).where(:player_id => player.id).count %></td>
+      <td><%= @game.events.where(:code => 2).where(:player_id => player.id).count %></td>
+      <td><%= @game.events.where(:code => 1).where(:player_id => player.id).count %></td>
+      <td><%= @game.events.where(:code => 4).where(:player_id => player.id).count %></td>
+    </tr>
+  <% end %>
+</table>
+
+<h2>Add Event</h2>
+
+  <div class="field">
+    <%= f.label :minute %><br />
+    <%= f.text_field :minute %>
+  </div>
+
+  <div class="field">
+    <%= radio_button_tag(:event, '6') %>
+    <%= label_tag(:event_yellow_card, "Yellow Card") %>
+  </div>
+  <div class="field">
+    <%= radio_button_tag(:event, '5') %>
+    <%= label_tag(:event_red_card, "Red Card") %>
+  </div>
+  <div class="field">
+    <%= radio_button_tag(:event, '3') %>
+    <%= label_tag(:event_goal_scored, "Goal Scored") %>
+  </div>
+  <div class="field">
+    <%= radio_button_tag(:event, '2') %>
+    <%= label_tag(:event_goal_suffered, "Goal Suffered") %>
+  </div>
+  <div class="field">
+    <%= radio_button_tag(:event, '1') %>
+    <%= label_tag(:event_assistance, "Assistance") %>
+  </div>
+  <div class="field">
+    <%= radio_button_tag(:event, '4') %>
+    <%= label_tag(:event_injury, "Injury") %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+<%= link_to 'Back', club_team_games_path(@team.club, @team) %>
