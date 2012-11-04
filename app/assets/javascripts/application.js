@@ -24,3 +24,13 @@ function add_fields(link, association, content) {
   var regexp = new RegExp("new_" + association, "g");
   $(link).parent().before(content.replace(regexp, new_id));
 }
+
+$(function() {
+ iconize($(".editlink"), "pencil", "Edit");
+ iconize($(".destroylink"), "trash", "Delete");
+});
+
+function iconize(element, icon, text){
+	element.prepend('<i class="icon-'+icon+'"></i>  ');
+	element.children().attr("title", text);
+}

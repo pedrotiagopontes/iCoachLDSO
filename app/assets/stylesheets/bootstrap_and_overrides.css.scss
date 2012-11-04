@@ -1,3 +1,68 @@
 @import "bootstrap";
-body { padding-top: 60px; }
 @import "bootstrap-responsive";
+
+body { 
+	padding-top: 80px;
+	background-color: whitesmoke;
+  	background-image: url(bgnoise.png);
+  	overflow-x: hidden;
+  	//font-family: "Helvetica Neue";
+}
+
+footer {
+	margin-top: 200px;
+	background-image: url(footer.png);
+}
+
+.content {
+  background-color: #eee;
+  padding: 30px;
+  margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+  -webkit-border-radius: 0 0 6px 6px;
+  -moz-border-radius: 0 0 6px 6px;
+  border-radius: 0 0 6px 6px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  box-shadow: 0 1px 2px rgba(0,0,0,.15);
+}
+
+
+.navbar-inverse {
+	.navbar-inner {
+		text-align: center;
+		border-top: 5px solid rgba(154, 206, 154, 0.82)
+		//min-height: 50px;
+		//background: #eee;
+	}
+
+	.brand{
+		float: left;
+		display: block;
+		padding: 10px 20px 10px;
+		margin-left: -20px;
+		font-size: 20px;
+		font-weight: 200;
+		color: rgba(101, 158, 101, 0.79);
+		text-shadow: 0 1px 0 #3D3B3B;
+	}
+
+}
+
+i{
+	width:10px;
+	height:10px;
+}
+
+.menulink{
+	//@extend .span8;
+	@extend .btn;
+	@extend .btn-success;
+
+	//margin-left: 15%;
+	margin-top: 5px;
+}
+
+.newlink{
+	@extend .btn;
+	@extend .btn-success;
+}
