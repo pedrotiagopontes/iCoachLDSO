@@ -81,5 +81,8 @@
   </div>
 <% end %>
 
+<%= form_tag({:controller => "games", :action => "end"}, :method => "put") do %>
+  <%= submit_tag("End Game") %>
+<% end %>
 
 <%= link_to 'Back', club_team_games_path(@team.club, @team) %>

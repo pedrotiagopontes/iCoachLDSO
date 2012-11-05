@@ -12,7 +12,7 @@ Icoach::Application.routes.draw do
 
 
 
-  #match '/clubs/:club_id/teams/:team_id/games/:id/play' => 'games#play', :as => 'play_club_team_game'
+  match '/clubs/:club_id/teams/:team_id/games/:game_id/end' => 'games#end', :as => 'end_club_team_game', :via => :put
   root :to => 'clubs#index'
 
   # The priority is based upon order of creation:
