@@ -2,19 +2,6 @@ class GamesController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
   
-  # GET /clubs/1/teams/1/games/1/play
-  # GET /clubs/1/teams/1/games/1/play.json
-  def play
-    @team = Team.find(params[:team_id])
-    @game = @team.games.find(params[:id])
-    @event = @game.events.new
-
-    respond_to do |format|
-      format.html # index.@team.game
-      format.json { render json: @games }
-    end
-  end
-
   # GET /games
   # GET /games.json
   def index

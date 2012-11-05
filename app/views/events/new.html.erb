@@ -1,7 +1,7 @@
 <h1>Play Game</h1>
 
 <%#= form_for([@game.team.club, @game.team, @game, @event]) do |f| %>
-<%= form_for(@event, :url => play_club_team_game_path) do |f| %>
+<%= form_for([@team.club, @team, @game, @event]) do |f| %>
   <% if @game.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@game.errors.count, "error") %> prohibited this game from being saved:</h2>
@@ -32,11 +32,11 @@
   <% @team.players.each do |player| %>
     <tr>
       <td><%= player.number %></td>
-      <td><%= check_box_tag(player.id) %>
-          <%= label_tag(player.id, player.name) %></td>
+      <td><%= f.radio_button :player_id, player.id %>
+          <%= f.label :player_id, player.name %></td>
       <td><%= player.position %></td>
-      <td><%= @game.events.where(:code => 5).where(:player_id => player.id).count %></td>
       <td><%= @game.events.where(:code => 6).where(:player_id => player.id).count %></td>
+      <td><%= @game.events.where(:code => 5).where(:player_id => player.id).count %></td>
       <td><%= @game.events.where(:code => 3).where(:player_id => player.id).count %></td>
       <td><%= @game.events.where(:code => 2).where(:player_id => player.id).count %></td>
       <td><%= @game.events.where(:code => 1).where(:player_id => player.id).count %></td>
@@ -53,28 +53,28 @@
   </div>
 
   <div class="field">
-    <%= radio_button_tag(:event, '6') %>
-    <%= label_tag(:event_yellow_card, "Yellow Card") %>
+    <%= f.radio_button :code, 6 %>
+    <%= f.label :code, "Yellow Card" %>
   </div>
   <div class="field">
-    <%= radio_button_tag(:event, '5') %>
-    <%= label_tag(:event_red_card, "Red Card") %>
+    <%= f.radio_button :code, 5 %>
+    <%= f.label :code, "Red Card" %>
   </div>
   <div class="field">
-    <%= radio_button_tag(:event, '3') %>
-    <%= label_tag(:event_goal_scored, "Goal Scored") %>
+    <%= f.radio_button :code, 3 %>
+    <%= f.label :code, "Goal Scored" %>
   </div>
   <div class="field">
-    <%= radio_button_tag(:event, '2') %>
-    <%= label_tag(:event_goal_suffered, "Goal Suffered") %>
+    <%= f.radio_button :code, 2 %>
+    <%= f.label :code, "Goal Suffered" %>
   </div>
   <div class="field">
-    <%= radio_button_tag(:event, '1') %>
-    <%= label_tag(:event_assistance, "Assistance") %>
+    <%= f.radio_button :code, 1 %>
+    <%= f.label :code, "Assistance" %>
   </div>
   <div class="field">
-    <%= radio_button_tag(:event, '4') %>
-    <%= label_tag(:event_injury, "Injury") %>
+    <%= f.radio_button :code, 4 %>
+    <%= f.label :code, "Injury" %>
   </div>
   <div class="actions">
     <%= f.submit %>

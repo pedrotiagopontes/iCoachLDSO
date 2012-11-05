@@ -24,7 +24,7 @@
     <td><%= link_to 'Show', club_team_game_path(@team.club, @team, game) %></td>
     <td><%= link_to 'Edit', edit_club_team_game_path(@team.club, @team, game) %></td>
     <td><%= link_to 'Destroy', club_team_game_path(@team.club, @team, game), confirm: 'Are you sure?', method: :delete %></td>
-    <td><%= link_to 'Play', play_club_team_game_path(@team.club, @team, game) %></td>
+    <td><%= link_to 'Play', new_club_team_game_event_path(@team.club, @team, game) %></td>
   </tr>
 <% end %>
 </table>
