@@ -3,10 +3,16 @@ Icoach::Application.routes.draw do
 
   resources :clubs do
     resources :teams do
-      resources :players, :games
+      resources :players
+      resources :games do
+        resources :events
+      end
     end
   end
 
+
+
+  match '/clubs/:club_id/teams/:team_id/games/:game_id/end' => 'games#end', :as => 'end_club_team_game', :via => :put
   root :to => 'clubs#index'
 
   # The priority is based upon order of creation:

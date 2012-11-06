@@ -1,0 +1,88 @@
+<h1>Play Game</h1>
+
+<%#= form_for([@game.team.club, @game.team, @game, @event]) do |f| %>
+<%= form_for([@team.club, @team, @game, @event]) do |f| %>
+  <% if @game.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@game.errors.count, "error") %> prohibited this game from being saved:</h2>
+
+      <ul>
+      <% @game.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Yellow Cards</th>
+        <th>Red Cards</th>
+        <th>Goals Scored</th>
+        <th>Goals Suffered</th>
+        <th>Assistances</th>
+        <th>Injuries</th>
+      </tr>
+    </thead>
+
+  <% @team.players.each do |player| %>
+    <tr>
+      <td><%= player.number %></td>
+      <td><%= f.radio_button :player_id, player.id %>
+          <%= f.label :player_id, player.name %></td>
+      <td><%= player.position %></td>
+      <td><%= @game.events.where(:code => 6).where(:player_id => player.id).count %></td>
+      <td><%= @game.events.where(:code => 5).where(:player_id => player.id).count %></td>
+      <td><%= @game.events.where(:code => 3).where(:player_id => player.id).count %></td>
+      <td><%= @game.events.where(:code => 2).where(:player_id => player.id).count %></td>
+      <td><%= @game.events.where(:code => 1).where(:player_id => player.id).count %></td>
+      <td><%= @game.events.where(:code => 4).where(:player_id => player.id).count %></td>
+    </tr>
+  <% end %>
+</table>
+
+<h2>Add Event</h2>
+
+  <div class="field">
+    <%= f.label :minute %><br />
+    <%= f.text_field :minute %>
+  </div>
+
+  <div class="field">
+    <%= f.radio_button :code, 6 %>
+    <%= f.label :code, "Yellow Card" %>
+  </div>
+  <div class="field">
+    <%= f.radio_button :code, 5 %>
+    <%= f.label :code, "Red Card" %>
+  </div>
+  <div class="field">
+    <%= f.radio_button :code, 3 %>
+    <%= f.label :code, "Goal Scored" %>
+  </div>
+  <div class="field">
+    <%= f.radio_button :code, 2 %>
+    <%= f.label :code, "Goal Suffered" %>
+  </div>
+  <div class="field">
+    <%= f.radio_button :code, 1 %>
+    <%= f.label :code, "Assistance" %>
+  </div>
+  <div class="field">
+    <%= f.radio_button :code, 4 %>
+    <%= f.label :code, "Injury" %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= form_tag({:controller => "games", :action => "end"}, :method => "put") do %>
+  <%= submit_tag("End Game") %>
+<% end %>
+
+<%= link_to 'Back', club_team_games_path(@team.club, @team) %>
