@@ -29,7 +29,6 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     arel (3.0.2)
-    bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-x86-mingw32)
     bootstrap-sass (2.1.1.0)
     builder (3.0.4)
@@ -48,7 +47,6 @@ GEM
       railties (~> 3.1)
       warden (~> 1.2.1)
     erubis (2.7.0)
-    eventmachine (1.0.0)
     eventmachine (1.0.0-x86-mingw32)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -68,6 +66,8 @@ GEM
     orm_adapter (0.4.0)
     pg (0.14.1-x86-mingw32)
     polyglot (0.3.3)
+    quiet_assets (1.0.1)
+      railties (~> 3.1)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -102,7 +102,6 @@ GEM
       hike (~> 1.2)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sqlite3 (1.3.6)
     sqlite3 (1.3.6-x86-mingw32)
     thin (1.5.0)
       daemons (>= 1.0.9)
@@ -130,6 +129,7 @@ DEPENDENCIES
   devise
   jquery-rails
   pg (~> 0.14.1)
+  quiet_assets
   rails (= 3.2.1)
   sass-rails (~> 3.2.3)
   sqlite3

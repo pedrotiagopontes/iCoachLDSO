@@ -1,11 +1,32 @@
 class GamesController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
+  
+  # PUT 
+  def end
+    @team = Team.find(params[:team_id])
+    @game = @team.games.find(params[:game_id])
+    @goals_scored = @game.events.where(:code => 3).count
+    @goals_suffered = @game.events.where(:code => 2).count
+    
+    respond_to do |format|
+      if @game.update_attributes(:played => true, :goals_scored => @goals_scored, :goals_suffered => @goals_suffered)
+        format.html { redirect_to club_team_games_path(@team.club, @team), notice: 'Game was successfully finished.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to new_club_team_game_event_path(@team.club, @team, @game), notice: 'Error finishing game' }
+        format.json { render json: @game.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # GET /games
   # GET /games.json
   def index
     @team = Team.find(params[:team_id])
     @games = @team.games
+    @games_not_played = @team.games.where(:played => false)
+    @games_played = @team.games.where(:played => true)
 
     respond_to do |format|
       format.html # index.@team.games
@@ -30,7 +51,6 @@ class GamesController < ApplicationController
   def new
     @team = Team.find(params[:team_id])
     @game = @team.games.new
-    @game.played = false
 
     respond_to do |format|
       format.html # new.html.erb
@@ -50,6 +70,8 @@ class GamesController < ApplicationController
     @team = Team.find(params[:team_id])
     @game = @team.games.new(params[:game])
     @game.played = false
+    @game.goals_scored = 0
+    @game.goals_suffered = 0
 
     respond_to do |format|
       if @game.save

@@ -7,6 +7,8 @@ class CreateGames < ActiveRecord::Migration
       t.boolean :at_home
       t.boolean :played
       t.references :team
+      t.integer :goals_scored
+      t.integer :goals_suffered
 
       t.timestamps
     end
