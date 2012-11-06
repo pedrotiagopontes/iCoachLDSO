@@ -38,8 +38,10 @@ ActiveRecord::Schema.define(:version => 20121104182646) do
     t.boolean  "at_home"
     t.boolean  "played"
     t.integer  "team_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "goals_scored"
+    t.integer  "goals_suffered"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   add_index "games", ["team_id"], :name => "index_games_on_team_id"
