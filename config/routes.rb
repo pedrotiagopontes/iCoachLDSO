@@ -1,6 +1,8 @@
 Icoach::Application.routes.draw do
   devise_for :users
 
+  resources :tokens,:only => [:create, :destroy]
+
   resources :clubs do
     resources :teams do
       resources :players
