@@ -6,8 +6,16 @@ class TeamsController < ApplicationController
   # GET /teams.json
   def index
     @club = Club.find(params[:club_id])
-    @teams = @club.teams
+    @teams = @club.teams.find(:all, :order => "name" )
     #@games = @teams.games
+
+    @next_games ||= []
+    @teams.each do |team|
+      game = team.games.order("date").where(:played => false).first
+      puts "---------Teste carago"
+      puts game.to_yaml
+      @next_games << game
+    end
 
     respond_to do |format|
       format.html # index.html.erb
