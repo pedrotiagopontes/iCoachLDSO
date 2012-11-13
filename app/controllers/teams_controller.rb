@@ -12,8 +12,6 @@ class TeamsController < ApplicationController
     @next_games ||= []
     @teams.each do |team|
       game = team.games.order("date").where(:played => false).first
-      puts "---------Teste carago"
-      puts game.to_yaml
       @next_games << game
     end
 
