@@ -4,5 +4,6 @@ class Player < ActiveRecord::Base
   validates :number, :numericality => {:only_integer => true}
 
   has_and_belongs_to_many :teams
+  has_and_belongs_to_many :practices
   has_many :events
 end

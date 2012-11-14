@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Date:</b>
+  <%= @practice.date %>
+</p>
+
+<p>
+  <b>Time:</b>
+  <%= @practice.hour %>
+</p>
+
+<p>
+  <b>Team:</b>
+  <%= @practice.team.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_club_team_practice_path(@team.club, @team, @practice) %> |
+<%= link_to 'Back', club_team_practices_path(@team.club, @team) %>

@@ -1,0 +1,28 @@
+<h1>Listing practices</h1>
+
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Team</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @practices.each do |practice| %>
+  <tr>
+    <td><%= practice.date %></td>
+    <td><%= practice.hour %></td>
+    <td><%= practice.team.name %></td>
+    <td><%= link_to 'Show', club_team_practice_path(@team.club, @team, practice) %></td>
+    <td><%= link_to 'Edit', edit_club_team_practice_path(@team.club, @team, practice) %></td>
+    <td><%= link_to 'Destroy', club_team_practice_path(@team.club, @team, practice), confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Practice', new_club_team_practice_path(@team.club, @team) %>
+<%= link_to 'Back', club_teams_path(@team.club) %>

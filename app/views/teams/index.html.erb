@@ -46,6 +46,7 @@
       <td><%= link_to 'Edit', edit_club_team_path(@club, team), :class => 'editlink'%></td>
       <td><%= link_to 'Destroy', club_team_path(@club, team), confirm: 'Are you sure?', method: :delete, :class => 'destroylink' %></td>
       <td><%= link_to 'Games', club_team_games_path(@club, team), :class => "btn" %></td>
+      <td><%= link_to 'Practices', club_team_practices_path(@club, team), :class => "btn" %></td>
     </tr>
   <% end %>
   </table>
