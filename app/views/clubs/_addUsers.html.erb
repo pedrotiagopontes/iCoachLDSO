@@ -6,7 +6,7 @@
 	    	<%= hidden_field_tag "club[user_ids][]", user.id %>
 	    <% else %>
 	      <%= check_box_tag "club[user_ids][]", user.id, @club.user_ids.include?(user.id), id: dom_id(user) %>
-	      <%= label_tag dom_id(user), user.email %> <br>
+	      <%= label_tag dom_id(user), user.email %>
 	    <% end %>
     <% end %>
   </div>

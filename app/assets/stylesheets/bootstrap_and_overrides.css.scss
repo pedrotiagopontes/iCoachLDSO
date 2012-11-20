@@ -9,6 +9,13 @@ body {
   	max-width: 100%;
 }
 
+label{
+	display: inline;
+}
+input[type="radio"], input[type="checkbox"] {
+	margin: 0;
+}
+
 footer {
 	margin-top: 200px;
 	background-image: url(footer.png);
