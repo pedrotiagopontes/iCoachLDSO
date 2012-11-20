@@ -1,31 +1,29 @@
-<h1>Listing clubs</h1>
-
 <table class="table">
-  <tr>
+  <thead>
+  <tr>  
     <th>Name</th>
     <th>Acronym</th>
     <th>Users</th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
+  </thead>
 
 <% @clubs.each do |club| %>
   <tr>
-    <td><%= club.name %></td>
+    <td><%= link_to club.name, club %></td> 
     <td><%= club.acronym %></td>
     <td>
     <% club.users.each do |user| %>
-      <%= user.email %>
+      <%= user.email %> <br>
     <% end %>
     </td>
-    <td><%= link_to 'Show', club %></td>
-    
+
     <% if can? :update, club %>
-      <td><%= link_to 'Edit', edit_club_path(club) %></td>
+      <td><%= link_to 'Edit', edit_club_path(club), :class => 'editlink' %></td>
     <% end %>
     <% if can? :destroy, club %>
-      <td><%= link_to 'Destroy', club, confirm: 'Are you sure?', method: :delete %></td>
+      <td><%= link_to 'Destroy', club, confirm: 'Are you sure?', method: :delete, :class => 'destroylink' %></td>
     <% end %>
   </tr>
 <% end %>
