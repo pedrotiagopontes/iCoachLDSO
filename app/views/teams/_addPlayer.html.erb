@@ -1,35 +1,43 @@
 <h2>Add a player:</h2>
 <%= form_for([@team.club, @team, @team.players.build]) do |f| %>
 
-<div class="row">
-<div class="span3">
-    <%= f.label :number %>
-    <%= f.text_field :number %>
-
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-</div>
-<div class="span3">
-  <div class="field">
-    <%= f.label :position %>
-    <%= f.text_field :position %>
- </div>
-  
-    <%= f.label :date_of_birth %>
-    <%= f.text_field :date_of_birth%>
-</div>
-<div class="span3">
-    <%= f.label :nationality %>
-    <%= f.text_field :nationality %>
- 
-  
-    <%= f.label :height %>
-    <%= f.text_field :height %>
-</div>
-<div class="span3">
-    <%= f.label :weight %>
-    <%= f.text_field :weight %>
-</div>
+<div class="row-fluid">
+    <div class="span3">
+        <div class="field">
+            <%= f.label :number %> <br>
+            <%= f.number_field :number %> 
+        </div>
+        <div class="field">
+            <%= f.label :name %> <br>
+            <%= f.text_field :name %>
+        </div>    
+    </div>
+    <div class="span3">
+        <div class="field">
+            <%= f.label :position %>  <br>
+            <%= f.text_field :position %>
+        </div>
+        <div class="field">
+            <%= f.label :date_of_birth %>
+            <%= f.date_select :date_of_birth%>
+        </div>
+    </div>
+    <div class="span3">
+        <div class="field">
+            <%= f.label :nationality %> <br>
+            <%= f.text_field :nationality %>
+        </div>
+        <div class="field">
+            <%= f.label :height %> <br>
+            <%= f.text_field :height %>
+        </div>
+    </div>
+    <div class="span3">
+        <div class="field">
+            <%= f.label :weight %> <br>
+            <%= f.text_field :weight %>
+        </div>
+    </div>
 </div>
 <div class="actions pull-right">
     <%= f.submit %>
