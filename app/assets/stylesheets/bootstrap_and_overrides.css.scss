@@ -5,8 +5,8 @@ body {
 	padding-top: 80px;
 	background-color: whitesmoke;
   	background-image: url(bgnoise.png);
-  	overflow-x: hidden;
   	//font-family: "Helvetica Neue";
+  	max-width: 100%;
 }
 
 footer {
@@ -14,8 +14,14 @@ footer {
 	background-image: url(footer.png);
 }
 
+.main{
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
 .content {
   background-color: #eee;
+  background-color: rgba(238, 238, 238, 0.81);
   padding: 30px;
   margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
   -webkit-border-radius: 0 0 6px 6px;
@@ -65,4 +71,13 @@ i{
 .newlink{
 	@extend .btn;
 	@extend .btn-success;
+}
+
+
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+	.main{
+		padding: 0;
+	}
 }
