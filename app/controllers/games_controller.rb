@@ -25,8 +25,8 @@ class GamesController < ApplicationController
   def index
     @team = Team.find(params[:team_id])
     @games = @team.games
-    @games_not_played = @team.games.where(:played => false)
-    @games_played = @team.games.where(:played => true)
+    @games_not_played = @team.games.where(:played => false).find(:all, :order => "date" )
+    @games_played = @team.games.where(:played => true).find(:all, :order => "date DESC")
 
     respond_to do |format|
       format.html # index.@team.games
