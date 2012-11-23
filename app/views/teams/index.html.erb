@@ -19,6 +19,8 @@
       <tr>
         <th>Name</th>
         <th>Season</th>
+        <th>Next Game</th>
+        <th>Date</th>
         <th></th>
         <th></th>
         <th></th>
@@ -29,6 +31,18 @@
     <tr>
       <td><%= link_to team.name, club_team_path(@club, team) %></td>
       <td><%= team.season %></td>
+        <% game = @next_games.detect{|game| 
+          if game != nil 
+            game.team_id == team.id 
+          end} %>
+      <%# If the team doesn't have any games it doesn't print anything%> 
+      <% if game != nil %>
+      <td><%= game.opponent %></td>
+      <td><%= game.date %> </td>
+      <% else %>
+      <td><%= '-' %></td>
+      <td><%= '-' %></td>
+      <% end %>
       <td><%= link_to 'Edit', edit_club_team_path(@club, team), :class => 'editlink'%></td>
       <td><%= link_to 'Destroy', club_team_path(@club, team), confirm: 'Are you sure?', method: :delete, :class => 'destroylink' %></td>
       <td><%= link_to 'Games', club_team_games_path(@club, team), :class => "btn" %></td>
