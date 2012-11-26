@@ -73,9 +73,10 @@ ActiveRecord::Schema.define(:version => 20121114175209) do
   create_table "practices", :force => true do |t|
     t.date     "date"
     t.time     "hour"
+    t.boolean  "presences_checked"
     t.integer  "team_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   add_index "practices", ["team_id"], :name => "index_practices_on_team_id"

@@ -1,9 +1,22 @@
 class PracticesController < ApplicationController
+  
+  # GET /practices/id/presences
+  def presences
+    @team = Team.find(params[:team_id])
+    @practice = @team.practices.find(params[:practice_id])
+    @players = @team.players
+  end
+
+
   # GET /practices
   # GET /practices.json
   def index
     @team = Team.find(params[:team_id])
-    @practices = @team.practices
+    @practices_realized = @team.practices.where(:presences_checked => true).find(:all, :order => "date DESC" )
+    @practices_not_realized = @team.practices.where(:presences_checked => false).find(:all, :order => "date" )
+
+    puts '----------'
+    puts @practices_realized.count
 
     respond_to do |format|
       format.html # index.html.erb
@@ -46,6 +59,7 @@ class PracticesController < ApplicationController
   def create
     @team = Team.find(params[:team_id])
     @practice = @team.practices.new(params[:practice])
+    @practice.presences_checked = false
 
     respond_to do |format|
       if @practice.save
