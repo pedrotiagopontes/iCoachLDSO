@@ -13,6 +13,7 @@
         <th>Height</th>
         <th>Weight</th>
         <th>Nationality</th>
+        <th></th>
       </tr>
     </thead>
 
@@ -25,6 +26,8 @@
 			<td><%= player.height %></td>
 			<td><%= player.weight %></td>
 			<td><%= player.nationality %></td>
+			<td><%= link_to 'Edit', edit_club_team_player_path(@club, @team, player), :class => 'editlink'%></td>
+			<td><%= link_to 'Destroy', club_team_player_path(@club, @team, player), confirm: 'Are you sure?', method: :delete, :class => 'destroylink' %></td>
 	    </tr>
 	<% end %>
 </table>
