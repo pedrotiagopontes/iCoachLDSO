@@ -1,4 +1,5 @@
 class Practice < ActiveRecord::Base
   belongs_to :team
-  has_and_belongs_to_many :players
+  has_many :presences
+  has_many :players, :through => :presences
 end

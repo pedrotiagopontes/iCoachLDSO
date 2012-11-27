@@ -4,7 +4,15 @@ class PracticesController < ApplicationController
   def presences
     @team = Team.find(params[:team_id])
     @practice = @team.practices.find(params[:practice_id])
-    @players = @team.players
+    @presences = @practice.presences
+
+    @team.players.each do |player|
+      presence = player.presences.new
+      presence.player_id = player.id
+      presence.practice_id = @practice.id
+      presence.present = false
+      @presences.push presence
+    end
   end
 
 
@@ -14,9 +22,6 @@ class PracticesController < ApplicationController
     @team = Team.find(params[:team_id])
     @practices_realized = @team.practices.where(:presences_checked => true).find(:all, :order => "date DESC" )
     @practices_not_realized = @team.practices.where(:presences_checked => false).find(:all, :order => "date" )
-
-    puts '----------'
-    puts @practices_realized.count
 
     respond_to do |format|
       format.html # index.html.erb
@@ -32,7 +37,7 @@ class PracticesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @practice }
+      format.j  son { render json: @practice }
     end
   end
 

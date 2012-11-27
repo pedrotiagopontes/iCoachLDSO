@@ -15,7 +15,7 @@
     <td><%= practice.date %></td>
     <td><%= practice.hour %></td>
     <td><%= practice.team.name %></td>
-    <td><%= link_to 'Presences', presences_club_team_practice_path(@team.club, @team, practice) %></td>
+    <td><%= link_to 'Presences', new_club_team_practice_presence_path(@team.club, @team, practice) %></td>
     <td><%= link_to 'Edit', edit_club_team_practice_path(@team.club, @team, practice) %></td>
     <td><%= link_to 'Destroy', club_team_practice_path(@team.club, @team, practice), confirm: 'Are you sure?', method: :delete %></td>
   </tr>
