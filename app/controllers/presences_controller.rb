@@ -24,11 +24,15 @@ class PresencesController < ApplicationController
     @team.players.each do |player|
       presence = @practice.presences.new
       presence.player_id = player.id
-      if params[:player_ids].include?(player.id.to_s)
-        presence.present = true
-      else
+      
+      #if the array doesn't exist it means that nobody went to the practice
+      if (defined? params[:player_ids])
         presence.present = false
-      end
+      elsif params[:player_ids].include?(player.id.to_s)
+          presence.present = true
+        else
+          presence.present = false
+      end      
       @presences.push(presence)
     end
 

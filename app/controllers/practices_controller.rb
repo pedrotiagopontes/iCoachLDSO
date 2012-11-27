@@ -34,10 +34,11 @@ class PracticesController < ApplicationController
   def show
     @team = Team.find(params[:team_id])
     @practice = @team.practices.find(params[:id])
+    @presences = @practice.presences
 
     respond_to do |format|
       format.html # show.html.erb
-      format.j  son { render json: @practice }
+      format.json { render json: @practice }
     end
   end
 
