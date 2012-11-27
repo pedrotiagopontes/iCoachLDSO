@@ -29,7 +29,62 @@
   <b>Team:</b>
   <%= @game.team.name %>
 </p>
+</br>
+<h3>Titulares</h3>
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Date-of-Birth</th>
+        <th>Height</th>
+        <th>Weight</th>
+        <th>Nationality</th>
+      </tr>
+    </thead>
 
+  <% @players.each do |player| %>
+  <%if player.starter? @game %>
+    <tr>
+      <td><%= player.number %></td>
+      <td><%= player.name %></td>
+      <td><%= player.position %></td>
+      <td><%= player.date_of_birth %></td>
+      <td><%= player.height %></td>
+      <td><%= player.weight %></td>
+      <td><%= player.nationality %></td>
+    <% end %>
+  <% end %>
+</table>
+
+<h3>Suplentes Utilizados</h3>
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Date-of-Birth</th>
+        <th>Height</th>
+        <th>Weight</th>
+        <th>Nationality</th>
+      </tr>
+    </thead>
+
+  <% @players.each do |player| %>
+  <%if !player.starter? @game %>
+    <tr>
+      <td><%= player.number %></td>
+      <td><%= player.name %></td>
+      <td><%= player.position %></td>
+      <td><%= player.date_of_birth %></td>
+      <td><%= player.height %></td>
+      <td><%= player.weight %></td>
+      <td><%= player.nationality %></td>
+    <% end %>
+  <% end %>
+</table>
 
 <%= link_to 'Edit', edit_club_team_game_path(@team.club, @team, @game), :class => 'editlink' %> |
 <%= link_to 'Back', club_team_games_path(@team.club, @team) %>

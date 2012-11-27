@@ -39,6 +39,7 @@ class GamesController < ApplicationController
   def show
     @team = Team.find(params[:team_id])
     @game = @team.games.find(params[:id])
+    @players = @game.players.scoped
 
     respond_to do |format|
       format.html # show.html.erb
