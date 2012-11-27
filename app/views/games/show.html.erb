@@ -17,12 +17,12 @@
 
 <p>
   <b>At home:</b>
-  <%= @game.at_home %>
+  <%= check_box_tag "at_home", true , @game.at_home, {:disabled => true} %>
 </p>
 
 <p>
   <b>Played:</b>
-  <%= @game.played %>
+  <%= check_box_tag "played", true , @game.played, {:disabled => true} %>
 </p>
 
 <p>
@@ -30,6 +30,7 @@
   <%= @game.team.name %>
 </p>
 </br>
+
 <h3>Titulares</h3>
 <table class="table table-hover">
     <thead>
@@ -44,8 +45,8 @@
       </tr>
     </thead>
 
-  <% @players.each do |player| %>
-  <%if player.starter? @game %>
+  <% p = @players.where( "playersgames.starter" => 'true') %>
+  <% p.each do |player| %>
     <tr>
       <td><%= player.number %></td>
       <td><%= player.name %></td>
@@ -55,7 +56,6 @@
       <td><%= player.weight %></td>
       <td><%= player.nationality %></td>
     <% end %>
-  <% end %>
 </table>
 
 <h3>Suplentes Utilizados</h3>
@@ -72,7 +72,8 @@
       </tr>
     </thead>
 
-  <% @players.each do |player| %>
+  <% p = @players.where( "playersgames.starter" => 'false') %>
+  <% p.each do |player| %>
   <%if !player.starter? @game %>
     <tr>
       <td><%= player.number %></td>
