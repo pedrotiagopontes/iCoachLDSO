@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121127004743) do
+ActiveRecord::Schema.define(:version => 20121127020257) do
 
   create_table "clubs", :force => true do |t|
     t.string   "name"
@@ -68,6 +68,27 @@ ActiveRecord::Schema.define(:version => 20121127004743) do
     t.integer "player_id"
     t.integer "team_id"
   end
+
+  create_table "practices", :force => true do |t|
+    t.date     "date"
+    t.time     "hour"
+    t.boolean  "presences_checked"
+    t.integer  "team_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "practices", ["team_id"], :name => "index_practices_on_team_id"
+
+  create_table "presences", :force => true do |t|
+    t.boolean  "present"
+    t.integer  "player_id"
+    t.integer  "practice_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "presences", ["practice_id", "player_id"], :name => "index_presences_on_practice_id_and_player_id", :unique => true
 
   create_table "roles", :force => true do |t|
     t.boolean  "is_admin"

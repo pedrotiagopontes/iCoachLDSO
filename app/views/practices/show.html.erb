@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Date:</b>
+  <%= @practice.date %>
+</p>
+
+<p>
+  <b>Time:</b>
+  <%= @practice.hour %>
+</p>
+
+<p>
+  <b>Team:</b>
+  <%= @practice.team.name %>
+</p>
+
+<% if @team.players.count == 0 %>
+  <em>The team doesn't have any players.</em>
+  <% else %>
+
+   <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Present?</th>
+          <th>Number</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+
+    <% @team.players.each do |player| %>
+    <% presence = @presences.where(:player_id => player.id).find(:first) %>
+      <tr>
+        <td><%= if presence.present == true
+        			check_box_tag "player_ids[]", player.id, true, :disabled => true
+        		else 
+        			check_box_tag "player_ids[]", player.id, false, :disabled => true 
+        		end %></td>
+        <td><%= player.number %></td>
+        <td><%= player.name %></td>
+        </tr>
+    <% end %>
+  </table>
+<% end %>
+
+<%= link_to 'Edit', edit_club_team_practice_path(@team.club, @team, @practice) %> |
+<%= link_to 'Back', club_team_practices_path(@team.club, @team) %>

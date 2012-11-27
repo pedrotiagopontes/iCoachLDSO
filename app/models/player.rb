@@ -6,6 +6,8 @@ class Player < ActiveRecord::Base
   has_and_belongs_to_many :teams
   has_many :playersgames
   has_many :games, :through => :playersgames
+  has_many :presences
+  has_many :practices, :through => :presences
   has_many :events
 
   	def starter?(game)
