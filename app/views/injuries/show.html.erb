@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Start date:</b>
+  <%= @injury.start_date %>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%= @injury.end_date %>
+</p>
+
+<p>
+  <b>Can play:</b>
+  <%= @injury.can_play %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <%= @injury.active %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @injury.description %>
+</p>
+
+<p>
+  <b>Player:</b>
+  <%= @injury.player.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_club_team_injury_path(@team.club, @team, @injury) %> |
+<%= link_to 'Back', club_team_injuries_path(@team.club, @team) %>
