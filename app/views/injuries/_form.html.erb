@@ -1,0 +1,38 @@
+<%= form_for([@team.club, @team, @injury]) do |f| %>
+  <% if @injury.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@injury.errors.count, "error") %> prohibited this injury from being saved:</h2>
+
+      <ul>
+      <% @injury.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :player %><br />
+    <%= @injury.player.name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :start_date, "Date of Injury" %><br />
+    <%= f.date_select :start_date %>
+  </div>
+  <div class="field">
+    <%= f.label :end_date, "Predicted Recovery Date" %><br />
+    <%= f.date_select :end_date %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :can_play %><br />
+    <%= f.check_box :can_play %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  start_date: 2012-11-28
+  end_date: 2012-11-28
+  can_play: false
+  active: false
+  description: MyText
+  player: 
+
+two:
+  start_date: 2012-11-28
+  end_date: 2012-11-28
+  can_play: false
+  active: false
+  description: MyText
+  player: 

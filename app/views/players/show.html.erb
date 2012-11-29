@@ -1,0 +1,55 @@
+<h2><%= @player.name %></h2>
+
+<% if @active_injuries.count > 0 %>
+	<h3> Injuries </h3>
+	<table>
+	  <tr>
+	    <th>Injury date</th>
+	    <th>Recovery date</th>
+	    <th>Can play?</th>    
+	    <th></th>
+	    <th></th>
+	    <th></th>
+	  </tr>
+
+	<% @active_injuries.each do |injury| %>
+	    <tr>
+	      <td><%= injury.start_date %></td>
+	      <td><%= injury.end_date %></td>
+	      <td><%= injury.can_play %></td>
+	      <td><%= link_to 'Heal', club_team_injury_healed_path(@team.club, @team, injury) %></td>
+	      <td><%= link_to 'Show', club_team_injury_path(@team.club, @team, injury) %></td>
+	      <td><%= link_to 'Edit', edit_club_team_injury_path(@team.club, @team, injury) %></td>
+	      <td><%= link_to 'Destroy', club_team_injury_path(@team.club, @team, injury), confirm: 'Are you sure?', method: :delete %></td>
+	    </tr>
+	<% end %>
+	</table>
+<% end %>
+
+
+<% if @old_injuries.count > 0 %>
+	<h3> Old Injuries </h3>
+	<table>
+	  <tr>
+	    <th>Injury date</th>
+	    <th>Recovery date</th>
+	    <th>Description</th>    
+	    <th></th>
+	    <th></th>
+	    <th></th>
+	  </tr>
+
+	<% @old_injuries.each do |injury| %>
+	    <tr>
+	      <td><%= injury.start_date %></td>
+	      <td><%= injury.end_date %></td>
+	      <td><%= injury.description %></td>
+	      <td><%= link_to 'Show', club_team_injury_path(@team.club, @team, injury) %></td>
+	    </tr>
+	<% end %>
+	</table>
+<% end %>
+
+
+<%= link_to 'Edit', edit_club_team_player_path(@team.club, @team, @player) %> |
+<%= link_to 'Back', club_teams_path(@team.club) %>

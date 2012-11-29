@@ -41,4 +41,17 @@ class PlayersController < ApplicationController
 	    format.json { head :no_content }
 	  end
 	end
+
+	def show
+	  @team = Team.find(params[:team_id])
+	  @player = @team.players.find(params[:id])
+	  @active_injuries = @player.injuries.where(:active => true)
+	  @old_injuries = @player.injuries.where(:active => false)
+	  
+
+	  respond_to do |format|
+      	format.html # show.html.erb
+      	format.json { render json: @game }
+   	  end
+	end
 end
