@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121127020257) do
+ActiveRecord::Schema.define(:version => 20121128195013) do
 
   create_table "clubs", :force => true do |t|
     t.string   "name"
@@ -46,6 +46,19 @@ ActiveRecord::Schema.define(:version => 20121127020257) do
 
   add_index "games", ["team_id"], :name => "index_games_on_team_id"
 
+  create_table "injuries", :force => true do |t|
+    t.date     "start_date"
+    t.date     "end_date"
+    t.boolean  "can_play"
+    t.boolean  "active"
+    t.text     "description"
+    t.integer  "player_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "injuries", ["player_id"], :name => "index_injuries_on_player_id"
+
   create_table "players", :force => true do |t|
     t.integer  "number"
     t.string   "name"
@@ -58,15 +71,15 @@ ActiveRecord::Schema.define(:version => 20121127020257) do
     t.datetime "updated_at",    :null => false
   end
 
-  create_table "playersGames", :id => false, :force => true do |t|
-    t.boolean "starter"
-    t.integer "player_id"
-    t.integer "game_id"
-  end
-
   create_table "players_teams", :id => false, :force => true do |t|
     t.integer "player_id"
     t.integer "team_id"
+  end
+
+  create_table "playersgames", :id => false, :force => true do |t|
+    t.boolean "starter"
+    t.integer "player_id"
+    t.integer "game_id"
   end
 
   create_table "practices", :force => true do |t|
