@@ -12,8 +12,13 @@ class ClubsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @clubs }
+      if(@clubs.length > 0)
+        format.html { redirect_to @clubs.first}
+        format.json { render json: @clubs.first}
+      else
+        format.html # index.html.erb
+        format.json { render json: @clubs }
+      end
     end
   end
 

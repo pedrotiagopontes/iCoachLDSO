@@ -23,6 +23,7 @@
   <%= render "addUsers" %>
 
   <% if !@club.roles.empty? %>
+  
   <table class="table">
   <tr>
       <th>Mail</th>
@@ -33,9 +34,10 @@
       <th></th>
    </tr>
     <div class="field">
+    <% n = 0%>
     <%= f.fields_for :roles do |builder| %>
       <tr class="fields">
-        <td><%= builder.label :blal %></td>
+        <td><%= label_tag @club.users[n].email %></td>
         <td><%= builder.check_box :is_admin %></td>
         <td><%= builder.check_box :is_coach %></td>
         <td><%= builder.check_box :is_manager %></td>
@@ -43,6 +45,7 @@
         <%= builder.hidden_field :_destroy %>
         <td><%= link_to_remove_fields "remove", builder %></td>
       </tr>
+      <% n = n+1 %>
     <% end %>
     </div>
   </table>

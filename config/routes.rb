@@ -2,6 +2,7 @@ Icoach::Application.routes.draw do
   devise_for :users
 
   resources :tokens,:only => [:create, :destroy]
+  resources :sync, :controller => 'sync', :only => [:index]
 
   resources :clubs do
     resources :teams do

@@ -8,24 +8,53 @@
       </a>
       <%= link_to "iCoach", root_path, :class => 'brand' %>      
       <div class="nav-collapse collapse">
+        <% if user_signed_in? %>
+          <%if current_user.clubs.length > 1 %>
+          <ul class="nav pull-left">
+            <li class="btn-group" style="margin:0;">
+              <a class="btn btn-small btn-inverse dropdown-toggle" data-toggle="dropdown" href="#" style="background: none; border: none;">
+                <%if @club %>
+                <%= @club.name%>
+                <% else %>
+                Clubs
+                <% end %>
+                <span class="caret" style="border-top-color: #50835E;"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <% current_user.clubs.each do |club| %>
+                  <li><%= link_to club.name, club %></li>
+                <%end%>
+                <%= link_to 'New Club', new_club_path, :class => "btn"%>
+              </ul>
+
+            </li>
+          </ul>
+          <% else %>
+          <ul class="nav pull-left">
+            <li><%= link_to 'New Club', new_club_path%></li>
+          </ul>
+          <% end %>
+
+        <%end%>
         <ul class="nav pull-right">
           <% if user_signed_in? %>
-            <li>
+          <li>
             <%= link_to(current_user.email , edit_user_registration_path) %>
-            </li>
+          </li>
+
           <% else %>
-            <li>
+          <li>
             <%= link_to('Sign up', new_user_registration_path)  %>
-            </li>
+          </li>
           <% end %>
-           <% if user_signed_in? %>
-            <li>
+          <% if user_signed_in? %>
+          <li>
             <%= link_to('Logout', destroy_user_session_path, :method=>'delete') %>        
-            </li>
+          </li>
           <% else %>
-            <li>
+          <li>
             <%= link_to('Login', new_user_session_path)  %>  
-            </li>
+          </li>
           <% end %>
         </ul>   
       </div>

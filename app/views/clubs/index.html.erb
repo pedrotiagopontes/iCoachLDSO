@@ -1,36 +1,7 @@
-<table class="table">
-  <thead>
-  <tr>  
-    <th>Name</th>
-    <th>Acronym</th>
-    <th>Users</th>
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
+<div style="text-align:center">
+<h1 class="welcome">Welcome to iCoach</h1>
+<h3>Create a new club to start feelling the awesomeness of  the best team manager ever!</h3>
 
-<% @clubs.each do |club| %>
-  <tr>
-    <td><%= link_to club.name, club %></td> 
-    <td><%= club.acronym %></td>
-    <td>
-    <% club.users.each do |user| %>
-      <%= user.email %> <br>
-    <% end %>
-    </td>
-
-    <% if can? :update, club %>
-      <td><%= link_to 'Edit', edit_club_path(club), :class => 'editlink' %></td>
-    <% end %>
-    <% if can? :destroy, club %>
-      <td><%= link_to 'Destroy', club, confirm: 'Are you sure?', method: :delete, :class => 'destroylink' %></td>
-    <% end %>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-
-<%= link_to 'New Club', new_club_path %>
+<%= link_to 'New Club', new_club_path, :class => "btn btn-success" %>
+</div>
 

@@ -34,3 +34,4 @@ function iconize(element, icon, text){
 	element.prepend('<i class="icon-'+icon+'"></i>  ');
 	element.children().attr("title", text);
 }
+
