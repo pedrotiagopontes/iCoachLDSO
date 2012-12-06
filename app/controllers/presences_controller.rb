@@ -1,7 +1,7 @@
 class PresencesController < ApplicationController
 
-# GET /teams/new
-  # GET /teams/new.json
+  # GET /presences/new
+  # GET /presences/new.json
   def new
     @team = Team.find(params[:team_id])
     @practice = @team.practices.find(params[:practice_id])
@@ -13,8 +13,8 @@ class PresencesController < ApplicationController
     end
   end
   
-  # POST /games
-  # POST /games.json
+  # POST /presences
+  # POST /presences.json
   def create
     @team = Team.find(params[:team_id])
     @practice = @team.practices.find(params[:practice_id])

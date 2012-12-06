@@ -10,10 +10,12 @@ class Player < ActiveRecord::Base
   has_many :practices, :through => :presences
   has_many :events
   has_many :injuries
+  has_many :convocations
+  has_many :games, :through => :convocations
 
-  	def starter?(game)
-		r = self.playersgames.find_by_game_id(game.id)
-	    return r.starter
-	end
+  	#def starter?(game)
+		#r = self.playersgames.find_by_game_id(game.id)
+	  #  return r.starter
+	#end
 
 end

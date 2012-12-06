@@ -22,6 +22,7 @@ class GamesController < ApplicationController
     @team = Team.find(params[:team_id])
     @game = @team.games.find(params[:id])
     @players = @game.players.scoped
+    @convocations = @game.convocations
 
     respond_to do |format|
       format.html # show.html.erb
@@ -89,6 +90,12 @@ class GamesController < ApplicationController
   def destroy
     @team = Team.find(params[:team_id])
     @game = @team.games.find(params[:id])
+    @convocations = @game.convocations
+
+    @convocations.each do |convocation|
+      convocation.destroy
+    end
+
     @game.destroy
 
     respond_to do |format|

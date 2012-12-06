@@ -1,6 +1,10 @@
 Icoach::Application.routes.draw do
   devise_for :users
 
+  #DON'T MOVE it won't work if it is afer the resources block
+  match '/clubs/:club_id/teams/:team_id/games/:id/convocations/edit' => 'convocations#edit', :as => 'edit_club_team_game_convocation', :via => :get
+  #match '/clubs/:club_id/teams/:team_id/games/:id/convocations' => 'convocations#update', :as => 'club_team_game_convocation', :via => :put
+  
   resources :tokens,:only => [:create, :destroy]
 
   resources :clubs do
@@ -12,6 +16,7 @@ Icoach::Application.routes.draw do
       end
       resources :games do
         resources :events
+        resources :convocations
       end
     end
   end
