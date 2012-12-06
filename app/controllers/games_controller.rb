@@ -54,6 +54,7 @@ class GamesController < ApplicationController
     @team = Team.find(params[:team_id])
     @game = @team.games.new(params[:game])
     @game.played = false
+    @game.lineup_selected = false
     @game.goals_scored = 0
     @game.goals_suffered = 0
 

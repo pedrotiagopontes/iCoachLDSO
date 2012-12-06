@@ -23,6 +23,8 @@ class ConvocationsController < ApplicationController
     @team.players.each do |player|
       convocation = @game.convocations.new
       convocation.player_id = player.id
+      convocation.initial = false
+      convocation.bench = false
       
       #if the array doesn't exist it means that nobody went to the practice
       if (params[:player_ids].nil? || params[:player_ids].count < 11)

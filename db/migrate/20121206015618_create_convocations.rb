@@ -2,6 +2,8 @@ class CreateConvocations < ActiveRecord::Migration
   def change
     create_table :convocations do |t|
       t.boolean :called
+      t.boolean :initial
+      t.boolean :bench
       t.references :player
       t.references :game
 

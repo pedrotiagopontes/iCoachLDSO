@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(:version => 20121206015618) do
 
   create_table "convocations", :force => true do |t|
     t.boolean  "called"
+    t.boolean  "initial"
+    t.boolean  "bench"
     t.integer  "player_id"
     t.integer  "game_id"
     t.datetime "created_at", :null => false
@@ -47,11 +49,12 @@ ActiveRecord::Schema.define(:version => 20121206015618) do
     t.time     "hour"
     t.boolean  "at_home"
     t.boolean  "played"
+    t.boolean  "lineup_selected"
     t.integer  "team_id"
     t.integer  "goals_scored"
     t.integer  "goals_suffered"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   add_index "games", ["team_id"], :name => "index_games_on_team_id"
