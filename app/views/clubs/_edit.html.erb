@@ -1,0 +1,73 @@
+<!-- Modal -->
+<div id="editClubModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 >Club</h3>
+  </div>
+
+  <div class="modal-body">
+    <%= form_for(@club) do |f| %>
+      <% if @club.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@club.errors.count, "error") %> prohibited this club from being saved:</h2>
+
+          <ul>
+          <% @club.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= f.label :name %><br />
+        <%= f.text_field :name, :class =>"inputLong" %>
+      </div>
+      <div class="field">
+        <%= f.label :acronym %><br />
+        <%= f.text_field :acronym, :class =>"inputLong" %>
+      </div>
+      <br>
+
+      <% if !@club.roles.empty? %>
+      
+      <table class="table">
+      <tr>
+          <th>Mail</th>
+          <th>Admin</th>
+          <th>Coach</th>
+          <th>Manager</th>
+          <th>Doctor</th>
+          <th></th>
+       </tr>
+        <div class="field">
+        <% n = 0%>
+        <%= f.fields_for :roles do |builder| %>
+          <tr class="fields">
+            <td><%= label_tag @club.users[n].email %></td>
+            <td><%= builder.check_box :is_admin %></td>
+            <td><%= builder.check_box :is_coach %></td>
+            <td><%= builder.check_box :is_manager %></td>
+            <td><%= builder.check_box :is_doctor %></td>
+            <%= builder.hidden_field :_destroy %>
+            <td><%= link_to_remove_fields "remove", builder %></td>
+          </tr>
+          <% n = n+1 %>
+        <% end %>
+        </div>
+      </table>
+      <%end%>
+
+      <br>
+      <div class="span3">
+        <%= render 'addUsers' %>
+      </div>
+      </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true" style="margin-right:15px;">Close</button>
+    <div class="actions pull-right">
+      <%= f.submit :class => "btn btn-success" %>
+    </div>
+  </div>
+</div>
+<% end %>

@@ -1,45 +1,49 @@
-<h2>Add a player:</h2>
-<%= form_for([@team.club, @team, @team.players.build]) do |f| %>
+<div id="addPlayer" class="row-fluid">
+    <div class="span12">
+        <h2>Add a player:</h2>
+        <%= form_for([@team.club, @team, @team.players.build]) do |f| %>
 
-<div class="row-fluid">
-    <div class="span3">
-        <div class="field">
-            <%= f.label :number %> <br>
-            <%= f.number_field :number %> 
+        <div class="row-fluid">
+            <div class="span3">
+                <div class="field">
+                    <%= f.label :number %> <br>
+                    <%= f.number_field :number %> 
+                </div>
+                <div class="field">
+                    <%= f.label :name %> <br>
+                    <%= f.text_field :name %>
+                </div>    
+            </div>
+            <div class="span3">
+                <div class="field">
+                    <%= f.label :position %>  <br>
+                    <%= f.select :position, ([["Avançado", "Avançado"], ["Médio", "Médio"], ["Defesa", "Defesa"]]) %>
+                </div>
+                <div class="field">
+                    <%= f.label :date_of_birth %>
+                    <%= f.date_select :date_of_birth%>
+                </div>
+            </div>
+            <div class="span3">
+                <div class="field">
+                    <%= f.label :nationality %> <br>
+                    <%= f.select :nationality, ([["AR", "AR"],["BR", "BR"],["ES", "ES"],["PT", "PT"]]) %>
+                </div>
+                <div class="field">
+                    <%= f.label :height %> <br>
+                    <%= f.number_field :height %>
+                </div>
+            </div>
+            <div class="span3">
+                <div class="field">
+                    <%= f.label :weight %> <br>
+                    <%= f.text_field :weight %>
+                </div>
+            </div>
         </div>
-        <div class="field">
-            <%= f.label :name %> <br>
-            <%= f.text_field :name %>
-        </div>    
-    </div>
-    <div class="span3">
-        <div class="field">
-            <%= f.label :position %>  <br>
-            <%= f.text_field :position %>
+        <div class="actions pull-right">
+            <%= f.submit %>
         </div>
-        <div class="field">
-            <%= f.label :date_of_birth %>
-            <%= f.date_select :date_of_birth%>
-        </div>
-    </div>
-    <div class="span3">
-        <div class="field">
-            <%= f.label :nationality %> <br>
-            <%= f.text_field :nationality %>
-        </div>
-        <div class="field">
-            <%= f.label :height %> <br>
-            <%= f.text_field :height %>
-        </div>
-    </div>
-    <div class="span3">
-        <div class="field">
-            <%= f.label :weight %> <br>
-            <%= f.text_field :weight %>
-        </div>
-    </div>
-</div>
-<div class="actions pull-right">
-    <%= f.submit %>
-</div> 
+    </div> 
+</div>  
 <% end %>

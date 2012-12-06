@@ -1,4 +1,5 @@
-<h1>Upcoming games</h1>
+<h1><%= @team.name %></h1>
+<h2>Upcoming games</h2>
 
 <table class="table">
     <thead>
@@ -7,7 +8,6 @@
     <th>Date</th>
     <th>Hour</th>
     <th>At home</th>
-    <th>Team</th>
     <th></th>
     <th></th>
     <th></th>
@@ -16,11 +16,10 @@
 
 <% @games_not_played.each do |game| %>
   <tr>
-    <td><%= game.opponent %></td>
+    <td><%= game.opponent %></td>   
     <td><%= game.date %></td>
     <td><%= game.hour %></td>
     <td><%= check_box_tag "at_home", true , game.at_home, {:disabled => true} %></td> 
-    <td><%= game.team.name %></td>
     <td><%= link_to 'Edit', edit_club_team_game_path(@team.club, @team, game), :class => 'editlink'%></td>
     <td><%= link_to 'Destroy', club_team_game_path(@team.club, @team, game), confirm: 'Are you sure?', method: :delete, :class => 'destroylink' %></td>
     <td><%= link_to 'Play', new_club_team_game_event_path(@team.club, @team, game), :class => 'btn' %></td>
@@ -29,7 +28,7 @@
 </table>
 <br />
 
-<h1>Previous games</h1>
+<h2>Previous games</h2>
 <table class="table">
     <thead>
   <tr>
@@ -39,7 +38,6 @@
     <th>At home</th>
     <th></th>
     <th>Result</th>
-    <th>Team</th>
     <th></th>
     <th></th>
     <th></th>
@@ -59,9 +57,7 @@
         <% else game.goals_scored == game.goals_suffered %>
         <%= "D" %>
         <% end %></td>
-    <td><%= game.goals_scored.to_s + " - " + game.goals_suffered.to_s %></td>
-    <td><%= game.team.name %></td>
-    <td><%= link_to 'Show', club_team_game_path(@team.club, @team, game) %></td>
+    <td><%= link_to game.goals_scored.to_s + " - " + game.goals_suffered.to_s, club_team_game_path(@team.club, @team, game) %></td>
     <td><%= link_to 'Edit', edit_club_team_game_path(@team.club, @team, game), :class => 'editlink' %></td>
     <td><%= link_to 'Destroy', club_team_game_path(@team.club, @team, game), confirm: 'Are you sure?', method: :delete, :class => 'destroylink' %></td>
   </tr>

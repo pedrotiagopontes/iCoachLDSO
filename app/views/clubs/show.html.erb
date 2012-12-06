@@ -8,7 +8,8 @@
       <h1><%= @club.name %></h1>
       <h3><%= @club.acronym %></h3>
       <!-- Button to trigger modal -->
-      <%= link_to 'Edit', edit_club_path(@club), :class =>'editlink',  :class => 'editlink'%> 
+      
+      <a href="#editClubModal" role="button" class="editlink" data-toggle="modal">Edit</a> 
       |
       <%= link_to 'Destroy', club_path(@club), confirm: 'Are you sure?', method: :delete, :class => 'destroylink' %>
     </div>
@@ -18,23 +19,7 @@
     </div>
   </div>
 </div>
-<!-- 
-<div class="menu row">
-  <h3>Calendário</h3>
-  <%= link_to 'Practices', club_teams_path(@club), :class =>'menulink' %>
-  <%= link_to 'Games', club_teams_path(@club), :class =>'menulink' %>
 
-  <h3>Management</h3>
-  <%= link_to 'Teams', club_teams_path(@club), :class =>'menulink' %> 
-  <%= link_to 'Tactics', club_teams_path(@club), :class =>'menulink' %>
-  <%= link_to 'Practices', club_teams_path(@club), :class =>'menulink' %>
-  </br>
-  <%= link_to 'Users', club_teams_path(@club), :class =>'menulink btn-info' %>
-  </br>
-  <%= link_to 'Notepad', club_teams_path(@club), :class =>'menulink btn-warning' %>
-</div>
-</br>
- -->
 <table class="table">
   <thead>
     <tr>
@@ -62,3 +47,5 @@
 </tr>
 <% end %>
 </table>
+
+<%= render 'edit' %>

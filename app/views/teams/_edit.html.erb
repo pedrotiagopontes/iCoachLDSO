@@ -1,0 +1,38 @@
+<!-- Modal -->
+<div id="editTeamModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 >Team</h3>
+  </div>
+
+  <div class="modal-body">
+  <%= form_for([@team.club, @team]) do |f| %>
+    <% if @team.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h2>
+
+        <ul>
+        <% @team.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :season %><br />
+      <%= f.text_field :season, :class =>"inputLong" %>
+    </div>
+    <div class="field">
+      <%= f.label :name %><br />
+      <%= f.text_field :name, :class =>"inputLong" %>
+    </div>	
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true" style="margin-right:15px;">Close</button>
+    <div class="actions pull-right">
+      <%= f.submit :class => "btn btn-success" %>
+    </div>
+  </div>
+</div>
+<% end %>

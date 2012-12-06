@@ -30,3 +30,30 @@ h1, h3{
 		margin-left: 20px;
 	}
 }
+
+.inputLong{
+  width: 85%;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+}
+
+::-webkit-scrollbar-track {
+  background: whiteSmoke;
+
+  &:hover {
+  	-webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
+  }
+}
+
+::-webkit-scrollbar-thumb {
+  background: #eee;
+  -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.5);
+
+  &:hover {
+  	background: #ccc;
+  }
+}

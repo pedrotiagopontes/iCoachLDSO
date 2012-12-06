@@ -28,6 +28,10 @@ function add_fields(link, association, content) {
 $(function() {
  iconize($(".editlink"), "pencil", "Edit");
  iconize($(".destroylink"), "trash", "Delete");
+ $("#addPlayerButton").click(function() {
+  $("#addPlayer").slideDown();
+  $("#addPlayerButton").hide();
+  });
 });
 
 function iconize(element, icon, text){
