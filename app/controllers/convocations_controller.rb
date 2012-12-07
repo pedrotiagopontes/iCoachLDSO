@@ -1,4 +1,21 @@
 class ConvocationsController < ApplicationController
+  
+  # PUT /convocations/lineup
+  # PUT /convocations/lineup.json
+  def lineup
+
+    
+    respond_to do |format|
+      if @game.update_attributes(params[:game])
+        format.html { redirect_to club_team_games_path(@team.club, @team), notice: 'Game was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @game.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # GET /convocations/new
   # GET /convocations/new.json
   def new
@@ -23,12 +40,11 @@ class ConvocationsController < ApplicationController
     @team.players.each do |player|
       convocation = @game.convocations.new
       convocation.player_id = player.id
-      convocation.initial = false
-      convocation.bench = false
+      convocation.initial_condition = 0
       
       #if the array doesn't exist it means that nobody went to the practice
-      if (params[:player_ids].nil? || params[:player_ids].count < 11)
-        redirect_to new_club_team_game_convocation_path(@team.club, @team, @game), notice: 'Error! You need to select at least 11 players.'
+      if (params[:player_ids].nil? || params[:player_ids].count < 8)
+        redirect_to new_club_team_game_convocation_path(@team.club, @team, @game), notice: 'Error! You need to select at least 8 players to be able to play the game.'
         return
       elsif params[:player_ids].include?(player.id.to_s)
           convocation.called = true
@@ -48,6 +64,43 @@ class ConvocationsController < ApplicationController
       else
         format.html { redirect_to new_club_team_game_convocation_path(@team.club, @team, @game), notice: 'Error selecting players!' }
         format.json { render json: @game.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /convocations
+  # PUT /convocations.json
+  def update
+    @team = Team.find(params[:team_id])
+    @game = @team.games.find(params[:game_id])
+    @convocations = @game.convocations
+    @called = @convocations.where(:called => true)
+    @options = params[:selection]
+    errors = false
+
+    respond_to do |format|
+      index = 0
+      @team.players.each do |player|
+        if errors == false
+          convocation = @convocations.where(:player_id => player.id).first
+          if convocation.called
+            puts '-----------------'
+            puts player.id
+            if Convocation.update(convocation.id, :initial_condition => @options[index]) == false
+              errors = true
+            end
+          end
+          index += 1
+        end
+      end
+
+      if errors
+        format.html { redirect_to club_team_game_lineup_path(@team.club, @team, @game), notice: 'Error selecting lineup!' }
+        format.json { render json: @game.errors, status: :unprocessable_entity }
+        return
+      else
+        format.html { redirect_to new_club_team_game_event_path(@team.club, @team, @game), notice: 'Lineup was successfully saved.' }
+        format.json { render json: @game, status: :created, location: @game }
       end
     end
   end

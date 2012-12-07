@@ -123,4 +123,22 @@ class GamesController < ApplicationController
       end
     end
   end
+
+  
+  #GET lineup
+  def lineup
+    @team = Team.find(params[:team_id])
+    @game = @team.games.find(params[:game_id])
+    @convocations = @game.convocations
+    @called = @convocations.where(:called => true)
+
+    if @called.count < 12
+      @called.each do |convocation|
+        Convocation.update(convocation.id, :initial_condition => 1)
+      end
+      redirect_to new_club_team_game_event_path(@team.club, @team, @game)
+      return
+    end
+  end
+
 end

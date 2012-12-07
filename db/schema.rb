@@ -22,12 +22,11 @@ ActiveRecord::Schema.define(:version => 20121206015618) do
 
   create_table "convocations", :force => true do |t|
     t.boolean  "called"
-    t.boolean  "initial"
-    t.boolean  "bench"
+    t.integer  "initial_condition"
     t.integer  "player_id"
     t.integer  "game_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   add_index "convocations", ["game_id", "player_id"], :name => "index_convocations_on_game_id_and_player_id", :unique => true

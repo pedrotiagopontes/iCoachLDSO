@@ -2,8 +2,9 @@ class CreateConvocations < ActiveRecord::Migration
   def change
     create_table :convocations do |t|
       t.boolean :called
-      t.boolean :initial
-      t.boolean :bench
+      #stores the information about the information about the initial condition of the player 1->initial lineup
+      #2->bench, 3->excluded
+      t.integer :initial_condition 
       t.references :player
       t.references :game
 
