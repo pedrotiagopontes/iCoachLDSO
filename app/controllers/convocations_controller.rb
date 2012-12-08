@@ -110,11 +110,12 @@ class ConvocationsController < ApplicationController
         if errors == false
           convocation = @convocations.where(:player_id => player.id).first
           if convocation.called
-            if Convocation.update(convocation.id, :initial_condition => @options[index]) == false
-              errors = true
+            if Convocation.update(convocation.id, :initial_condition => @options[index])
+              index += 1  
+            else
+              errors = true #if there is something wrong with the update of the parameter turns on the flag
             end
           end
-          index += 1
         end
       end
 

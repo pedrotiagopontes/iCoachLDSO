@@ -29,7 +29,7 @@
       </tr>
     </thead>
 
-  <% @team.players.each do |player| %>
+  <% @initial_players.each do |player| %>
     <tr>
       <td><%= player.number %></td>
       <td><%= f.radio_button :player_id, player.id %>

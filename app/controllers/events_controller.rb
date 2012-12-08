@@ -6,6 +6,20 @@ class EventsController < ApplicationController
     @team = Team.find(params[:team_id])
     @game = @team.games.find(params[:game_id])
     @event = @game.events.new
+    @initial_players = Array.new
+    @bench_players = Array.new
+    convocations = @game.convocations
+
+    @team.players.each do |player|
+      convocation = convocations.where(:player_id => player.id).first
+      if convocation.called
+        if convocation.initial_condition == 1
+          @initial_players.push(player)
+        else
+          @bench_players.push(player)
+        end
+      end
+    end
 
     respond_to do |format|
       format.html # index.@team.game
