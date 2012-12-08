@@ -1,21 +1,11 @@
-<div class="club-details row-fluid">
-  <div class="span12">
-    <div class="span2">
-      <img src="http://placehold.it/140x140" class="img-circle">
-    </div>
-    <div class="span8">
-      <h1><%= @team.club.name %> - <%= @team.season %></h1>
-      <h3><%= @team.name %></h3>
-      <a href="#editTeamModal" role="button" class="editlink" data-toggle="modal">Edit</a>
-    </div>
-    <div class="span2">
-    </div>
-  </div>
+<%= render :partial => "shared/header" %>
+<div class="top-right-menu">
+  <%= link_to 'New Game', new_club_team_game_path(@team.club, @team), :class => 'btn btn-success pull-right' %>
 </div>
 
 <h2>Upcoming games</h2>
 
-<table class="table">
+<table class="table table-hover">
     <thead>
   <tr>
     <th>Opponent</th>
@@ -32,7 +22,7 @@
   <tr>
     <td><%= game.opponent %></td>   
     <td><%= game.date %></td>
-    <td><%= game.hour %></td>
+    <td><%= game.hour.strftime('%H:%M') %></td>
     <td><%= check_box_tag "at_home", true , game.at_home, {:disabled => true} %></td> 
     <td><%= link_to 'Edit', edit_club_team_game_path(@team.club, @team, game), :class => 'editlink'%></td>
     <td><%= link_to 'Destroy', club_team_game_path(@team.club, @team, game), confirm: 'Are you sure?', method: :delete, :class => 'destroylink' %></td>
@@ -43,7 +33,7 @@
 <br />
 
 <h2>Previous games</h2>
-<table class="table">
+<table class="table table-hover">
     <thead>
   <tr>
     <th>Opponent</th>
@@ -62,7 +52,7 @@
   <tr>
     <td><%= game.opponent %></td>
     <td><%= game.date %></td>
-    <td><%= game.hour %></td>
+    <td><%= game.hour.strftime('%H:%M') %></td>
     <td><%= check_box_tag "at_home", true , game.at_home, {:disabled => true} %></td>
     <td><% if game.goals_scored > game.goals_suffered %>
         <%= "W" %>
@@ -79,6 +69,4 @@
 </table>
 
 <br />
-
-<%= link_to 'New Game', new_club_team_game_path(@team.club, @team) %>
 <%= link_to 'Back', club_teams_path(@team.club) %>

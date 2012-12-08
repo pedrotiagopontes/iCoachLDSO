@@ -13,7 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+//= require jquery.tablesorter.min
 //= require_tree .
+
 function remove_fields(link) {
   $(link).prev("input[type=hidden]").val("1");
   $(link).closest(".fields").hide();
@@ -32,6 +34,9 @@ $(function() {
   $("#addPlayer").slideDown();
   $("#addPlayerButton").hide();
   });
+
+  $(".table").tablesorter();
+  updategoals();
 });
 
 function iconize(element, icon, text){
@@ -39,3 +44,22 @@ function iconize(element, icon, text){
 	element.children().attr("title", text);
 }
 
+function updategoals(){
+  var scored = $(".scored");
+  var suffered = $(".suffered");
+
+  var scorecount = 0;
+  var sufferedcount = 0;
+  $.each(scored, function(index, value) { 
+    if(value.innerHTML === "1")
+        scorecount ++;
+  });
+
+  $.each(suffered, function(index, value) { 
+    if(value.innerHTML === "1")
+      sufferedcount ++;
+  });
+
+  $("#scoredCount").html('<span id=scoredCount>'+scorecount+'</span>');
+  $("#sufferedCount").html('<span id=sufferedCount>'+sufferedcount+'</span>');
+}

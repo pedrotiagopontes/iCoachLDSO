@@ -1,19 +1,19 @@
-  <div class="club-details row-fluid">
-  <div class="span12">
+<div class="club-details container-fluid">
+  <div class="row-fluid">
     <div class="span2">
-      <img src="http://placehold.it/140x140" class="img-circle">
+        <img src="http://placehold.it/140x140" class="img-circle">
     </div>
     <div class="span8">
-      <h1><%= @club.name %></h1>
-      <h3>Teams</h3>
-    </div>
-    <div class="span2">
-      <%= link_to 'New Team', new_club_team_path, :class => 'newlink' %>
+        <h1><%= link_to @club.name%></h1>
+        <h3>Teams</h3>
     </div>
   </div>
 </div>
+<div class="top-right-menu">
+  <%= link_to 'New Team', new_club_team_path, :class => 'newlink' %>
+</div>
 
-<div class="teams row-fluid">
+<div class="teams">
   <table class="table table-hover">
     <thead>
       <tr>
@@ -21,12 +21,9 @@
         <th>Season</th>
         <th>Next Game</th>
         <th>Date</th>
-        <th></th>
-        <th></th>
-        <th></th>
       </tr>
     </thead>
-
+    <tbody>
   <% @teams.each do |team| %>
     <tr>
       <td><%= link_to team.name, club_team_path(@club, team) %></td>
@@ -43,12 +40,15 @@
       <td><%= '-' %></td>
       <td><%= '-' %></td>
       <% end %>
-      <td><%= link_to 'Edit', edit_club_team_path(@club, team), :class => 'editlink'%></td>
-      <td><%= link_to 'Destroy', club_team_path(@club, team), confirm: 'Are you sure?', method: :delete, :class => 'destroylink' %></td>
-      <td><%= link_to 'Games', club_team_games_path(@club, team), :class => "btn" %></td>
-      <td><%= link_to 'Practices', club_team_practices_path(@club, team), :class => "btn" %></td>
-      <td><%= link_to 'Injuries', club_team_injuries_path(@club, team), :class => "btn" %></td>
+      <td style="text-align: center">
+        <div class="btn-group">
+          <%= link_to 'Games', club_team_games_path(@club, team), :class => "btn" %>
+          <%= link_to 'Practices', club_team_practices_path(@club, team), :class => "btn" %>
+          <%= link_to 'Injuries', club_team_injuries_path(@club, team), :class => "btn" %>
+        </div>
+      </td>
     </tr>
   <% end %>
+  </tbody>
   </table>
 </div>

@@ -1,4 +1,34 @@
-<h1>Play Game</h1>
+<div class="results container-fluid">
+  <div class="row-fluid">
+    <div class="span4" style="text-align:right">
+      <%if @game.at_home %>
+        <h3><%= @team.club.name %></h3>
+        <h4><%= @team.name %></h4>
+      <%else %>
+        <h3><%= @game.opponent %></h3>
+      <%end%>
+    </div>
+    <div class="span4" id="numbers" style="text-align:center">
+      <p><%= @game.date.strftime('%d/%m/%Y') %></p>
+      <p><%= @game.hour.strftime('%H:%M') %></p>
+      <%if @game.at_home %>
+        <h1><span id="scoredCount"><%= @game.goals_scored.to_s %> </span> - <span id="sufferedCount"><%= @game.goals_suffered.to_s %> </span></h1>
+      <%else%>
+        <h1><span id="sufferedCount"><%= @game.goals_suffered.to_s %> </span> - <span id="scoredCount"><%= @game.goals_scored.to_s %> </span></h1>
+      <%end%>
+    </div>
+    <div class="span4" style="text-align:left">
+      <%if @game.at_home %>
+        <h3><%= @game.opponent %></h3>
+      <%else %>
+        <h3><%= @team.club.name %></h3>
+        <h4><%= @team.name %></h4>
+      <%end%>
+      <br>
+      <br>
+  </div>
+</div>
+</div>
 
 <%#= form_for([@game.team.club, @game.team, @game, @event]) do |f| %>
 <%= form_for([@team.club, @team, @game, @event]) do |f| %>
@@ -13,7 +43,6 @@
       </ul>
     </div>
   <% end %>
-
 <table class="table table-hover">
     <thead>
       <tr>
@@ -33,52 +62,91 @@
     <tr>
       <td><%= player.number %></td>
       <td><%= f.radio_button :player_id, player.id %>
-          <%= f.label :player_id, player.name %></td>
+          <%= f.label :player_id, player.name, :value => player.id %></td>
       <td><%= player.position %></td>
       <td><%= @game.events.where(:code => 6).where(:player_id => player.id).count %></td>
       <td><%= @game.events.where(:code => 5).where(:player_id => player.id).count %></td>
-      <td><%= @game.events.where(:code => 3).where(:player_id => player.id).count %></td>
-      <td><%= @game.events.where(:code => 2).where(:player_id => player.id).count %></td>
+      <td class="scored"><%= @game.events.where(:code => 3).where(:player_id => player.id).count %></td>
+      <td class="suffered"><%= @game.events.where(:code => 2).where(:player_id => player.id).count %></td>
       <td><%= @game.events.where(:code => 1).where(:player_id => player.id).count %></td>
       <td><%= @game.events.where(:code => 4).where(:player_id => player.id).count %></td>
     </tr>
   <% end %>
 </table>
 
-<h2>Add Event</h2>
 
-  <div class="field">
-    <%= f.label :minute %><br />
-    <%= f.text_field :minute %>
+<div class="events container-fluid">
+  <div class="row-fluid">
+    <div class="span2">
+      <label for="event_code_6">
+      <img src="http://placehold.it/140x140" class="img-rounded" style="display:block">
+      </label>
+      <div class="image-radio">
+        <%= f.radio_button :code, 6 %>
+        <%= f.label :code, "Yellow Card", :value => 6 %>
+      </div>
+    </div>
+    <div class="span2">
+      <label for="event_code_5">
+      <img src="http://placehold.it/140x140" class="img-rounded" style="display:block">
+      </label>
+      <div class="image-radio">
+        <%= f.radio_button :code, 5 %>
+        <%= f.label :code, "Red Card", :value => 5 %>
+      </div>
+    </div>
+    <div class="span2">
+      <label for="event_code_3">
+      <%= image_tag "soccerball.png", :class => "img-rounded image-event" %>
+      </label>
+      <div class="image-radio">
+        <%= f.radio_button :code, 3 %>
+        <%= f.label :code, "Goal Scored", :value => 3 %>
+      </div>
+    </div>
+    <div class="span2">
+      <label for="event_code_2">
+      <img src="http://placehold.it/140x140" class="img-rounded" style="display:block">
+      </label>
+      <div class="image-radio">
+        <%= f.radio_button :code, 2 %>
+        <%= f.label :code, "Goal Suffered", :value => 2 %>
+      </div>
+    </div>
+    <div class="span2">
+      <label for="event_code_1">
+      <img src="http://placehold.it/140x140" class="img-rounded" style="display:block">
+      </label>
+      <div class="image-radio">
+        <%= f.radio_button :code, 1 %>
+        <%= f.label :code, "Assistance", :value => 1 %>
+      </div>
+    </div>
+    <div class="span2">
+      <label for="event_code_4">
+      <img src="http://placehold.it/140x140" class="img-rounded" style="display:block">
+      </label>
+      <div class="image-radio">
+        <%= f.radio_button :code, 4 %>
+        <%= f.label :code, "Injury", :value => 4 %>
+      </div>
+    </div>
   </div>
+  <br>
+  <div class="row-fluid">
+    <div class="span6" style="text-align:right">
+      <%= f.label :minute %>
+      <%= f.number_field :minute %>
+    </div>
+    <div class=" span6 actions">
+      <h4 id="playerSelected">Select a player and</h4>
+      <h4 id="eventSelected">select an event</h4>
+      <span id="submitEvent"><%= f.submit %></span>
+    </div>
+  </div>
+</div>
 
-  <div class="field">
-    <%= f.radio_button :code, 6 %>
-    <%= f.label :code, "Yellow Card" %>
-  </div>
-  <div class="field">
-    <%= f.radio_button :code, 5 %>
-    <%= f.label :code, "Red Card" %>
-  </div>
-  <div class="field">
-    <%= f.radio_button :code, 3 %>
-    <%= f.label :code, "Goal Scored" %>
-  </div>
-  <div class="field">
-    <%= f.radio_button :code, 2 %>
-    <%= f.label :code, "Goal Suffered" %>
-  </div>
-  <div class="field">
-    <%= f.radio_button :code, 1 %>
-    <%= f.label :code, "Assistance" %>
-  </div>
-  <div class="field">
-    <%= f.radio_button :code, 4 %>
-    <%= f.label :code, "Injury" %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
 <% end %>
 
 <%= form_tag({:controller => "games", :action => "end"}, :method => "put") do %>

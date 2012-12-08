@@ -1,20 +1,8 @@
-<div class="club-details row-fluid">
-  <div class="span12">
-    <div class="span2">
-      <img src="http://placehold.it/140x140" class="img-circle">
-    </div>
-    <div class="span8">
-      <h1><%= @club.name %> - <%= @team.season %></h1>
-      <h3><%= @team.name %></h3>
-      <a href="#editTeamModal" role="button" class="editlink" data-toggle="modal">Edit</a>
-    </div>
-    <div class="span2">
-    	<td><%= link_to 'Games', club_team_games_path(@club, @team), :class => "btn" %></td>
-    </div>
-  </div>
+<%= render :partial => "shared/header" %>
+<div class="top-right-menu">
+  <td><%= link_to 'Games', club_team_games_path(@club, @team), :class => "btn" %></td>
 </div>
 
-<p id="notice"><%= notice %></p>
 <div class="row-fluid">
   <div class="span12">
 
@@ -29,5 +17,3 @@
 
 <br>
 <%= link_to 'Back', club_teams_path(@club) %>
-
-<%= render 'edit' %>
