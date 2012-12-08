@@ -22,6 +22,18 @@ class ConvocationsController < ApplicationController
     @team = Team.find(params[:team_id])
     @game = @team.games.find(params[:game_id])
     @convocation = @game.convocations.new
+    players = @team.players
+    @available = Array.new
+    
+    players.each do |player|
+      if player.injuries.count > 0
+        if !(player.injuries.where(:active => true, :can_play => false).count > 0)
+          @available.push(player)
+        end
+      else
+        @available.push(player)
+      end
+    end
 
     respond_to do |format|
       format.html # new.html.erb

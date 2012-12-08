@@ -23,8 +23,8 @@
   <%= @game.date %>
 </p>
 
-<% if @team.players.count == 0 %>
-  <em>The team doesn't have any players.</em>
+<% if @available.count == 0 %>
+  <em>The team doesn't have any available players.</em>
   <% else %>
 
    <table class="table table-hover">
@@ -36,7 +36,7 @@
         </tr>
       </thead>
 
-    <% @team.players.each do |player| %>
+    <% @available.each do |player| %>
       <tr>
         <td><%= check_box_tag "player_ids[]", player.id, false, :id => "player_#{player.id}" %></td>
         <td><%= player.number %></td>
