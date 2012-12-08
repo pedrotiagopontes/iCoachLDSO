@@ -90,14 +90,26 @@ class ConvocationsController < ApplicationController
     @options = params[:selection]
     errors = false
 
+    num_selected_players = @options.count('1')
+    if(@options.count > 18)
+      num_bench_players = @options.count('2')
+      if(num_selected_players != 11 && num_bench_players != 7)
+        redirect_to club_team_game_lineup_path(@team.club, @team, @game), notice: 'You must select 11 initial players and 7 player for the bench!'
+        return
+      end
+    else
+      if(num_selected_players != 11)
+        redirect_to club_team_game_lineup_path(@team.club, @team, @game), notice: 'You must select 11 initial players!'
+        return
+      end
+    end
+
     respond_to do |format|
       index = 0
       @team.players.each do |player|
         if errors == false
           convocation = @convocations.where(:player_id => player.id).first
           if convocation.called
-            puts '-----------------'
-            puts player.id
             if Convocation.update(convocation.id, :initial_condition => @options[index]) == false
               errors = true
             end
