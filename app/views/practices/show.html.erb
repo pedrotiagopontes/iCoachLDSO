@@ -15,6 +15,11 @@
   <%= @practice.team.name %>
 </p>
 
+<p>
+  <b>Program:</b>
+  <%= @practice.program %>
+</p>
+
 <% if @team.players.count == 0 %>
   <em>The team doesn't have any players.</em>
   <% else %>
