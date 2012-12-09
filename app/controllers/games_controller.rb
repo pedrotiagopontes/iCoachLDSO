@@ -132,6 +132,11 @@ class GamesController < ApplicationController
     @convocations = @game.convocations
     @called = @convocations.where(:called => true)
 
+    #if the players were already chosen it redirects automatically to the new event page
+    if @convocations.where(:initial_condition => 1).count > 0
+      redirect_to new_club_team_game_event_path(@team.club, @team, @game)
+    end
+
     if @called.count < 12
       @called.each do |convocation|
         Convocation.update(convocation.id, :initial_condition => 1)
