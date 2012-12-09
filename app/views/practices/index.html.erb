@@ -1,52 +1,60 @@
-<h1>Upcoming practices</h1>
+<%= render :partial => "shared/header" %>
+<div class="top-right-menu">
+  <%= link_to 'New Practice', new_club_team_practice_path(@team.club, @team), :class => 'btn btn-success pull-right' %>
+</div>
 
-<table>
-  <tr>
-    <th>Date</th>
-    <th>Time</th>
-    <th>Team</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+
+<% if  @practices_not_realized.size > 0 %>
+<h3>Upcoming practices</h3>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </head>
 
 <% @practices_not_realized.each do |practice| %>
   <tr>
     <td><%= practice.date %></td>
-    <td><%= practice.hour %></td>
-    <td><%= practice.team.name %></td>
-    <td><%= link_to 'Presences', new_club_team_practice_presence_path(@team.club, @team, practice) %></td>
-    <td><%= link_to 'Edit', edit_club_team_practice_path(@team.club, @team, practice) %></td>
-    <td><%= link_to 'Destroy', club_team_practice_path(@team.club, @team, practice), confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= practice.hour.strftime('%H:%M') %></td>
+    <td><%= link_to 'Edit', edit_club_team_practice_path(@team.club, @team, practice), :class => 'editlink' %></td>
+    <td><%= link_to 'Destroy', club_team_practice_path(@team.club, @team, practice), confirm: 'Are you sure?', method: :delete, :class => 'destroylink' %></td>
+    <td><%= link_to 'Presences', new_club_team_practice_presence_path(@team.club, @team, practice), :class => 'btn' %></td>
   </tr>
 <% end %>
 </table>
+<% end %>
 
-<h1>Completed practices</h1>
+<% if  @practices_realized.size > 0 %>
+<h3>Completed practices</h3>
 
-<table>
-  <tr>
-    <th>Date</th>
-    <th>Time</th>
-    <th>Team</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </head>
 
 <% @practices_realized.each do |practice| %>
   <tr>
     <td><%= practice.date %></td>
-    <td><%= practice.hour %></td>
-    <td><%= practice.team.name %></td>
+    <td><%= practice.hour.strftime('%H:%M') %></td>
     <td><%= link_to 'Show', club_team_practice_path(@team.club, @team, practice) %></td>
-    <td><%= link_to 'Edit', edit_club_team_practice_path(@team.club, @team, practice) %></td>
-    <td><%= link_to 'Destroy', club_team_practice_path(@team.club, @team, practice), confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Edit', edit_club_team_practice_path(@team.club, @team, practice), :class => 'editlink' %></td>
+    <td><%= link_to 'Destroy', club_team_practice_path(@team.club, @team, practice), confirm: 'Are you sure?', method: :delete, :class => 'destroylink' %></td>
   </tr>
 <% end %>
 </table>
+<%end%>
 
 <br />
-
-<%= link_to 'New Practice', new_club_team_practice_path(@team.club, @team) %>
 <%= link_to 'Back', club_teams_path(@team.club) %>

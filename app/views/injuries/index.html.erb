@@ -1,31 +1,36 @@
+<%= render :partial => "shared/header" %>
+<div class="top-right-menu">
+  <%= link_to 'New Injury', new_club_team_injury_path(@team.club, @team), :class => 'btn btn-success pull-right' %>
+</div>
+
 <h1>Listing injuries</h1>
 
-<table>
-  <tr>
-    <th>Player</th>
-    <th>Recovery date</th>
-    <th>Can play?</th>    
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Player</th>
+      <th>Recovery date</th>
+      <th>Can play?</th>    
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
 
 <% @injuries.each do |injury| %>
   <% if injury.active == true %>
     <tr>
       <td><%= injury.player.name %></td>
       <td><%= injury.end_date %></td>
-      <td><%= injury.can_play %></td>
-      <td><%= link_to 'Heal', club_team_injury_healed_path(@team.club, @team, injury) %></td>
+      <td><%= check_box_tag "can_play", true , injury.can_play, {:disabled => true} %></td>
       <td><%= link_to 'Show', club_team_injury_path(@team.club, @team, injury) %></td>
-      <td><%= link_to 'Edit', edit_club_team_injury_path(@team.club, @team, injury) %></td>
-      <td><%= link_to 'Destroy', club_team_injury_path(@team.club, @team, injury), confirm: 'Are you sure?', method: :delete %></td>
+      <td><%= link_to 'Edit', edit_club_team_injury_path(@team.club, @team, injury), :class => 'editlink' %></td>
+      <td><%= link_to 'Destroy', club_team_injury_path(@team.club, @team, injury), confirm: 'Are you sure?', method: :delete, :class => 'destroylink'  %></td>
+      <td><%= link_to 'Heal', club_team_injury_healed_path(@team.club, @team, injury), :class =>'btn btn-warning' %></td>
     </tr>
   <% end %> 
 <% end %>
 </table>
 
 <br />
-
-<%= link_to 'New Injury', new_club_team_injury_path(@team.club, @team) %>
 <%= link_to 'Back', club_teams_path(@team.club) %>
