@@ -22,8 +22,38 @@
       <% end %>
     <% end %>
   </table>
-  
 <% else %>
+
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Yellow Cards</th>
+        <th>Red Cards</th>
+        <th>Goals Scored</th> 
+        <th>Goals Suffered</th>
+        <th>Assistances</th>
+        <th>Injuries</th>
+      </tr>
+    </thead>
+
+  <% @game.players.each do |player| %>
+    <tr>
+      <td><%= player.number %></td>
+      <td><%=player.name %></td>
+      <td><%= player.position %></td>
+      <td><%= @game.events.where(:code => 6).where(:player_id => player.id).count %></td>
+      <td><%= @game.events.where(:code => 5).where(:player_id => player.id).count %></td>
+      <td class="scored"><%= @game.events.where(:code => 3).where(:player_id => player.id).count %></td>
+      <td class="suffered"><%= @game.events.where(:code => 2).where(:player_id => player.id).count %></td>
+      <td><%= @game.events.where(:code => 1).where(:player_id => player.id).count %></td>
+      <td><%= @game.events.where(:code => 4).where(:player_id => player.id).count %></td>
+    </tr>
+  <% end %>
+</table>
+
 
 <!-- CHANGE THIS
 >>>>>>> joelferreira-master
