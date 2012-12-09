@@ -1,36 +1,5 @@
-<div class="results container-fluid">
-  <div class="row-fluid">
-    <div class="span4" style="text-align:right">
-      <%if @game.at_home %>
-        <h3><%= @team.club.name %></h3>
-        <h4><%= @team.name %></h4>
-      <%else %>
-        <h3><%= @game.opponent %></h3>
-      <%end%>
-    </div>
-    <div class="span4" id="numbers" style="text-align:center">
-      <p><%= @game.date.strftime('%d/%m/%Y') %></p>
-      <p><%= @game.hour.strftime('%H:%M') %></p>
-      <%if @game.at_home %>
-        <h1><span id="scoredCount"><%= @game.goals_scored.to_s %> </span> - <span id="sufferedCount"><%= @game.goals_suffered.to_s %> </span></h1>
-      <%else%>
-        <h1><span id="sufferedCount"><%= @game.goals_suffered.to_s %> </span> - <span id="scoredCount"><%= @game.goals_scored.to_s %> </span></h1>
-      <%end%>
-    </div>
-    <div class="span4" style="text-align:left">
-      <%if @game.at_home %>
-        <h3><%= @game.opponent %></h3>
-      <%else %>
-        <h3><%= @team.club.name %></h3>
-        <h4><%= @team.name %></h4>
-      <%end%>
-      <br>
-      <br>
-  </div>
-</div>
-</div>
+<%= render :partial => 'games/resume' %>
 
-<%#= form_for([@game.team.club, @game.team, @game, @event]) do |f| %>
 <%= form_for([@team.club, @team, @game, @event]) do |f| %>
   <% if @game.errors.any? %>
     <div id="error_explanation">
@@ -61,7 +30,7 @@
   <% @team.players.each do |player| %>
     <tr>
       <td><%= player.number %></td>
-      <td><%= f.radio_button :player_id, player.id %>
+      <td class="playerRadio"><%= f.radio_button :player_id, player.id %>
           <%= f.label :player_id, player.name, :value => player.id %></td>
       <td><%= player.position %></td>
       <td><%= @game.events.where(:code => 6).where(:player_id => player.id).count %></td>
@@ -139,8 +108,8 @@
       <%= f.number_field :minute %>
     </div>
     <div class=" span6 actions">
-      <h4 id="playerSelected">Select a player and</h4>
-      <h4 id="eventSelected">select an event</h4>
+      <p><span id="playerSelected">Please select a <strong>Player</strong> and </span>
+      <span id="eventSelected">select an <strong>Event Type</strong> do submit!</span><p>
       <span id="submitEvent"><%= f.submit %></span>
     </div>
   </div>
@@ -150,7 +119,7 @@
 <% end %>
 
 <%= form_tag({:controller => "games", :action => "end"}, :method => "put") do %>
-  <%= submit_tag("End Game") %>
+  <%= submit_tag("End Game", confirm: 'Are you sure you want to end this game?') %>
 <% end %>
 
 <%= link_to 'Back', club_team_games_path(@team.club, @team) %>

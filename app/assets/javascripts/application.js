@@ -35,6 +35,26 @@ $(function() {
   $("#addPlayerButton").hide();
   });
 
+ var eventSelected = false;
+ var playerSelected = false;
+ $(".events").click(function() {
+    $("#eventSelected").hide('slow');
+    eventSelected = true;
+
+    if(eventSelected && playerSelected){
+      $("#submitEvent").show('slow');  
+    }
+  });
+
+ $(".playerRadio").click(function() {
+    $("#playerSelected").hide('slow');
+    playerSelected = true;
+
+    if(eventSelected && playerSelected){
+      $("#submitEvent").show('slow');  
+    }
+  });
+
   $(".table").tablesorter();
   updategoals();
 });

@@ -1,0 +1,75 @@
+<div class="results container-fluid">
+  <div class="row-fluid">
+    <div class="span4" style="text-align:right">
+      <%if @game.at_home %>
+        <h3><%= @team.club.name %></h3>
+        <h4><%= @team.name %></h4>
+        <div class="eventsByMinute">
+          <% @game.events.each do |event| %>
+            <%if event.code == 6 || event.code == 5 || event.code == 3%>
+              <% if event.code == 6 %>
+                  <p><%= event.minute %>' Yellow Card -   <%= event.player.name %></p> 
+              <%end%>
+              <% if event.code == 5 %>
+                  <p><%= event.minute %>' Red Card -   <%= event.player.name %></p> 
+              <%end%>
+              <% if event.code == 3 %>
+                  <p><%= event.minute %>' Goal -   <%= event.player.name %></p> 
+              <%end%>
+            <%end%>
+          <%end%>
+        </div>
+      <%else %>
+        <h3><%= @game.opponent %></h3>
+        <div class="eventsByMinute">
+          <% @game.events.each do |event| %>
+            <% if event.code == 2 %>
+              <p><%= event.minute %>' Goal</p> 
+            <%end%>
+          <%end%>
+        </div>
+      <%end%>
+    </div>
+    <div class="span4" id="numbers" style="text-align:center">
+      <p><%= @game.date.strftime('%d/%m/%Y') %></p>
+      <p><%= @game.hour.strftime('%H:%M') %></p>
+      <%if @game.at_home %>
+        <h1><span id="scoredCount"><%= @game.goals_scored.to_s %> </span> - <span id="sufferedCount"><%= @game.goals_suffered.to_s %> </span></h1>
+      <%else%>
+        <h1><span id="sufferedCount"><%= @game.goals_suffered.to_s %> </span> - <span id="scoredCount"><%= @game.goals_scored.to_s %> </span></h1>
+      <%end%>
+    </div>
+    <div class="span4" style="text-align:left">
+      <%if @game.at_home %>
+        <h3><%= @game.opponent %></h3>
+        <div class="eventsByMinute">
+          <% @game.events.each do |event| %>
+            <% if event.code == 2 %>
+              <p><%= event.minute %>' Goal</p> 
+            <%end%>
+          <%end%>
+        </div>
+      <%else %>
+        <h3><%= @team.club.name %></h3>
+        <h4><%= @team.name %></h4>
+        <div class="eventsByMinute">
+          <% @game.events.each do |event| %>
+            <%if event.code == 6 || event.code == 5 || event.code == 3%>
+              <% if event.code == 6 %>
+                  <p><%= event.minute %>' Yellow Card -   <%= event.player.name %></p> 
+              <%end%>
+              <% if event.code == 5 %>
+                  <p><%= event.minute %>' Red Card -   <%= event.player.name %></p> 
+              <%end%>
+              <% if event.code == 3 %>
+                  <p><%= event.minute %>' Goal -   <%= event.player.name %></p> 
+              <%end%>
+            <%end%>
+          <%end%>
+        </div>
+      <%end%>
+      <br>
+      <br>
+  </div>
+</div>
+</div>

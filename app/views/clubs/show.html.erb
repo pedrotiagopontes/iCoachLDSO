@@ -20,8 +20,13 @@
   </div>
 </div>
 
-<table class="table">
-  <thead>
+<h3>Teams</h3>
+<%= render :partial => 'teams/listTeams'%>
+
+<h3>Users</h3>
+<div class="teams">
+  <table class="table table-hover">
+    <thead>
     <tr>
         <th>Mail</th>
         <th>Admin</th>
@@ -29,23 +34,25 @@
         <th>Manager</th>
         <th>Doctor</th>
      </tr>
- </thead>
+    </thead>
 
-<% @club.users.each do |user| %>
+    <tbody>
+    <% @club.users.each do |user| %>
+    <tr>
+      <% isAdmin = @club.admin? user %>
+      <% isCoach = @club.coach? user %>
+      <% isManager = @club.manager? user %>
+      <% isDoctor = @club.doctor? user %>
 
-<tr>
-  <% isAdmin = @club.admin? user %>
-  <% isCoach = @club.coach? user %>
-  <% isManager = @club.manager? user %>
-  <% isDoctor = @club.doctor? user %>
-
-  <td><%= user.email %></td>
-  <td><%= check_box_tag "admin", true , isAdmin, {:disabled => true} %></td>
-  <td><%= check_box_tag "coach", true , isCoach, {:disabled => true} %></td>
-  <td><%= check_box_tag "manager", true ,isManager, {:disabled => true} %></td>
-  <td><%= check_box_tag "doctor", true ,isDoctor, {:disabled => true} %></td>
-</tr>
-<% end %>
+      <td><%= user.email %></td>
+      <td><%= check_box_tag "admin", true , isAdmin, {:disabled => true} %></td>
+      <td><%= check_box_tag "coach", true , isCoach, {:disabled => true} %></td>
+      <td><%= check_box_tag "manager", true ,isManager, {:disabled => true} %></td>
+      <td><%= check_box_tag "doctor", true ,isDoctor, {:disabled => true} %></td>
+    </tr> 
+    <% end %>
+     </tbody>
 </table>
+</div>
 
 <%= render 'edit' %>

@@ -27,6 +27,12 @@ class ClubsController < ApplicationController
   def show
     #@club = Club.find(params[:id])
 
+    @next_games ||= []
+    @club.teams.each do |team|
+      game = team.games.order("date").where(:played => false).first
+      @next_games << game
+    end
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @club }
