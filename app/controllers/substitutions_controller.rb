@@ -1,0 +1,2 @@
+class SubstitutionsController < ApplicationController
+end

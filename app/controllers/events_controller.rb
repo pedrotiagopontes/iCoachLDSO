@@ -15,7 +15,7 @@ class EventsController < ApplicationController
       if convocation.called
         if convocation.initial_condition == 1
           @initial_players.push(player)
-        else
+        elsif convocation.initial_condition == 2
           @bench_players.push(player)
         end
       end

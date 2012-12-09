@@ -12,6 +12,7 @@ class Player < ActiveRecord::Base
   has_many :injuries
   has_many :convocations
   has_many :games, :through => :convocations
+  has_many :substituions
 
   	#def starter?(game)
 		#r = self.playersgames.find_by_game_id(game.id)

@@ -2,9 +2,9 @@ class ConvocationsController < ApplicationController
   
   # PUT /convocations/lineup
   # PUT /convocations/lineup.json
+=begin
   def lineup
 
-    
     respond_to do |format|
       if @game.update_attributes(params[:game])
         format.html { redirect_to club_team_games_path(@team.club, @team), notice: 'Game was successfully updated.' }
@@ -15,6 +15,7 @@ class ConvocationsController < ApplicationController
       end
     end
   end
+=end
 
   # GET /convocations/new
   # GET /convocations/new.json
@@ -93,7 +94,7 @@ class ConvocationsController < ApplicationController
     num_selected_players = @options.count('1')
     if(@options.count > 18)
       num_bench_players = @options.count('2')
-      if(num_selected_players != 11 && num_bench_players != 7)
+      if(num_selected_players != 11 || num_bench_players != 7)
         redirect_to club_team_game_lineup_path(@team.club, @team, @game), notice: 'You must select 11 initial players and 7 player for the bench!'
         return
       end
