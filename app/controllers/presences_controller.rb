@@ -1,7 +1,7 @@
 class PresencesController < ApplicationController
 
-# GET /teams/new
-  # GET /teams/new.json
+  # GET /presences/new
+  # GET /presences/new.json
   def new
     @team = Team.find(params[:team_id])
     @practice = @team.practices.find(params[:practice_id])
@@ -13,8 +13,8 @@ class PresencesController < ApplicationController
     end
   end
   
-  # POST /games
-  # POST /games.json
+  # POST /presences
+  # POST /presences.json
   def create
     @team = Team.find(params[:team_id])
     @practice = @team.practices.find(params[:practice_id])
@@ -26,7 +26,7 @@ class PresencesController < ApplicationController
       presence.player_id = player.id
       
       #if the array doesn't exist it means that nobody went to the practice
-      if (defined? params[:player_ids])
+      if (params[:player_ids].nil?)
         presence.present = false
       elsif params[:player_ids].include?(player.id.to_s)
           presence.present = true

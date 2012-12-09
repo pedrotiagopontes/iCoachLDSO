@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121128195013) do
+ActiveRecord::Schema.define(:version => 20121209164044) do
 
   create_table "clubs", :force => true do |t|
     t.string   "name"
@@ -19,6 +19,17 @@ ActiveRecord::Schema.define(:version => 20121128195013) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "convocations", :force => true do |t|
+    t.boolean  "called"
+    t.integer  "initial_condition"
+    t.integer  "player_id"
+    t.integer  "game_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "convocations", ["game_id", "player_id"], :name => "index_convocations_on_game_id_and_player_id", :unique => true
 
   create_table "events", :force => true do |t|
     t.integer  "code"
@@ -37,11 +48,12 @@ ActiveRecord::Schema.define(:version => 20121128195013) do
     t.time     "hour"
     t.boolean  "at_home"
     t.boolean  "played"
+    t.boolean  "lineup_selected"
     t.integer  "team_id"
     t.integer  "goals_scored"
     t.integer  "goals_suffered"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   add_index "games", ["team_id"], :name => "index_games_on_team_id"
@@ -74,12 +86,6 @@ ActiveRecord::Schema.define(:version => 20121128195013) do
   create_table "players_teams", :id => false, :force => true do |t|
     t.integer "player_id"
     t.integer "team_id"
-  end
-
-  create_table "playersgames", :id => false, :force => true do |t|
-    t.boolean "starter"
-    t.integer "player_id"
-    t.integer "game_id"
   end
 
   create_table "practices", :force => true do |t|
@@ -116,6 +122,17 @@ ActiveRecord::Schema.define(:version => 20121128195013) do
 
   add_index "roles", ["club_id"], :name => "index_roles_on_club_id"
   add_index "roles", ["user_id"], :name => "index_roles_on_user_id"
+
+  create_table "substitutions", :force => true do |t|
+    t.integer  "minute"
+    t.integer  "game_id"
+    t.integer  "player_in_id"
+    t.integer  "player_out_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "substitutions", ["game_id"], :name => "index_substitutions_on_game_id"
 
   create_table "teams", :force => true do |t|
     t.string   "season"

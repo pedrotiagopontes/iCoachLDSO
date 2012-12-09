@@ -1,6 +1,11 @@
 Icoach::Application.routes.draw do
   devise_for :users
 
+  #DON'T MOVE it won't work if it is afer the resources block
+  match '/clubs/:club_id/teams/:team_id/games/:id/convocations/edit' => 'convocations#edit', :as => 'edit_club_team_game_convocation', :via => :get
+  match '/clubs/:club_id/teams/:team_id/games/:game_id/convocations/lineup' => 'convocations#lineup', :as => 'club_team_game_convocations_lineup', :via => :get
+  #match '/clubs/:club_id/teams/:team_id/games/:id/convocations' => 'convocations#update', :as => 'club_team_game_convocation', :via => :put
+  
   resources :tokens,:only => [:create, :destroy]
   resources :sync, :controller => 'sync', :only => [:index]
 
@@ -13,6 +18,8 @@ Icoach::Application.routes.draw do
       end
       resources :games do
         resources :events
+        resources :convocations
+        resources :substitutions
       end
     end
   end
@@ -20,6 +27,7 @@ Icoach::Application.routes.draw do
 
 
   match '/clubs/:club_id/teams/:team_id/games/:game_id/end' => 'games#end', :as => 'end_club_team_game', :via => :put
+  match '/clubs/:club_id/teams/:team_id/games/:game_id/lineup' => 'games#lineup', :as => 'club_team_game_lineup', :via => :get
   match '/clubs/:club_id/teams/:team_id/practices/:practice_id/presences' => 'practices#presences', :as => 'presences_club_team_practice', :via => :get
   match '/clubs/:club_id/teams/:team_id/injuries/:id/healed' => 'injuries#healed', :as => 'club_team_injury_healed', :via => :get
   root :to => 'clubs#index'

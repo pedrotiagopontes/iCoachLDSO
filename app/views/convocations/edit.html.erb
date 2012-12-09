@@ -1,0 +1,53 @@
+<h1>Edit Selection</h1>
+<%= form_for @convocation, :as => :put, :url => club_team_game_convocation_path  do |f| %>
+  <% if @game.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@game.errors.count, "error") %> prohibited this game from being saved:</h2>
+
+      <ul>
+      <% @game.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<p>
+  <b>Opponent:</b>
+  <%= @game.opponent %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @game.date %>
+</p>
+
+<% if @team.players.count == 0 %>
+  <em>The team doesn't have any players.</em>
+  <% else %>
+
+   <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Select?</th>
+          <th>Number</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+
+    <% @team.players.each do |player| %>
+      <tr>
+        <td><%= check_box_tag "player_ids[]", player.id, @convocations.where(:player_id => player.id).first.called, :id => "player_#{player.id}" %></td>
+        <td><%= player.number %></td>
+        <td><%= player.name %></td>
+        </tr>
+    <% end %>
+  </table>
+<% end %>
+
+  <div class="actions">
+    <%= f.submit "Select Players" %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', club_team_games_path(@team.club, @team) %>

@@ -6,6 +6,7 @@ class CreateGames < ActiveRecord::Migration
       t.time :hour
       t.boolean :at_home
       t.boolean :played
+      t.boolean :lineup_selected
       t.references :team
       t.integer :goals_scored
       t.integer :goals_suffered

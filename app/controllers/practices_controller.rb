@@ -100,6 +100,12 @@ class PracticesController < ApplicationController
   def destroy
     @team = Team.find(params[:team_id])
     @practice = @team.practices.find(params[:id])
+    @presences = @practice.presences
+
+    @presences.each do |presence|
+      presence.destroy
+    end
+
     @practice.destroy
 
     respond_to do |format|

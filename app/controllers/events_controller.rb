@@ -6,10 +6,40 @@ class EventsController < ApplicationController
     @team = Team.find(params[:team_id])
     @game = @team.games.find(params[:game_id])
     @event = @game.events.new
+    @initial_players = Array.new
+    @bench_players = Array.new
+    convocations = @game.convocations
+    substitutions = @game.substitutions
+    @remaining_substitutions = 3 - substitutions.count
+
+    @team.players.each do |player|
+      convocation = convocations.where(:player_id => player.id).first
+      if convocation.called
+        if convocation.initial_condition == 1
+          #loop to check if a player was replaced, and so on
+          exit = false
+          player_aux = player
+          while !exit do
+            substitution = substitutions.where(:player_out_id => player_aux.id).first
+            if substitution.nil?
+              @initial_players.push(player_aux)
+              exit = true
+            else
+              player_aux = @team.players.find(substitution.player_in_id)
+            end
+          end
+        elsif convocation.initial_condition == 2
+          substitution = substitutions.where(:player_in_id => player.id).first
+          if substitution.nil?
+            @bench_players.push(player)
+          end
+        end
+      end
+    end
 
     respond_to do |format|
       format.html # index.@team.game
-      format.json { render json: @games }
+      format.json { render json: @event }
     end
   end
 

@@ -1,8 +1,52 @@
 <%= render 'resume' %>
-
 <div class="general">
 <%= link_to 'Edit', edit_club_team_game_path(@team.club, @team, @game), :class => 'editlink pull-right'%> 
 </br>
+
+<% if @game.played == false %> 
+<h3>Selected Players</h3>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Number</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+
+    <% @team.players.each do |player| %>
+      <% if @convocations.where(:player_id => player.id).first.called %>
+        <tr>
+          <td><%= player.number %></td>
+          <td><%= player.name %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+  
+<% else %>  
+<p>
+  <b>Hour:</b>
+  <%= @game.hour %>
+</p>
+
+<p>
+  <b>At home:</b>
+  <%= check_box_tag "at_home", true , @game.at_home, {:disabled => true} %>
+</p>
+
+<p>
+  <b>Played:</b>
+  <%= check_box_tag "played", true , @game.played, {:disabled => true} %>
+</p>
+
+<p>
+  <b>Team:</b>
+  <%= @game.team.name %>
+</p>
+</br>
+
+<!-- CHANGE THIS
+>>>>>>> joelferreira-master
 <h3>Titulares</h3>
 <table class="table table-hover">
     <thead>
@@ -17,17 +61,17 @@
       </tr>
     </thead>
 
-  <% p = @players.where( "playersgames.starter" => 'true') %>
-  <% p.each do |player| %>
+  <%# p = @players.where( "playersgames.starter" => 'true') %>
+  <%# p.each do |player| %>
     <tr>
-      <td><%= player.number %></td>
-      <td><%= player.name %></td>
-      <td><%= player.position %></td>
-      <td><%= player.date_of_birth %></td>
-      <td><%= player.height %></td>
-      <td><%= player.weight %></td>
-      <td><%= player.nationality %></td>
-    <% end %>
+      <td><%#= player.number %></td>
+      <td><%#= player.name %></td>
+      <td><%#= player.position %></td>
+      <td><%#= player.date_of_birth %></td>
+      <td><%#= player.height %></td>
+      <td><%#= player.weight %></td>
+      <td><%#= player.nationality %></td>
+    <%# end %>
 </table>
 
 <h3>Suplentes Utilizados</h3>
@@ -44,19 +88,20 @@
       </tr>
     </thead>
 
-  <% p = @players.where( "playersgames.starter" => 'false') %>
-  <% p.each do |player| %>
-  <%if !player.starter? @game %>
+  <%# p = @players.where( "playersgames.starter" => 'false') %>
+  <%# p.each do |player| %>
+  <%# if !player.starter? @game %>
     <tr>
-      <td><%= player.number %></td>
-      <td><%= player.name %></td>
-      <td><%= player.position %></td>
-      <td><%= player.date_of_birth %></td>
-      <td><%= player.height %></td>
-      <td><%= player.weight %></td>
-      <td><%= player.nationality %></td>
-    <% end %>
-  <% end %>
+      <td><%#= player.number %></td>
+      <td><%#= player.name %></td>
+      <td><%#= player.position %></td>
+      <td><%#= player.date_of_birth %></td>
+      <td><%#= player.height %></td>
+      <td><%#= player.weight %></td>
+      <td><%#= player.nationality %></td>
+    <%# end %>
+  <%# end %>
 </table>
+-->
 <%= link_to 'Back', club_team_games_path(@team.club, @team) %>
 </div>

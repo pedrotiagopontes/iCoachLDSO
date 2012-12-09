@@ -22,6 +22,7 @@ class GamesController < ApplicationController
     @team = Team.find(params[:team_id])
     @game = @team.games.find(params[:id])
     @players = @game.players.scoped
+    @convocations = @game.convocations
 
     respond_to do |format|
       format.html # show.html.erb
@@ -53,6 +54,7 @@ class GamesController < ApplicationController
     @team = Team.find(params[:team_id])
     @game = @team.games.new(params[:game])
     @game.played = false
+    @game.lineup_selected = false
     @game.goals_scored = 0
     @game.goals_suffered = 0
 
@@ -89,6 +91,12 @@ class GamesController < ApplicationController
   def destroy
     @team = Team.find(params[:team_id])
     @game = @team.games.find(params[:id])
+    @convocations = @game.convocations
+
+    @convocations.each do |convocation|
+      convocation.destroy
+    end
+
     @game.destroy
 
     respond_to do |format|
@@ -115,4 +123,27 @@ class GamesController < ApplicationController
       end
     end
   end
+
+  
+  #GET lineup
+  def lineup
+    @team = Team.find(params[:team_id])
+    @game = @team.games.find(params[:game_id])
+    @convocations = @game.convocations
+    @called = @convocations.where(:called => true)
+
+    #if the players were already chosen it redirects automatically to the new event page
+    if @convocations.where(:initial_condition => 1).count > 0
+      redirect_to new_club_team_game_event_path(@team.club, @team, @game)
+    end
+
+    if @called.count < 12
+      @called.each do |convocation|
+        Convocation.update(convocation.id, :initial_condition => 1)
+      end
+      redirect_to new_club_team_game_event_path(@team.club, @team, @game)
+      return
+    end
+  end
+
 end

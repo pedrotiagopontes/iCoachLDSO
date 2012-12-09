@@ -1,0 +1,64 @@
+<%= form_for([@game.team.club, @game.team, @game, @substitution]) do |f| %>
+  <% if @game.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@game.errors.count, "error") %> prohibited this game from being saved:</h2>
+
+      <ul>
+      <% @game.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="field">
+    <%= f.label :minute %><br />
+    <%= f.text_field :minute %>
+  </div>
+
+  <h3>Players on field</h3>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Position</th>
+      </tr>
+    </thead>
+
+  <% @initial_players.each do |player| %>   
+    <tr>
+      <% if @game.events.where(:code => 6).where(:player_id => player.id).count > 1 || @game.events.where(:code => 5).where(:player_id => player.id).count > 0 %>
+        <td><%= f.radio_button :player_out_id, player.id, :disabled => true %>
+            <%= f.label :player_out_id, player.name %></td>
+      <% else %>
+        <td><%= f.radio_button :player_out_id, player.id %>
+            <%= f.label :player_out_id, player.name %></td>
+      <% end %>
+      <td><%= player.position %></td>
+    </tr>
+    <% end %>
+</table>
+
+<h3>Bench</h3>
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Position</th>
+      </tr>
+    </thead>
+
+  <% @bench_players.each do |player| %>
+    <tr>
+      <td><%= f.radio_button :player_in_id, player.id %>
+          <%= f.label :player_in_id, player.name %></td></td>
+      <td><%= player.position %></td>
+    </tr>
+  <% end %>
+</table>
+
+  <br />
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

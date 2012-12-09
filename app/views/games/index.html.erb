@@ -26,7 +26,14 @@
     <td><%= check_box_tag "at_home", true , game.at_home, {:disabled => true} %></td> 
     <td><%= link_to 'Edit', edit_club_team_game_path(@team.club, @team, game), :class => 'editlink'%></td>
     <td><%= link_to 'Destroy', club_team_game_path(@team.club, @team, game), confirm: 'Are you sure?', method: :delete, :class => 'destroylink' %></td>
-    <td><%= link_to 'Play', new_club_team_game_event_path(@team.club, @team, game), :class => 'btn' %></td>
+    <td><% if game.convocations.count == 0 %> 
+        <%= link_to 'Select Players', new_club_team_game_convocation_path(@team.club, @team, game), :class => 'btn' %>
+        <% else %> 
+        <%#= link_to 'Play', new_club_team_game_event_path(@team.club, @team, game), :class => 'btn' %>
+        <%= link_to 'Play', club_team_game_lineup_path(@team.club, @team, game), :class => 'btn' %>
+        <%= link_to 'Selected Players', club_team_game_path(@team.club, @team, game), :class => 'btn' %>
+        <%#= link_to 'Edit Selection', edit_club_team_game_convocation_path(@team.club, @team, game), :class => 'btn' %>
+        <% end %> </td>
   </tr>
 <% end %>
 </table>

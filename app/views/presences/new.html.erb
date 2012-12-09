@@ -44,7 +44,7 @@
 
     <% @team.players.each do |player| %>
       <tr>
-        <td><%= check_box_tag "player_ids[]", player.id, false, :id => "player_#{player.id}" %></td>
+        <td><%= check_box_tag "player_ids[]", player.id, true, :id => "player_#{player.id}" %></td>
         <td><%= player.number %></td>
         <td><%= player.name %></td>
         </tr>

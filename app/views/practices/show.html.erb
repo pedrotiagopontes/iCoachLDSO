@@ -30,15 +30,12 @@
 
     <% @team.players.each do |player| %>
     <% presence = @presences.where(:player_id => player.id).find(:first) %>
-      <tr>
-        <td><%= if presence.present == true
-        			check_box_tag "player_ids[]", player.id, true, :disabled => true
-        		else 
-        			check_box_tag "player_ids[]", player.id, false, :disabled => true 
-        		end %></td>
-        <td><%= player.number %></td>
-        <td><%= player.name %></td>
+      <% if presence.present %>
+        <tr>
+          <td><%= player.number %></td>
+          <td><%= player.name %></td>
         </tr>
+      <% end %>
     <% end %>
   </table>
 <% end %>
