@@ -2,7 +2,7 @@
   <div class="span2">
   	<div class="player-number img-circle"><h1><%= @player.number %></h1></div> 
   </div>
-  <div class="player-details span2">
+  <div class="player-details span8">
   	<h1 style="display:inline"><%= @player.name %></h1> <h4 style="display:inline"> - <%= @player.position %></h4>
   	<div class="player-details-inner">
 		<p><%= @player.nationality %>, born on <%= @player.date_of_birth %></p>
@@ -10,47 +10,93 @@
 	</div>
   </div>
 </div>
-<%= link_to 'Edit', edit_club_team_player_path(@team.club, @team, @player), :class =>'editlink' %>
+<br>
+<br>
 
-<h3>Goals</h3>
-<div class="eventsByMinute">
+<% goals = @player.events.where(:code => 3).where(:player_id => @player.id).count %>
+<%if goals > 0 %>
+<h3 style="display:inline">Goals</h3><h4 style="display:inline"> - <%= goals%></h4>
+<table class="table table-hover">
+  	<thead>
+	  <tr>
+	    <th>Opponent</th>
+	    <th>Date</th>
+	    <th>Minute</th>
+	  </tr>
+	</thead>
   <% @player.events.each do |event| %>
-    <%if event.code == 6 || event.code == 5 || event.code == 3%>
       <% if event.code == 3 %>
-          <p><%= event.minute %>' Goal -   <%= event.game.opponent %></p> 
+      <tr>
+      	<td><%= event.game.opponent %></td>
+      	<td><%= event.game.date %></td>
+      	<td><%= event.minute %></td>
+      </tr>
       <%end%>
-    <%end%>
   <%end%>
-</div>
+</table>
+<%end%>
 
-<h3>Assists</h3>
-<div class="eventsByMinute">
+<% assists = @player.events.where(:code => 1).where(:player_id => @player.id).count %>
+<%if assists > 0 %>
+<h3 style="display:inline">Assists</h3><h4 style="display:inline"> - <%=assists%></h4>
+<table class="table table-hover">
+  	<thead>
+	  <tr>
+	    <th>Opponent</th>
+	    <th>Date</th>
+	    <th>Minute</th>
+	  </tr>
+	</thead>
   <% @player.events.each do |event| %>
-    <%if event.code == 6 || event.code == 5 || event.code == 3%>
       <% if event.code == 1 %>
-          <p><%= event.minute %>' Assistence -   <%= event.game.opponent %></p> 
+	      <tr>
+	      	<td><%= event.game.opponent %></td>
+	      	<td><%= event.game.date %></td>
+	      	<td><%= event.minute %></td>
+	      </tr>
       <%end%>
-    <%end%>
   <%end%>
-</div>
+</table>
+<%end%>
 
-<h3>Discipline</h3>
-<div class="eventsByMinute">
+<% yellows = @player.events.where(:code => 6).where(:player_id => @player.id).count %> 
+<% reds = @player.events.where(:code => 5).where(:player_id => @player.id).count %>
+<%if yellows > 0 || reds > 0 %>
+<h3 style="display:inline">Discipline</h3><h4 style="display:inline"> - Yellow Cards: <%= yellows %> | Red Cards: <%= reds %></h4>
+<table class="table table-hover">
+  	<thead>
+	  <tr>
+	  	<th>Card</th>
+	    <th>Opponent</th>
+	    <th>Date</th>
+	    <th>Minute</th>
+	  </tr>
+	</thead>
   <% @player.events.each do |event| %>
-    <%if event.code == 6 || event.code == 5 || event.code == 3%>
       <% if event.code == 6 %>
-          <p><%= event.minute %>' Yellow Card -   <%= event.game.opponent %></p> 
+          <tr>
+          	<td>Yellow</td>
+	      	<td><%= event.game.opponent %></td>
+	      	<td><%= event.game.date %></td>
+	      	<td><%= event.minute %></td>
+	      </tr>
       <%end%>
       <% if event.code == 5 %>
-          <p><%= event.minute %>' Red Card -   <%= event.game.opponent %></p> 
+      	<tr>
+          	<td>Red</td>
+	      	<td><%= event.game.opponent %></td>
+	      	<td><%= event.game.date %></td>
+	      	<td><%= event.minute %></td>
+	    </tr>
       <%end%>
-    <%end%>
   <%end%>
-</div>
+</table>
+<%end%>
 
 <% if @active_injuries.count > 0 %>
 	<h3> Injuries </h3>
-	<table>
+	<table class="table table-hover">
+  	<thead>
 	  <tr>
 	    <th>Injury date</th>
 	    <th>Recovery date</th>
@@ -59,17 +105,17 @@
 	    <th></th>
 	    <th></th>
 	  </tr>
-
+	</thead>
 	<% @active_injuries.each do |injury| %>
-	    <tr>
-	      <td><%= injury.start_date %></td>
-	      <td><%= injury.end_date %></td>
-	      <td><%= injury.can_play %></td>
-	      <td><%= link_to 'Heal', club_team_injury_healed_path(@team.club, @team, injury) %></td>
-	      <td><%= link_to 'Show', club_team_injury_path(@team.club, @team, injury) %></td>
-	      <td><%= link_to 'Edit', edit_club_team_injury_path(@team.club, @team, injury) %></td>
-	      <td><%= link_to 'Destroy', club_team_injury_path(@team.club, @team, injury), confirm: 'Are you sure?', method: :delete %></td>
-	    </tr>
+	  <tr>
+    	<td><%= injury.start_date %></td>
+    	<td><%= injury.end_date %></td>
+        <td><%= check_box_tag "can_play", true , injury.can_play, {:disabled => true} %></td>
+        <td><%= link_to 'Show', club_team_injury_path(@team.club, @team, injury) %></td>
+        <td><%= link_to 'Edit', edit_club_team_injury_path(@team.club, @team, injury), :class => 'editlink' %></td>
+        <td><%= link_to 'Destroy', club_team_injury_path(@team.club, @team, injury), confirm: 'Are you sure?', method: :delete, :class => 'destroylink'  %></td>
+        <td><%= link_to 'Heal', club_team_injury_healed_path(@team.club, @team, injury), :class =>'btn btn-warning' %></td>
+      </tr>
 	<% end %>
 	</table>
 <% end %>
@@ -77,25 +123,32 @@
 
 <% if @old_injuries.count > 0 %>
 	<h3> Old Injuries </h3>
-	<table>
+	<table class="table table-hover">
+  	<thead>
 	  <tr>
 	    <th>Injury date</th>
 	    <th>Recovery date</th>
-	    <th>Description</th>    
+	    <th>Could Play?</th>    
+	    <th></th>
 	    <th></th>
 	    <th></th>
 	    <th></th>
 	  </tr>
-
+	</thead>
 	<% @old_injuries.each do |injury| %>
 	    <tr>
 	      <td><%= injury.start_date %></td>
 	      <td><%= injury.end_date %></td>
-	      <td><%= injury.description %></td>
+	      <td><%= check_box_tag "can_play", true , injury.can_play, {:disabled => true} %></td>
 	      <td><%= link_to 'Show', club_team_injury_path(@team.club, @team, injury) %></td>
+	      <th> </th>
+	      <th> </th>
+	      <th> </th>
 	    </tr>
 	<% end %>
 	</table>
 <% end %>
 
+<br>
+<%= link_to 'Edit', edit_club_team_player_path(@team.club, @team, @player), :class =>'editlink' %> | 
 <%= link_to 'Back', club_teams_path(@team.club) %>
