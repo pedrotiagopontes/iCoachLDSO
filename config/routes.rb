@@ -18,6 +18,7 @@ Icoach::Application.routes.draw do
       resources :games do
         resources :events
         resources :convocations
+        resources :substitutions
       end
     end
   end
