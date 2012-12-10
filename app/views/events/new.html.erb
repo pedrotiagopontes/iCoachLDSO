@@ -34,10 +34,10 @@
       <td><%= player.number %></td>
       <% if @game.events.where(:code => 6).where(:player_id => player.id).count > 1 || @game.events.where(:code => 5).where(:player_id => player.id).count > 0 %>
         <td class="playerRadio" ><%= f.radio_button :player_id, player.id, :disabled => true %>
-            <%= f.label :player_id, player.name %></td>
+            <%= f.label :player_id, player.name,:value => player.id %></td>
       <% else %>
         <td class="playerRadio"><%= f.radio_button :player_id, player.id %>
-            <%= f.label :player_id, player.name %></td>
+            <%= f.label :player_id, player.name, :value => player.id %></td>
       <% end %>
       <td><%= player.position %></td>
       <td><%= @game.events.where(:code => 6).where(:player_id => player.id).count %></td>

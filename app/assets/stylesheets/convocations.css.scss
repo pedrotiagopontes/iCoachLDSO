@@ -1,3 +1,16 @@
 // Place all the styles related to the convocations controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.total{
+	border-bottom: 2px double #CECECE;
+	text-align: center;
+}
+
+.byPosition{
+	margin-left:40px;
+}
+
+.divider{
+	border-bottom: 2px double #CECECE;
+	margin:10px;
+}

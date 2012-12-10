@@ -1,4 +1,4 @@
-<h1>Player Selection</h1>
+<%= render :partial =>'games/gameHeader' %>
 
 <%= form_for([@team.club, @team, @game, @convocation]) do |f| %>
   <% if @game.errors.any? %>
@@ -13,16 +13,8 @@
     </div>
   <% end %>
 
-<p>
-  <b>Opponent:</b>
-  <%= @game.opponent %>
-</p>
-
-<p>
-  <b>Date:</b>
-  <%= @game.date %>
-</p>
-
+<div class="row-fluid">
+<div class="offset1 span6">
 <% if @available.count == 0 %>
   <em>The team doesn't have any available players.</em>
   <% else %>
@@ -33,22 +25,36 @@
           <th>Select?</th>
           <th>Number</th>
           <th>Name</th>
+          <th>Position</th>
         </tr>
       </thead>
 
     <% @available.each do |player| %>
-      <tr>
-        <td><%= check_box_tag "player_ids[]", player.id, true, :id => "player_#{player.id}" %></td>
+      <tr class="player-row">
+        <td><%= check_box_tag "player_ids[]", player.id, true, :id => "player_#{player.id}", :class =>"selected-player" %></td>
         <td><%= player.number %></td>
         <td><%= player.name %></td>
+        <td class="position" ><%= player.position %></td>
         </tr>
     <% end %>
   </table>
 <% end %>
+</div>
 
-  <div class="actions">
-    <%= f.submit "Select Players" %>
+<div class="span4 pull-right">
+  <div class="total"><h1><span class="ntotal">..</span> Players Selected</h1>
   </div>
+  <div class="byPosition">
+    <h4><span class="ntotalAd">..</span> Advanced</h4>
+    <h4><span class="ntotalMid">..</span> Midfielder</h4>
+    <h4><span class="ntotalDe">..</span> Defensive</h4>
+    <h4><span class="ntotalGk">..</span> Goal Keeper</h4>
+  </div>
+  <div class="divider"></div>
+  <div class="actions">
+    <%= f.submit "Select Players", :class =>'btn pull-right' %>
+  </div>
+</div>
+</div>
 <% end %>
-
 <%= link_to 'Back', club_team_games_path(@team.club, @team) %>
