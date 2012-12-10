@@ -14,3 +14,21 @@
 	border-bottom: 2px double #CECECE;
 	margin:10px;
 }
+
+
+#totalWrapper { 
+  position: absolute;
+  right:0;
+}
+
+#total {
+  position: absolute;
+  top: 0;
+
+  margin-top: 50px;
+}
+
+#total.fixed {
+  position: fixed;
+  top: 0;
+}

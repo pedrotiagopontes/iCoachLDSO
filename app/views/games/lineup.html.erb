@@ -31,19 +31,21 @@
       </table>
 
   </div>
-  <div class="span4 pull-right">
-    <div class="total"><h1><span class="ntotal">..</span> Players Selected</h1>
-    </div>
-    <div class="byPosition">
-      <h4><span class="ntotalAd">..</span> Attackers</h4>
-      <h4><span class="ntotalMid">..</span> Midfielders</h4>
-      <h4><span class="ntotalDe">..</span> Defensers</h4>
-      <h4><span class="ntotalGk">..</span> Goal Keeper</h4>
-    </div>
-    <div class="divider"></div>
-    <div class="actions">
-      <span id="line-up-label" class="label label-important pull-right">Only 11 players must be selected as initial!</span>
-      <span id="line-up-button"><%= submit_tag("Select Players", :class =>'btn pull-right') %></span>
+  <div id="totalWrapper" class="span4">
+    <div id="total">
+      <div class="total"><h1><span class="ntotal">..</span> Players Selected</h1>
+      </div>
+      <div class="byPosition">
+        <h4><span class="ntotalAd">..</span> Attackers</h4>
+        <h4><span class="ntotalMid">..</span> Midfielders</h4>
+        <h4><span class="ntotalDe">..</span> Defensers</h4>
+        <h4><span class="ntotalGk">..</span> Goal Keeper</h4>
+      </div>
+      <div class="divider"></div>
+      <div class="actions">
+        <span id="line-up-label" class="label label-important pull-right">Only 11 players must be selected as initial!</span>
+        <span id="line-up-button"><%= submit_tag("Select Players", :class =>'btn pull-right') %></span>
+      </div>
     </div>
   </div>
   </div>

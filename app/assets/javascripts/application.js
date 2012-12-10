@@ -61,6 +61,22 @@ $(".selected-player").click(countSelected);
   $(".table").tablesorter();
   updategoals();
   countSelected();
+
+  var top = $('#total').offset().top - parseFloat($('#total').css('marginTop').replace(/auto/, 0));
+   $(window).scroll(function (event) {
+     // what the y position of the scroll is
+     var y = $(this).scrollTop();
+   
+     // whether that's below the form
+     if (y >= top) {
+       // if so, ad the fixed class
+       $('#total').addClass('fixed');
+     } else {
+       // otherwise remove it
+       $('#total').removeClass('fixed');
+     }
+   });
+
 });
 
 function iconize(element, icon, text){
