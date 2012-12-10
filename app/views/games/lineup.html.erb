@@ -39,11 +39,15 @@
         <h4><span class="ntotalAd">..</span> Attackers</h4>
         <h4><span class="ntotalMid">..</span> Midfielders</h4>
         <h4><span class="ntotalDe">..</span> Defensers</h4>
-        <h4><span class="ntotalGk">..</span> Goal Keeper</h4>
+        <h4><span class="ntotalGk">..</span> Goal Keepers</h4>
+        <div class="divider"></div>
+        <h4><span class="ntotalInitial">..</span> as Initial</h4>
+        <h4><span class="ntotalBench">..</span> on Bench</h4>
       </div>
       <div class="divider"></div>
       <div class="actions">
-        <span id="line-up-label" class="label label-important pull-right">Only 11 players must be selected as initial!</span>
+        <span id="line-up-labelSelected" class="label label-important pull-right">Only 11 players must be selected as initial!</span> <br>
+        <span id="line-up-labelBench" class="label label-warning pull-right">Max. 7 players on Bench!</span>
         <span id="line-up-button"><%= submit_tag("Select Players", :class =>'btn pull-right') %></span>
       </div>
     </div>

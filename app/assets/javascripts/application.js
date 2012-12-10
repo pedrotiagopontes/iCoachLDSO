@@ -92,9 +92,11 @@ function countSelected(){
   var midfilder = 0;
   var defensive = 0;
   var gk = 0;
+  var initial = 0;
+  var bench = 0;
 
   chk.each(function() {
-    if($(this).is(':checked') || $(this).val() == 1){
+    if($(this).is(':checked') || $(this).val() == 1 || $(this).val() == 2){
       if($(this).parents(".player-row").children(".position").text() === "SA" || $(this).parents(".player-row").children(".position").text() === "Attacker"){
         advanced++;
       }
@@ -108,6 +110,11 @@ function countSelected(){
         gk++;
       }
       selected++;
+       if($(this).val() == 1){
+        initial++;
+       }else if($(this).val() == 2){
+        bench++;
+       }
     }
   });
 
@@ -116,10 +123,25 @@ function countSelected(){
   $(".ntotalMid").html(midfilder);
   $(".ntotalDe").html(defensive);
   $(".ntotalGk").html(gk);
+  $(".ntotalInitial").html(initial);
+  $(".ntotalBench").html(bench);
 
-  if(selected === 11){
-    $("#line-up-label").hide('slow');
+  if(initial === 11){
+    $("#line-up-labelSelected").hide('slow')
+  }else{
+    $("#line-up-labelSelected").show('slow')
+  }
+
+  if(bench < 8){
+    $("#line-up-labelBench").hide('slow')
+  }else{
+    $("#line-up-labelBench").show('slow')
+  }
+
+  if(initial === 11 && bench <8){
     $("#line-up-button").show('slow');
+  }else{
+    $("#line-up-button").hide('slow')
   }
 }
 
