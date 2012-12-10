@@ -79,13 +79,13 @@ function countSelected(){
 
   chk.each(function() {
     if($(this).is(':checked')){
-      if($(this).parents(".player-row").children(".position").text() === "SA" || $(this).parents(".player-row").children(".position").text() === "Advanced"){
+      if($(this).parents(".player-row").children(".position").text() === "SA" || $(this).parents(".player-row").children(".position").text() === "Attacker"){
         advanced++;
       }
       if($(this).parents(".player-row").children(".position").text() === "Midfilder"){
         midfilder++;
       }
-      if($(this).parents(".player-row").children(".position").text() === "Defensive"){
+      if($(this).parents(".player-row").children(".position").text() === "Defender"){
         defensive++;
       }
       if($(this).parents(".player-row").children(".position").text() === "Goal Keeper"){
