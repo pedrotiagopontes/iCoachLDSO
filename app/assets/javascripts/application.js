@@ -55,13 +55,51 @@ $(function() {
     }
   });
 
+$(".selected-player").click(countSelected);
+ 
+
   $(".table").tablesorter();
   updategoals();
+  countSelected();
 });
 
 function iconize(element, icon, text){
 	element.prepend('<i class="icon-'+icon+'"></i>  ');
 	element.children().attr("title", text);
+}
+
+function countSelected(){
+  var chk = $(".selected-player"); 
+
+  var selected = 0;
+  var advanced = 0;
+  var midfilder = 0;
+  var defensive = 0;
+  var gk = 0;
+
+  chk.each(function() {
+    if($(this).is(':checked')){
+      if($(this).parents(".player-row").children(".position").text() === "SA" || $(this).parents(".player-row").children(".position").text() === "Advanced"){
+        advanced++;
+      }
+      if($(this).parents(".player-row").children(".position").text() === "Midfilder"){
+        midfilder++;
+      }
+      if($(this).parents(".player-row").children(".position").text() === "Defensive"){
+        defensive++;
+      }
+      if($(this).parents(".player-row").children(".position").text() === "Goal Keeper"){
+        gk++;
+      }
+      selected++;
+    }
+  });
+  
+  $(".ntotal").html(selected);
+  $(".ntotalAd").html(advanced);
+  $(".ntotalMid").html(midfilder);
+  $(".ntotalDe").html(defensive);
+  $(".ntotalGk").html(gk);
 }
 
 function updategoals(){
