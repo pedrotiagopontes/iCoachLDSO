@@ -11,8 +11,12 @@
  *= require_self
  *= require_tree .
 */
+$textShadowColor: #888;
+$textShadowLenght: 0px 1px 2px;
+$boxShadowLenght: 0px 1px 6px;
+
 h1, h2, h3{
-  text-shadow: 0px 2px 2px #555;
+  text-shadow: $textShadowLenght $textShadowColor;
 
   a{
     color: #333;
@@ -57,9 +61,9 @@ h1, h2, h3{
   -moz-border-radius: 10px;
   border-radius: 10px;
 
-  -webkit-box-shadow: 0px 2px 4px #555;
-  -moz-box-shadow: 0px 2px 4px #555;
-  box-shadow: 0px 2px 4px #555;
+  -webkit-box-shadow: $boxShadowLenght $textShadowColor;
+  -moz-box-shadow: $boxShadowLenght $textShadowColor;
+  box-shadow: $boxShadowLenght $textShadowColor;
 
 }
 
@@ -74,9 +78,9 @@ h1, h2, h3{
   border: 11px solid whiteSmoke;
   color: whiteSmoke;
 
-  -webkit-box-shadow: 0px 2px 4px #555;
-  -moz-box-shadow: 0px 2px 4px #555;
-  box-shadow: 0px 2px 4px #555;
+  -webkit-box-shadow: $boxShadowLenght $textShadowColor;
+  -moz-box-shadow: $boxShadowLenght $textShadowColor;
+  box-shadow: $boxShadowLenght $textShadowColor;
 }
 
 .player-details{
@@ -95,12 +99,15 @@ h1, h2, h3{
   background: whiteSmoke;
   padding: 10px;
   border-radius: 10px 10px 0 0;
-  box-shadow: 0px 2px 4px #555;
+  -webkit-box-shadow: $boxShadowLenght $textShadowColor;
+  -moz-box-shadow: $boxShadowLenght $textShadowColor;
+  box-shadow: $boxShadowLenght $textShadowColor;
   min-height: 140px;
 
   h1, h2, h3{
     color: #616161;
     text-shadow: none;
+    line-height: 30px;
   }
 
   h1{
@@ -118,7 +125,7 @@ h1, h2, h3{
     }
 
     h1{
-      text-shadow: 0px 2px 4px #555;
+      text-shadow: $textShadowLenght $textShadowColor;
     }
   }
 }
