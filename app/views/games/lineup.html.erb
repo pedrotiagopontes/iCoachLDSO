@@ -1,41 +1,51 @@
-<h1>Lineup Selection</h1>
+<%= render 'gameHeader' %>
+
 <%= form_tag({:controller => "convocations", :action => "lineup"}, :method => "put") do %>
-  <p>
-    <b>Opponent:</b>
-    <%= @game.opponent %>
-  </p>
+  <div class="row-fluid">
+    <div class="offset1 span6">
+      <h1>Lineup Selection</h1>
+      <table class="table table-hover">
+      <thead>
+        <tr>
+        	<th></th>
+          <th>Number</th>
+          <th>Name</th>
+          <th>Position</th>
+        </tr>
+      </thead>
 
-  <p>
-    <b>Date:</b>
-    <%= @game.date %>
-  </p>
-
-  <h3>Selected Players</h3>
-  <table class="table table-hover">
-  <thead>
-    <tr>
-    	<th></th>
-      <th>Number</th>
-      <th>Name</th>
-    </tr>
-  </thead>
-
-  <% @team.players.each do |player| %>
-    <% if @convocations.where(:player_id => player.id).first.called %>
-      <tr>
-        <% if @called.count < 19 %>
-          <td><%= select_tag "selection[]", options_for_select([['Initial', 1], ['Bench', 2]]) %></td>
-        <% else %>
-          <td><%= select_tag "selection[]", options_for_select([['Initial', 1], ['Bench', 2], ['Excluded', 3]]) %></td>
+      <% @team.players.each do |player| %>
+        <% if @convocations.where(:player_id => player.id).first.called %>
+          <tr class="player-row">
+            <% if @called.count < 19 %>
+              <td><%= select_tag "selection[]", options_for_select([['Initial', 1], ['Bench', 2]]), :class => "selected-player" %></td>
+            <% else %>
+              <td><%= select_tag "selection[]", options_for_select([['Initial', 1], ['Bench', 2], ['Excluded', 3]]),  :class => "selected-player" %></td>
+            <% end %>
+            <td><%= player.number %></td>
+            <td><%= player.name %></td>
+            <td class="position" ><%= player.position %></td>
+          </tr>
         <% end %>
-        <td><%= player.number %></td>
-        <td><%= player.name %></td>
-      </tr>
-    <% end %>
-  <% end %>
-  </table>
+      <% end %>
+      </table>
 
-  <%= submit_tag("Submit") %>
+  </div>
+  <div class="span4 pull-right">
+    <div class="total"><h1><span class="ntotal">..</span> Players Selected</h1>
+    </div>
+    <div class="byPosition">
+      <h4><span class="ntotalAd">..</span> Attackers</h4>
+      <h4><span class="ntotalMid">..</span> Midfielders</h4>
+      <h4><span class="ntotalDe">..</span> Defensers</h4>
+      <h4><span class="ntotalGk">..</span> Goal Keeper</h4>
+    </div>
+    <div class="divider"></div>
+    <div class="actions">
+      <span id="line-up-label" class="label label-important pull-right">Only 11 players must be selected as initial!</span>
+      <span id="line-up-button"><%= submit_tag("Select Players", :class =>'btn pull-right') %></span>
+    </div>
+  </div>
+  </div>
+</div>
 <% end %>
-
-

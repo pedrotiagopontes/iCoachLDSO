@@ -78,7 +78,7 @@ function countSelected(){
   var gk = 0;
 
   chk.each(function() {
-    if($(this).is(':checked')){
+    if($(this).is(':checked') || $(this).val() == 1){
       if($(this).parents(".player-row").children(".position").text() === "SA" || $(this).parents(".player-row").children(".position").text() === "Attacker"){
         advanced++;
       }
@@ -100,6 +100,11 @@ function countSelected(){
   $(".ntotalMid").html(midfilder);
   $(".ntotalDe").html(defensive);
   $(".ntotalGk").html(gk);
+
+  if(selected === 11){
+    $("#line-up-label").hide('slow');
+    $("#line-up-button").show('slow');
+  }
 }
 
 function updategoals(){
