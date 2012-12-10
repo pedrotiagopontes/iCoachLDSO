@@ -34,7 +34,7 @@ class PracticesController < ApplicationController
   def show
     @team = Team.find(params[:team_id])
     @practice = @team.practices.find(params[:id])
-    @presences = @practice.presences
+    @presences = @practice.presences.where(:present => false)
 
     respond_to do |format|
       format.html # show.html.erb
