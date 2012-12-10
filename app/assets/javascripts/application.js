@@ -94,7 +94,7 @@ function countSelected(){
       selected++;
     }
   });
-  
+
   $(".ntotal").html(selected);
   $(".ntotalAd").html(advanced);
   $(".ntotalMid").html(midfilder);
@@ -109,15 +109,17 @@ function updategoals(){
   var scorecount = 0;
   var sufferedcount = 0;
   $.each(scored, function(index, value) { 
-    if(value.innerHTML === "1")
-        scorecount ++;
+    if(value.innerHTML > 0){
+      scorecount += parseInt(value.innerHTML, 10);
+    }
   });
 
   $.each(suffered, function(index, value) { 
-    if(value.innerHTML === "1")
-      sufferedcount ++;
+    if(value.innerHTML > 0){
+      sufferedcount += parseInt(value.innerHTML, 10);
+    }
   });
 
-  $("#scoredCount").html('<span id=scoredCount>'+scorecount+'</span>');
-  $("#sufferedCount").html('<span id=sufferedCount>'+sufferedcount+'</span>');
+  $("#scoredCount").html(scorecount);
+  $("#sufferedCount").html(sufferedcount);
 }
