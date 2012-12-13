@@ -23,6 +23,8 @@ class GamesController < ApplicationController
     @game = @team.games.find(params[:id])
     @players = @game.players.scoped
     @convocations = @game.convocations
+    #events in chronoligical order
+    @events = @game.events.find(:all, :order => "minute" ) #events in chronoligical order
 
     respond_to do |format|
       format.html # show.html.erb
