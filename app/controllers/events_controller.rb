@@ -6,6 +6,8 @@ class EventsController < ApplicationController
     @team = Team.find(params[:team_id])
     @game = @team.games.find(params[:game_id])
     @event = @game.events.new
+    #events in chronoligical order
+    @events = @game.events.find(:all, :order => "minute" )
     @initial_players = Array.new
     @bench_players = Array.new
     convocations = @game.convocations

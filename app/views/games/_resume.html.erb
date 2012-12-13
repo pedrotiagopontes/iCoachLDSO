@@ -5,7 +5,8 @@
         <h3><%= @team.club.name %></h3>
         <h4><%= @team.name %></h4>
         <div class="eventsByMinute">
-          <% @game.events.each do |event| %>
+          <%# @game.events.each do |event| %>
+          <% @events.each do |event| %>
             <%if event.code == 6 || event.code == 5 || event.code == 3%>
               <% if event.code == 6 %>
                   <p><%= event.minute %>' Yellow Card -   <%= event.player.name %></p> 
@@ -22,7 +23,8 @@
       <%else %>
         <h3><%= @game.opponent %></h3>
         <div class="eventsByMinute">
-          <% @game.events.each do |event| %>
+          <%# @game.events.each do |event| %>
+          <% @events.each do |event| %>
             <% if event.code == 2 %>
               <p><%= event.minute %>' Goal</p> 
             <%end%>
