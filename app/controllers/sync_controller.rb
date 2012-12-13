@@ -23,8 +23,8 @@ class SyncController < ApplicationController
 	@output["games"] 	= []
 	@output["events"] 	= []
 	@output["practices"] 	= []
-	@output["playersteam"] 	= []
-	@output["playersgame"]	= []
+	@output["playersteams"] 	= []
+	@output["convocations"]	= []
 	@output["presences"]	= []
 	
 	@club_ids   = []
@@ -106,19 +106,19 @@ class SyncController < ApplicationController
 	# Fetch Player's Team ids
 	##################
 	
-	Players_team.where("team_id IN (?)", @team_ids)
+	Playersteam.where("team_id IN (?)", @team_ids)
 	.each do |v|
 		@player_ids << v.player_id
 		
-		#if v.created_at >= @time || v.updated_at >= @time
+		if v.created_at >= @time || v.updated_at >= @time
 			@var = {}
 
 			@var["team_id"] = v.team_id
 			@var["player_id"] = v.player_id
 
-			#convert_time( @var, v )
-			@output["playersteam"] << @var
-		#end
+			convert_time( @var, v )
+			@output["playersteams"] << @var
+		end
 	end
 	@player_ids.uniq!
 	
@@ -179,17 +179,17 @@ class SyncController < ApplicationController
 	# Fetch Player's Games
 	##################
 	
-	#Players_team.where("game_id IN (?) AND (created_at >= ? OR updated_at >= ?)", @game_id)
-	Playersgame.where("game_id IN (?)", @game_ids)
+	Convocation.where("game_id IN (?) AND (created_at >= ? OR updated_at >= ?)", @game_id, @time, @time)
 	.each do |v|
 		@var = {}
 
-		@var["starter"] = v.starter
+		@var["called"] = v.called
+                @var["initial_condition"] = v.initial_condition
 		@var["player_id"] = v.player_id
 		@var["game_id"] = v.game_id
 
-		#convert_time( @var, v )
-		@output["playersgame"] << @var
+		convert_time( @var, v )
+		@output["convocations"] << @var
 	end
 	
 	
@@ -305,7 +305,3 @@ def convert_time(var, vin)
   var["updated_at"] = Time.at( vin.updated_at ).to_i
 end
 
-class Players_team < ActiveRecord::Base
-  belongs_to :player
-  belongs_to :team
-end
