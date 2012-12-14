@@ -10,7 +10,8 @@ class SyncController < ApplicationController
       return
     end
 
-    @time = Time.at(Integer( params[:time] ))
+    @inTime = params[:time].nil? ? 0 : params[:time]
+    @time = Time.at(Integer( @inTime  ))
 
 	@output = {}
 	
