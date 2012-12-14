@@ -20,6 +20,7 @@
             <%= render 'layouts/messages' %>
           </div>
         </div>
+        <%= render :partial=>"notes/form", :locals => { :note => @note }%>
         <div class="content row" style="margin:auto">
           <%= yield %>  
         </div>

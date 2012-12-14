@@ -33,11 +33,24 @@
           <ul class="nav pull-left">
             <li><%= link_to 'New Club', new_club_path%></li>
           </ul>
-          <ul class="nav pull-left">
-            <li><%= link_to 'Notes', notes_path%></li>
-          </ul>
           <% end %>
 
+          <ul class="nav pull-left">
+            <li class="btn-group" style="margin:0;">
+              <a class="btn btn-small btn-inverse dropdown-toggle" data-toggle="dropdown" href="#" style="background: none; border: none;">
+                Notes
+                <span class="caret" style="border-top-color: #50835E;"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <% current_user.notes.each do |note| %>
+                  <li><%= link_to note.updated_at.strftime('%H:%M %d/%m/%Y')+" - "+note.title, edit_note_path(note)%></li>
+                <%end%>
+                  <a id="new-note" class="btn">New Note</updated_at></a>
+              </ul>
+            </li>
+          </ul>
+
+          <% @note = current_user.notes.new %>
         <%end%>
         <ul class="nav pull-right">
           <% if user_signed_in? %>

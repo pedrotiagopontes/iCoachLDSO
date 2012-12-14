@@ -1,3 +1,46 @@
 // Place all the styles related to the notes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.new_note{
+	display: none;
+}
+
+.note{
+
+	.note-box{
+		background-color: white;
+		background-image: linear-gradient(90deg, transparent 79px, #ABCED4 79px, #ABCED4 81px, transparent 83px), linear-gradient(#EEE .1em, transparent .1em);
+		background-size: 100% 1.5em;
+		background-color: white;
+		background-image: -webkit-linear-gradient(0deg, transparent 79px, #ABCED4 79px, #ABCED4 83px, transparent 81px), -webkit-linear-gradient(#EEE .1em, transparent .1em);
+		background-size: 100% 1.5em;
+
+		padding-left: 85px;
+		padding-right: 10px;
+
+		#note_text{
+			background: transparent;
+			border: none;
+			box-shadow: none;
+			line-height: 1.5em;
+			width:100%;
+			height: 90px;
+		}
+	}
+
+	.note-title-field{
+		margin-left: 50px;
+		span{
+			color:#A8A7A7
+		}
+
+		#note_title{
+			background: transparent;
+			border: none;
+			box-shadow: none;
+			width: 40%;
+			border-bottom: 1px solid #ABCED4;
+		}
+	}
+}

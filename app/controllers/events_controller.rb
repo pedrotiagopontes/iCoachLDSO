@@ -13,6 +13,7 @@ class EventsController < ApplicationController
     convocations = @game.convocations
     substitutions = @game.substitutions
     @remaining_substitutions = 3 - substitutions.count
+    @substitution = @game.substitutions.new
 
     @team.players.each do |player|
       convocation = convocations.where(:player_id => player.id).first

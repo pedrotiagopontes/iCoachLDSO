@@ -1,14 +1,13 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Title:</b>
-  <%= @note.title %>
-</p>
-
-<p>
-  <b>Text:</b>
-  <%= @note.text %>
-</p>
+<div class="note">
+  <div class="note-title-field">
+    <span><i>title: </i></span>
+    <%= @note.title %>
+  </div>
+  <div class="note-box">
+    <%= @note.text %>
+  </div>
+  <br>
+</div>
 
 <%= link_to 'Edit', edit_note_path(@note) %> |
-<%= link_to 'Back', notes_path %>
+

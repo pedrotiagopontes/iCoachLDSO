@@ -30,9 +30,14 @@ function add_fields(link, association, content) {
 $(function() {
  iconize($(".editlink"), "pencil", "Edit");
  iconize($(".destroylink"), "trash", "Delete");
+
  $("#addPlayerButton").click(function() {
   $("#addPlayer").slideDown();
   $("#addPlayerButton").hide();
+  });
+
+ $("#new-note").click(function() {
+  $(".new_note").show('slow');
   });
 
  var eventSelected = false;

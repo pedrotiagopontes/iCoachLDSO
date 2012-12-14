@@ -75,6 +75,8 @@
 
 <% if @remaining_substitutions > 0%>
   <%= link_to 'Substitution', new_club_team_game_substitution_path(@team.club, @team, @game), :class => "btn" %>
+
+  <a href="#substitutionModal" role="button" class="btn btn-warning" data-toggle="modal">Substitution</a>
 <% end %>
 
 <h2>Add Event</h2>  
@@ -158,3 +160,5 @@
 <% end %>
 
 <%= link_to 'Back', club_team_games_path(@team.club, @team) %>
+
+<%= render :partial => "substitutions/form", :object => @substitution %>
