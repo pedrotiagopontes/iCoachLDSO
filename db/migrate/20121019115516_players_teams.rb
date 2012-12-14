@@ -1,8 +1,10 @@
 class PlayersTeams < ActiveRecord::Migration
   def self.up
-    create_table 'players_teams', :id => false do |t|
+    create_table 'playersteams', :id => false do |t|
       t.column 'player_id', :integer
       t.column 'team_id', :integer
+
+      t.timestamps
     end
   end
 

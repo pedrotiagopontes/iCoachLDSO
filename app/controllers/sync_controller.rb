@@ -10,11 +10,13 @@ class SyncController < ApplicationController
       return
     end
 
-    @time = Time.at(Integer( params[:time] ))
+
+    @timeStartD = Time.at( Integer( params[:time].nil? ? 0 : params[:time] ) )
+	@timeNowD   = Time.new
 
 	@output = {}
-	
-	@output["time_now"] = Time.new.to_i
+
+	@output["time_now"] = @timeNowD.to_i
 	@output["roles"] 	= []
 	@output["clubs"] 	= []
 	@output["teams"] 	= []
@@ -23,8 +25,8 @@ class SyncController < ApplicationController
 	@output["games"] 	= []
 	@output["events"] 	= []
 	@output["practices"] 	= []
-	@output["playersteam"] 	= []
-	@output["playersgame"]	= []
+	@output["playersteams"] 	= []
+	@output["convocations"]	= []
 	@output["presences"]	= []
 	
 	@club_ids   = []
@@ -43,9 +45,10 @@ class SyncController < ApplicationController
 	.each do |v|
 		@club_ids << v.club_id
 		
-		if v.created_at >= @time || v.updated_at >= @time
+		if evaluateTime(v, @timeStartD, @timeNowD)
 			@var = {}
 			
+			@var["user_id"] = v.id
 			@var["club_id"] = v.club_id
 			@var["is_admin"] = v.is_admin.nil?? false : v.is_admin
 			@var["is_coach"] = v.is_coach.nil? ? false : v.is_coach
@@ -64,7 +67,8 @@ class SyncController < ApplicationController
 	# Fetch Clubs
 	##################
 	
-    Club.where("id IN (?) AND (created_at >= ? OR updated_at >= ?)", @club_ids, @time, @time )
+    Club.where("id IN (?) AND (created_at >= ? OR updated_at >= ?) AND created_at < ? AND updated_at < ?",
+					@club_ids, @timeStartD, @timeStartD, @timeNowD, @timeNowD )
 	.each do |v|      
 		@var = {}
 
@@ -86,7 +90,7 @@ class SyncController < ApplicationController
     .each do |v|      
 		@team_ids << v.id
 
-		if v.created_at >= @time || v.updated_at >= @time
+		if evaluateTime(v, @timeStartD, @timeNowD)
 			@var = {}
 
 			@var["id"] = v.id
@@ -106,19 +110,19 @@ class SyncController < ApplicationController
 	# Fetch Player's Team ids
 	##################
 	
-	Players_team.where("team_id IN (?)", @team_ids)
+	Playersteam.where("team_id IN (?)", @team_ids)
 	.each do |v|
 		@player_ids << v.player_id
 		
-		#if v.created_at >= @time || v.updated_at >= @time
+		if evaluateTime(v, @timeStartD, @timeNowD)
 			@var = {}
 
 			@var["team_id"] = v.team_id
 			@var["player_id"] = v.player_id
 
-			#convert_time( @var, v )
-			@output["playersteam"] << @var
-		#end
+			convert_time( @var, v )
+			@output["playersteams"] << @var
+		end
 	end
 	@player_ids.uniq!
 	
@@ -132,7 +136,7 @@ class SyncController < ApplicationController
     .each do |v|
 		@game_ids << v.id
 		
-		if v.created_at >= @time || v.updated_at >= @time
+		if evaluateTime(v, @timeStartD, @timeNowD)
 			@var = {}
 			
 			@var["id"] = v.id
@@ -159,7 +163,8 @@ class SyncController < ApplicationController
 	# Fetch Events
 	##################
 	
-    Event.where("game_id IN (?) AND (created_at >= ? OR updated_at >= ?)", @game_ids, @time, @time )
+    Event.where("game_id IN (?) AND (created_at >= ? OR updated_at >= ?) AND created_at < ? AND updated_at < ?",
+					@game_ids, @timeStartD, @timeStartD, @timeNowD, @timeNowD )
     .each do |v|      
 		@var = {}
 		
@@ -179,17 +184,18 @@ class SyncController < ApplicationController
 	# Fetch Player's Games
 	##################
 	
-	#Players_team.where("game_id IN (?) AND (created_at >= ? OR updated_at >= ?)", @game_id)
-	Playersgame.where("game_id IN (?)", @game_ids)
+	Convocation.where("game_id IN (?) AND (created_at >= ? OR updated_at >= ?) AND created_at < ? AND updated_at < ?",
+					@game_id, @timeStartD, @timeStartD, @timeNowD, @timeNowD )
 	.each do |v|
 		@var = {}
 
-		@var["starter"] = v.starter
+		@var["called"] = v.called
+                @var["initial_condition"] = v.initial_condition
 		@var["player_id"] = v.player_id
 		@var["game_id"] = v.game_id
 
-		#convert_time( @var, v )
-		@output["playersgame"] << @var
+		convert_time( @var, v )
+		@output["convocations"] << @var
 	end
 	
 	
@@ -198,7 +204,8 @@ class SyncController < ApplicationController
 	# Fetch Players
 	##################
 	
-    Player.where("id IN (?) AND (created_at >= ? OR updated_at >= ?)", @player_ids, @time, @time )
+    Player.where("id IN (?) AND (created_at >= ? OR updated_at >= ?) AND created_at < ? AND updated_at < ?",
+					@player_ids, @timeStartD, @timeStartD, @timeNowD, @timeNowD )
     .each do |v|      
 		@var = {}
 		
@@ -222,7 +229,8 @@ class SyncController < ApplicationController
 	# Fetch Injuries
 	##################
 	
-    Injury.where("player_id IN (?) AND (created_at >= ? OR updated_at >= ?)", @player_ids, @time, @time )
+    Injury.where("player_id IN (?) AND (created_at >= ? OR updated_at >= ?) AND created_at < ? AND updated_at < ?",
+					@player_ids, @timeStartD, @timeStartD, @timeNowD, @timeNowD )
     .each do |v|      
 		@var = {}
 
@@ -250,7 +258,7 @@ class SyncController < ApplicationController
     .each do |v|      
 		@practice_ids << v.id
 
-		if v.created_at >= @time || v.updated_at >= @time
+		if evaluateTime(v, @timeStartD, @timeNowD)
 			@var = {}
 
 			@var["id"] = v.id
@@ -273,7 +281,8 @@ class SyncController < ApplicationController
 	# Fetch Presences
 	##################
 	
-    Presence.where("practice_id IN (?) AND (created_at >= ? OR updated_at >= ?)", @practice_ids, @time, @time )
+    Presence.where("practice_id IN (?) AND (created_at >= ? OR updated_at >= ?) AND created_at < ? AND updated_at < ?",
+					@practice_ids, @timeStartD, @timeStartD, @timeNowD, @timeNowD )
     .each do |v|      
 		@var = {}
 		
@@ -291,21 +300,21 @@ class SyncController < ApplicationController
     render :status=>200, :json=> @output
 
   end
+  
 
-end
+	def kill_user_session
+	  if ! current_user.nil?
+		sign_out current_user
+	  end
+	end
 
-def kill_user_session
-  if ! current_user.nil?
-    sign_out current_user
-  end
-end
+	def convert_time(var, vin)
+	  var["created_at"] = Time.at( vin.created_at ).to_i
+	  var["updated_at"] = Time.at( vin.updated_at ).to_i
+	end
 
-def convert_time(var, vin)
-  var["created_at"] = Time.at( vin.created_at ).to_i
-  var["updated_at"] = Time.at( vin.updated_at ).to_i
-end
+	def evaluateTime( vin, timeS, timeN )
+		return ( ( vin.created_at >= timeS || vin.updated_at >= timeS ) && vin.created_at < timeN && vin.updated_at < timeN )
+	end
 
-class Players_team < ActiveRecord::Base
-  belongs_to :player
-  belongs_to :team
 end
