@@ -3,7 +3,9 @@ class Player < ActiveRecord::Base
   validates :weight, :numericality => {:greater_than => 0}
   validates :number, :numericality => {:only_integer => true}
 
-  has_and_belongs_to_many :teams
+#  has_and_belongs_to_many :teams
+  has_many :playersteams
+  has_many :teams, :through => :playersteams
   has_many :playersgames
   has_many :games, :through => :playersgames
   has_many :presences
