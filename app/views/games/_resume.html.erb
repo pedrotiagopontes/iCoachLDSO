@@ -36,9 +36,9 @@
       <p><%= @game.date.strftime('%d/%m/%Y') %></p>
       <p><%= @game.hour.strftime('%H:%M') %></p>
       <%if @game.at_home %>
-        <h1><span id="scoredCount"><%= @game.goals_scored.to_s %> </span> - <span id="sufferedCount"><%= @game.goals_suffered.to_s %> </span></h1>
+        <h1><span id="scoredCount"><%= @game.events.where(:code => 3).count %> </span> - <span id="sufferedCount"><%= @game.events.where(:code => 2).count %> </span></h1>
       <%else%>
-        <h1><span id="sufferedCount"><%= @game.goals_suffered.to_s %> </span> - <span id="scoredCount"><%= @game.goals_scored.to_s %> </span></h1>
+        <h1><span id="sufferedCount"><%= @game.events.where(:code => 2).count %> </span> - <span id="scoredCount"><%= @game.events.where(:code => 3).count %> </span></h1>
       <%end%>
     </div>
     <div class="span4" style="text-align:left">

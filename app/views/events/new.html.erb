@@ -13,7 +13,67 @@
     </div>
   <% end %>
 
-<h3>Players on field</h3>
+  <div class="events container-fluid">
+    <div class="row-fluid">
+      <div class="span2">
+        <label for="event_code_6">
+        <img src="http://placehold.it/140x140" class="img-rounded" style="display:block">
+        </label>
+        <div class="image-radio">
+          <%= f.radio_button :code, 6 %>
+          <%= f.label :code, "Yellow Card", :value => 6 %>
+        </div>
+      </div>
+      <div class="span2">
+        <label for="event_code_5">
+        <img src="http://placehold.it/140x140" class="img-rounded" style="display:block">
+        </label>
+        <div class="image-radio">
+          <%= f.radio_button :code, 5 %>
+          <%= f.label :code, "Red Card", :value => 5 %>
+        </div>
+      </div>
+      <div class="span2">
+        <label for="event_code_3">
+        <%= image_tag "soccerball.png", :class => "img-rounded image-event" %>
+        </label>
+        <div class="image-radio">
+          <%= f.radio_button :code, 3 %>
+          <%= f.label :code, "Goal Scored", :value => 3 %>
+        </div>
+      </div>
+      <div class="span2">
+        <label for="event_code_2">
+        <img src="http://placehold.it/140x140" class="img-rounded" style="display:block">
+        </label>
+        <div class="image-radio">
+          <%= f.radio_button :code, 2 %>
+          <%= f.label :code, "Goal Suffered", :value => 2 %>
+        </div>
+      </div>
+      <div class="span2">
+        <label for="event_code_1">
+        <img src="http://placehold.it/140x140" class="img-rounded" style="display:block">
+        </label>
+        <div class="image-radio">
+          <%= f.radio_button :code, 1 %>
+          <%= f.label :code, "Assistance", :value => 1 %>
+        </div>
+      </div>
+      <div class="span2">
+        <label for="event_code_4">
+        <img src="http://placehold.it/140x140" class="img-rounded" style="display:block">
+        </label>
+        <div class="image-radio">
+          <%= f.radio_button :code, 4 %>
+          <%= f.label :code, "Injury", :value => 4 %>
+        </div>
+      </div>
+    </div>
+    <br>
+  </div>
+
+<h3>Players on Field</h3>
 <table class="table table-hover">
     <thead>
       <tr>
@@ -49,6 +109,19 @@
     </tr>
   <% end %>
 </table>
+<div class="row-fluid">
+  <div class="span6" style="text-align:right">
+    <%= f.label :minute %>
+    <%= f.number_field :minute %>
+  </div>
+  <div class=" span6 actions">
+    <span class="label label-warning">
+      <span id="playerSelected">1. Select a Player and </span>
+      <span id="eventSelected">select an Event Type to Submit</span>
+    </span>
+    <span id="submitEvent"><%= f.submit :class => 'btn btn-success' %></span>
+  </div>
+</div>
 
 <h3>Bench</h3>
 <em>Remaining Substitutions: <%= @remaining_substitutions %></em>
@@ -74,89 +147,16 @@
 <% end %>
 
 <% if @remaining_substitutions > 0%>
-  <%= link_to 'Substitution', new_club_team_game_substitution_path(@team.club, @team, @game), :class => "btn" %>
-
   <a href="#substitutionModal" role="button" class="btn btn-warning" data-toggle="modal">Substitution</a>
 <% end %>
 
-<h2>Add Event</h2>  
 
-<div class="events container-fluid">
-  <div class="row-fluid">
-    <div class="span2">
-      <label for="event_code_6">
-      <img src="http://placehold.it/140x140" class="img-rounded" style="display:block">
-      </label>
-      <div class="image-radio">
-        <%= f.radio_button :code, 6 %>
-        <%= f.label :code, "Yellow Card", :value => 6 %>
-      </div>
-    </div>
-    <div class="span2">
-      <label for="event_code_5">
-      <img src="http://placehold.it/140x140" class="img-rounded" style="display:block">
-      </label>
-      <div class="image-radio">
-        <%= f.radio_button :code, 5 %>
-        <%= f.label :code, "Red Card", :value => 5 %>
-      </div>
-    </div>
-    <div class="span2">
-      <label for="event_code_3">
-      <%= image_tag "soccerball.png", :class => "img-rounded image-event" %>
-      </label>
-      <div class="image-radio">
-        <%= f.radio_button :code, 3 %>
-        <%= f.label :code, "Goal Scored", :value => 3 %>
-      </div>
-    </div>
-    <div class="span2">
-      <label for="event_code_2">
-      <img src="http://placehold.it/140x140" class="img-rounded" style="display:block">
-      </label>
-      <div class="image-radio">
-        <%= f.radio_button :code, 2 %>
-        <%= f.label :code, "Goal Suffered", :value => 2 %>
-      </div>
-    </div>
-    <div class="span2">
-      <label for="event_code_1">
-      <img src="http://placehold.it/140x140" class="img-rounded" style="display:block">
-      </label>
-      <div class="image-radio">
-        <%= f.radio_button :code, 1 %>
-        <%= f.label :code, "Assistance", :value => 1 %>
-      </div>
-    </div>
-    <div class="span2">
-      <label for="event_code_4">
-      <img src="http://placehold.it/140x140" class="img-rounded" style="display:block">
-      </label>
-      <div class="image-radio">
-        <%= f.radio_button :code, 4 %>
-        <%= f.label :code, "Injury", :value => 4 %>
-      </div>
-    </div>
-  </div>
-  <br>
-  <div class="row-fluid">
-    <div class="span6" style="text-align:right">
-      <%= f.label :minute %>
-      <%= f.number_field :minute %>
-    </div>
-    <div class=" span6 actions">
-      <p><span id="playerSelected">Please select a <strong>Player</strong> and </span>
-      <span id="eventSelected">select an <strong>Event Type</strong> do submit!</span><p>
-      <span id="submitEvent"><%= f.submit %></span>
-    </div>
-  </div>
-</div>
 
 
 <% end %>
 
 <%= form_tag({:controller => "games", :action => "end"}, :method => "put") do %>
-  <%= submit_tag("End Game", confirm: 'Are you sure you want to end this game?') %>
+  <%= submit_tag("End Game", confirm: 'Are you sure you want to end this game?', :class => "btn btn-danger pull-right") %>
 <% end %>
 
 <%= link_to 'Back', club_team_games_path(@team.club, @team) %>

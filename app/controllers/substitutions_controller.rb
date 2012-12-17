@@ -51,7 +51,7 @@ class SubstitutionsController < ApplicationController
 	        format.html { redirect_to new_club_team_game_event_path(@team.club, @team, @game), notice: 'Substitution was successfully done.' }
 	        format.json { render json: @substitution, status: :created, location: @substitution }
 	      else
-	        format.html { redirect_to new_club_team_game_substitution_path(@team.club, @team, @game), notice: 'Error while doing the substitution! Maybe you forgot to insert some required information.' }
+	        format.html { redirect_to new_club_team_game_event_path(@team.club, @team, @game), :flash => { :error => 'Error while doing the substitution! Maybe you forgot to insert some required information.'} }
 	        format.json { render json: @substitution.errors, status: :unprocessable_entity }
 	      end
 	    end

@@ -30,10 +30,10 @@
     <tr>
       <% if @game.events.where(:code => 6).where(:player_id => player.id).count > 1 || @game.events.where(:code => 5).where(:player_id => player.id).count > 0 %>
         <td><%= f.radio_button :player_out_id, player.id, :disabled => true %>
-            <%= f.label :player_out_id, player.name %></td>
+            <%= f.label :player_out_id, player.name, :value => player.id %></td>
       <% else %>
         <td><%= f.radio_button :player_out_id, player.id %>
-            <%= f.label :player_out_id, player.name %></td>
+            <%= f.label :player_out_id, player.name, :value => player.id %></td>
       <% end %>
       <td><%= player.position %></td>
     </tr>
@@ -52,7 +52,7 @@
   <% @bench_players.each do |player| %>
     <tr>
       <td><%= f.radio_button :player_in_id, player.id %>
-          <%= f.label :player_in_id, player.name %></td></td>
+          <%= f.label :player_in_id, player.name, :value => player.id %></td></td>
       <td><%= player.position %></td>
     </tr>
   <% end %>

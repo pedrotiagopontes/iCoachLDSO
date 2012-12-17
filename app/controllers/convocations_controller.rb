@@ -1,4 +1,4 @@
-class ConvocationsController < ApplicationController
+  class ConvocationsController < ApplicationController
   
   # GET /convocations/new
   # GET /convocations/new.json

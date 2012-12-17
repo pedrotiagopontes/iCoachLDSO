@@ -64,7 +64,7 @@ $(".selected-player").click(countSelected);
  
 
   $(".table").tablesorter();
-  updategoals();
+  //updategoals();
   countSelected();
 
   var top = $('#total').offset().top - parseFloat($('#total').css('marginTop').replace(/auto/, 0));
