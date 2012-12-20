@@ -44,7 +44,7 @@ class SyncController < ApplicationController
 	##################
 
 	
-    Role.with_deleted.where("user_id IS ?", current_user.id)
+    Role.with_deleted.where("user_id = ?", current_user.id)
 	.each do |v|
 		@club_ids << v.club_id
 		
