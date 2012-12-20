@@ -67,30 +67,6 @@ h1, h2, h3{
 
 }
 
-.player-number{
-  width: 100px;
-  height: 80px;
-  text-align: center;
-  margin: auto;
-  padding-top: 20px;
-
-  background: #494949;
-  border: 11px solid whiteSmoke;
-  color: whiteSmoke;
-
-  -webkit-box-shadow: $boxShadowLenght $textShadowColor;
-  -moz-box-shadow: $boxShadowLenght $textShadowColor;
-  box-shadow: $boxShadowLenght $textShadowColor;
-}
-
-.player-details{
-  margin-top: 10px;
-
-  .player-details-inner{
-    margin-left: 10px;
-  }
-}
-
 .results{
   margin-left: -40px;
   margin-right: -40px;

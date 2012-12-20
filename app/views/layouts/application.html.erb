@@ -20,6 +20,9 @@
             <%= render 'layouts/messages' %>
           </div>
         </div>
+        <% if user_signed_in? %>
+          <%= render :partial=>"notes/form", :locals => { :note => @note }%>
+        <% end %>
         <div class="content row" style="margin:auto">
           <%= yield %>  
         </div>

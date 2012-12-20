@@ -1,3 +1,12 @@
+<!-- Modal -->
+<div id="substitutionModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:650px;">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 >Substitution</h3>
+  </div>
+
+  <div class="modal-body">
+
 <%= form_for([@game.team.club, @game.team, @game, @substitution]) do |f| %>
   <% if @game.errors.any? %>
     <div id="error_explanation">
@@ -11,12 +20,13 @@
     </div>
   <% end %>
   
-  <div class="field">
-    <%= f.label :minute %><br />
-    <%= f.text_field :minute %>
+  <div class="field" style="text-align: center">
+    <%= f.label :minute %>
+    <%= f.number_field :minute %>
   </div>
 
-  <h3>Players on field</h3>
+  <div class="span3" style="text-align: center">
+  <h3>Players on Field</h3>
   <table class="table table-hover">
     <thead>
       <tr>
@@ -29,16 +39,18 @@
     <tr>
       <% if @game.events.where(:code => 6).where(:player_id => player.id).count > 1 || @game.events.where(:code => 5).where(:player_id => player.id).count > 0 %>
         <td><%= f.radio_button :player_out_id, player.id, :disabled => true %>
-            <%= f.label :player_out_id, player.name %></td>
+            <%= f.label :player_out_id, player.name, :value => player.id %></td>
       <% else %>
         <td><%= f.radio_button :player_out_id, player.id %>
-            <%= f.label :player_out_id, player.name %></td>
+            <%= f.label :player_out_id, player.name,:value => player.id %></td>
       <% end %>
       <td><%= player.position %></td>
     </tr>
     <% end %>
 </table>
+</div>
 
+<div class="span3" style="text-align: center">
 <h3>Bench</h3>
 <table class="table table-hover">
     <thead>
@@ -51,14 +63,18 @@
   <% @bench_players.each do |player| %>
     <tr>
       <td><%= f.radio_button :player_in_id, player.id %>
-          <%= f.label :player_in_id, player.name %></td></td>
+          <%= f.label :player_in_id, player.name, :value => player.id %></td></td>
       <td><%= player.position %></td>
     </tr>
   <% end %>
 </table>
-
-  <br />
-  <div class="actions">
-    <%= f.submit %>
+</div>
+</div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true" style="margin-right:15px;">Close</button>
+    <div class="actions pull-right">
+      <%= f.submit :class => "btn btn-success" %>
+    </div>
   </div>
-<% end %>
+  <% end %>
+</div>

@@ -30,9 +30,14 @@ function add_fields(link, association, content) {
 $(function() {
  iconize($(".editlink"), "pencil", "Edit");
  iconize($(".destroylink"), "trash", "Delete");
+
  $("#addPlayerButton").click(function() {
   $("#addPlayer").slideDown();
   $("#addPlayerButton").hide();
+  });
+
+ $("#new-note").click(function() {
+  $(".new_note").show('slow');
   });
 
  var eventSelected = false;
@@ -59,7 +64,7 @@ $(".selected-player").click(countSelected);
  
 
   $(".table").tablesorter();
-  updategoals();
+  //updategoals();
   countSelected();
 
   var top = $('#total').offset().top - parseFloat($('#total').css('marginTop').replace(/auto/, 0));

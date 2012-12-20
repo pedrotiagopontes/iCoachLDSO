@@ -1,22 +1,5 @@
-class ConvocationsController < ApplicationController
+  class ConvocationsController < ApplicationController
   
-  # PUT /convocations/lineup
-  # PUT /convocations/lineup.json
-=begin
-  def lineup
-
-    respond_to do |format|
-      if @game.update_attributes(params[:game])
-        format.html { redirect_to club_team_games_path(@team.club, @team), notice: 'Game was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @game.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-=end
-
   # GET /convocations/new
   # GET /convocations/new.json
   def new

@@ -1,6 +1,36 @@
 // Place all the styles related to the Teams controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+$textShadowColor: #888;
+$textShadowLenght: 0px 1px 2px;
+$boxShadowLenght: 0px 1px 6px;
+
 #addPlayer{
 	display: none;
+}
+
+.team-stats{
+	background: #494949;
+	border: 6px solid whiteSmoke;
+	border-radius: 50px;
+	color: whiteSmoke;
+	text-align: center;
+
+	-webkit-box-shadow: $boxShadowLenght $textShadowColor;
+	-moz-box-shadow: $boxShadowLenght $textShadowColor;
+	box-shadow: $boxShadowLenght $textShadowColor;	
+}
+
+.team-number{
+  width: 80px;
+  height: 20px;
+  text-align: center;
+  margin: 10px;
+  padding-top: 10px;
+  display:inline;
+
+  h1{
+  	margin-right: 4px;
+  	display:inline;
+  }
 }

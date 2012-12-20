@@ -6,7 +6,7 @@
   </div>
 
   <div class="modal-body">
-    <%= form_for(@club) do |f| %>
+    <%= form_for @club, :url => club_path, :html => { :multipart => true } do |f| %>
       <% if @club.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@club.errors.count, "error") %> prohibited this club from being saved:</h2>
@@ -27,6 +27,7 @@
         <%= f.label :acronym %><br />
         <%= f.text_field :acronym, :class =>"inputLong" %>
       </div>
+      <%= f.file_field :avatar %>
       <br>
 
       <% if !@club.roles.empty? %>
