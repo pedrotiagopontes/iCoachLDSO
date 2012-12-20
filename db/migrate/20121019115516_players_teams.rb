@@ -9,6 +9,6 @@ class PlayersTeams < ActiveRecord::Migration
   end
 
   def self.down
-  	drop_table 'players_teams'
+  	drop_table 'playersteams'
   end
 end

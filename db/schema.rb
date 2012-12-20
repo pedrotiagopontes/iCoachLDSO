@@ -93,6 +93,14 @@ ActiveRecord::Schema.define(:version => 20121209233022) do
     t.datetime "updated_at",    :null => false
   end
 
+  create_table "playersgames", :id => false, :force => true do |t|
+    t.boolean  "starter"
+    t.integer  "player_id"
+    t.integer  "game_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "playersteams", :id => false, :force => true do |t|
     t.integer  "player_id"
     t.integer  "team_id"
@@ -103,6 +111,7 @@ ActiveRecord::Schema.define(:version => 20121209233022) do
   create_table "practices", :force => true do |t|
     t.date     "date"
     t.time     "hour"
+    t.text     "program"
     t.boolean  "presences_checked"
     t.integer  "team_id"
     t.datetime "created_at",        :null => false

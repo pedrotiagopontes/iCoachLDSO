@@ -17,7 +17,9 @@
     <div class="row-fluid">
       <div class="span2">
         <label for="event_code_6">
-        <img src="http://placehold.it/140x140" class="img-rounded" style="display:block">
+        <div class="img-wrapper" id="yellow-card">
+          <%= image_tag "yellowcard.png", :class =>"img-rounded"%>
+        </div>
         </label>
         <div class="image-radio">
           <%= f.radio_button :code, 6 %>
@@ -26,7 +28,9 @@
       </div>
       <div class="span2">
         <label for="event_code_5">
-        <img src="http://placehold.it/140x140" class="img-rounded" style="display:block">
+          <div class="img-wrapper" id="red-card">
+            <%= image_tag "redcard.png", :class =>"img-rounded"%>
+          </div>
         </label>
         <div class="image-radio">
           <%= f.radio_button :code, 5 %>
@@ -35,7 +39,9 @@
       </div>
       <div class="span2">
         <label for="event_code_3">
-        <%= image_tag "soccerball.png", :class => "img-rounded image-event" %>
+          <div class="img-wrapper" id="goal-scored">
+            <%= image_tag "soccerball.png", :class =>"img-rounded"%>
+          </div>
         </label>
         <div class="image-radio">
           <%= f.radio_button :code, 3 %>
@@ -44,7 +50,9 @@
       </div>
       <div class="span2">
         <label for="event_code_2">
-        <img src="http://placehold.it/140x140" class="img-rounded" style="display:block">
+        <div class="img-wrapper" id="goal-suffered">
+          <%= image_tag "soccerball.png", :class =>"img-rounded"%>
+        </div>
         </label>
         <div class="image-radio">
           <%= f.radio_button :code, 2 %>
@@ -53,7 +61,9 @@
       </div>
       <div class="span2">
         <label for="event_code_1">
-        <img src="http://placehold.it/140x140" class="img-rounded" style="display:block">
+        <div class="img-wrapper" id="assistence">
+          <%= image_tag "soccerball.png", :class =>"img-rounded"%>
+        </div>
         </label>
         <div class="image-radio">
           <%= f.radio_button :code, 1 %>
@@ -62,7 +72,9 @@
       </div>
       <div class="span2">
         <label for="event_code_4">
-        <img src="http://placehold.it/140x140" class="img-rounded" style="display:block">
+          <div class="img-wrapper" id="injury">
+            <%= image_tag "redcross.png", :class =>"img-rounded"%>
+          </div>
         </label>
         <div class="image-radio">
           <%= f.radio_button :code, 4 %>
