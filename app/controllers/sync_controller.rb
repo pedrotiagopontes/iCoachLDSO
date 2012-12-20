@@ -313,7 +313,7 @@ class SyncController < ApplicationController
 	# Fetch Notes
 	##################
 	
-    Note.where("user_id IS ?", current_user.id ).range_where( @timeStartD, @timeNowD )
+    Note.where("user_id = ?", current_user.id ).range_where( @timeStartD, @timeNowD )
     .each do |v|      
 		@var = {}
 		
