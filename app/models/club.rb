@@ -1,5 +1,5 @@
 class Club < ActiveRecord::Base
-	attr_accessible :avatar, :name, :acronym
+	attr_accessible :avatar, :name, :acronym, :roles_attributes, :user_ids
 	has_attached_file :avatar, :styles => { :medium => "140x140>", :thumb => "100x100>" }
 	has_many :roles, :dependent => :destroy
 	has_many :users, :through => :roles
