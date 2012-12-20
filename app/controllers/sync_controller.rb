@@ -43,8 +43,8 @@ class SyncController < ApplicationController
 	# Fetch Roles
 	##################
 
-	
-    Role.with_deleted.where("user_id = ?", current_user.id)
+	#Role.with_deleted.where("user_id = ?", current_user.id)
+	Role.with_deleted.find_all_by_user_id(current_user.id)
 	.each do |v|
 		@club_ids << v.club_id
 		
