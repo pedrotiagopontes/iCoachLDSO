@@ -13,8 +13,6 @@ class SyncController < ApplicationController
 
     @timeStartD = Time.at( Integer( params[:time].nil? ? 0 : params[:time] ) )
 	@timeNowD   = Time.new
-	
-#	@sql_filter = "(created_at >= ? OR updated_at >= ? OR (deleted_at IS NOT NULL AND deleted_at >= ?)) AND created_at < ? AND updated_at < ? AND (deleted_at IS NULL OR deleted_at < ?)"
 
 	@output = {}
 
