@@ -28,6 +28,7 @@ gem 'devise'
 gem 'cancan'
 gem 'seed_dumper', '~> 0.1.3'
 gem "seedbank"
+gem "paperclip", "~> 3.0"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

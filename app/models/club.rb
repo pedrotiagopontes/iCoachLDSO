@@ -1,4 +1,6 @@
 class Club < ActiveRecord::Base
+	attr_accessible :avatar, :name, :acronym
+	has_attached_file :avatar, :styles => { :medium => "140x140>", :thumb => "100x100>" }
 	has_many :roles, :dependent => :destroy
 	has_many :users, :through => :roles
 	accepts_nested_attributes_for :roles, :allow_destroy => true
