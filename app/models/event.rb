@@ -1,4 +1,6 @@
 class Event < ActiveRecord::Base
+  acts_as_paranoid
+
   validates :minute, :numericality => {:greater_than => 0, :only_integer => true}
   validates :minute, :presence => true
   validates :player_id, :presence => true

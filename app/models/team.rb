@@ -1,4 +1,6 @@
 class Team < ActiveRecord::Base
+  acts_as_paranoid
+
   belongs_to :club
 #  has_and_belongs_to_many :players
   has_many :playersteams
