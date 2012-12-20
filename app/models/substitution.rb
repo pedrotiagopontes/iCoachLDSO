@@ -1,5 +1,6 @@
 class Substitution < ActiveRecord::Base
   acts_as_paranoid
+  attr_protected :deleted_at
 
   validates :minute, :numericality => {:greater_than => 0, :only_integer => true}
   validates :minute, :presence => true

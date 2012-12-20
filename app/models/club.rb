@@ -1,5 +1,7 @@
 class Club < ActiveRecord::Base
   acts_as_paranoid
+  attr_protected :deleted_at
+
 
 	attr_accessible :avatar, :name, :acronym, :roles_attributes, :user_ids
 	has_attached_file :avatar, :styles => { :medium => "140x140>", :thumb => "100x100>" }

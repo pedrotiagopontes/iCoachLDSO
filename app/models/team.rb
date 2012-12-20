@@ -1,5 +1,6 @@
 class Team < ActiveRecord::Base
   acts_as_paranoid
+  attr_protected :deleted_at
 
   belongs_to :club
 #  has_and_belongs_to_many :players

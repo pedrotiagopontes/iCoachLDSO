@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   acts_as_paranoid
+  attr_protected :deleted_at
 
   has_many :roles, :dependent => :destroy
   has_many :clubs, :through => :roles

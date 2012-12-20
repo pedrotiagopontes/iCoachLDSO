@@ -8,7 +8,7 @@ gem 'rails', '3.2.1'
 group :development, :test do
   gem 'sqlite3'
 end
-gem "pg", "~> 0.14.1"
+#gem "pg", "~> 0.14.1"
 gem 'paranoia'
 
 # Gems used only for assets and not required
