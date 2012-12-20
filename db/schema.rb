@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121220014823) do
+ActiveRecord::Schema.define(:version => 20121220045230) do
 
   create_table "clubs", :force => true do |t|
     t.string   "name"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20121220014823) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.datetime "deleted_at"
   end
 
   create_table "convocations", :force => true do |t|
@@ -31,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20121220014823) do
     t.integer  "game_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.datetime "deleted_at"
   end
 
   add_index "convocations", ["game_id", "player_id"], :name => "index_convocations_on_game_id_and_player_id", :unique => true
@@ -42,6 +44,7 @@ ActiveRecord::Schema.define(:version => 20121220014823) do
     t.integer  "player_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.datetime "deleted_at"
   end
 
   add_index "events", ["game_id"], :name => "index_events_on_game_id"
@@ -58,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20121220014823) do
     t.integer  "goals_suffered"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.datetime "deleted_at"
   end
 
   add_index "games", ["team_id"], :name => "index_games_on_team_id"
@@ -71,6 +75,7 @@ ActiveRecord::Schema.define(:version => 20121220014823) do
     t.integer  "player_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.datetime "deleted_at"
   end
 
   add_index "injuries", ["player_id"], :name => "index_injuries_on_player_id"
@@ -81,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20121220014823) do
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.datetime "deleted_at"
   end
 
   add_index "notes", ["user_id"], :name => "index_notes_on_user_id"
@@ -95,6 +101,7 @@ ActiveRecord::Schema.define(:version => 20121220014823) do
     t.string   "position"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.datetime "deleted_at"
   end
 
   create_table "playersgames", :id => false, :force => true do |t|
@@ -110,6 +117,7 @@ ActiveRecord::Schema.define(:version => 20121220014823) do
     t.integer  "team_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.datetime "deleted_at"
   end
 
   create_table "practices", :force => true do |t|
@@ -120,6 +128,7 @@ ActiveRecord::Schema.define(:version => 20121220014823) do
     t.integer  "team_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.datetime "deleted_at"
   end
 
   add_index "practices", ["team_id"], :name => "index_practices_on_team_id"
@@ -130,6 +139,7 @@ ActiveRecord::Schema.define(:version => 20121220014823) do
     t.integer  "practice_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.datetime "deleted_at"
   end
 
   add_index "presences", ["practice_id", "player_id"], :name => "index_presences_on_practice_id_and_player_id", :unique => true
@@ -143,6 +153,7 @@ ActiveRecord::Schema.define(:version => 20121220014823) do
     t.integer  "club_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.datetime "deleted_at"
   end
 
   add_index "roles", ["club_id"], :name => "index_roles_on_club_id"
@@ -155,6 +166,7 @@ ActiveRecord::Schema.define(:version => 20121220014823) do
     t.integer  "player_out_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.datetime "deleted_at"
   end
 
   add_index "substitutions", ["game_id"], :name => "index_substitutions_on_game_id"
@@ -165,6 +177,7 @@ ActiveRecord::Schema.define(:version => 20121220014823) do
     t.integer  "club_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.datetime "deleted_at"
   end
 
   add_index "teams", ["club_id"], :name => "index_teams_on_club_id"
@@ -183,6 +196,7 @@ ActiveRecord::Schema.define(:version => 20121220014823) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "authentication_token"
+    t.datetime "deleted_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
