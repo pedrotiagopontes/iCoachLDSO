@@ -51,7 +51,7 @@ class SyncController < ApplicationController
 		if evaluateTime(v, @timeStartD, @timeNowD)
 			@var = {}
 			
-			@var["user_id"] = v.id
+			#@var["user_id"] = v.user_id
 			@var["club_id"] = v.club_id
 			@var["is_admin"] = v.is_admin.nil?? false : v.is_admin
 			@var["is_coach"] = v.is_coach.nil? ? false : v.is_coach
