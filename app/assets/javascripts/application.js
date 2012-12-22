@@ -16,17 +16,6 @@
 //= require jquery.tablesorter.min
 //= require_tree .
 
-function remove_fields(link) {
-  $(link).prev("input[type=hidden]").val("1");
-  $(link).closest(".fields").hide();
-}
-
-function add_fields(link, association, content) {
-  var new_id = new Date().getTime();
-  var regexp = new RegExp("new_" + association, "g");
-  $(link).parent().before(content.replace(regexp, new_id));
-}
-
 $(function() {
  iconize($(".editlink"), "pencil", "Edit");
  iconize($(".destroylink"), "trash", "Delete");
@@ -67,6 +56,8 @@ $(".selected-player").click(countSelected);
   //updategoals();
   countSelected();
 
+  $('#myCarousel').carousel();
+
   var top = $('#total').offset().top - parseFloat($('#total').css('marginTop').replace(/auto/, 0));
    $(window).scroll(function (event) {
      // what the y position of the scroll is
@@ -83,6 +74,20 @@ $(".selected-player").click(countSelected);
    });
 
 });
+function hideContainer() {
+  $('.main').hide();
+}
+
+function remove_fields(link) {
+  $(link).prev("input[type=hidden]").val("1");
+  $(link).closest(".fields").hide();
+}
+
+function add_fields(link, association, content) {
+  var new_id = new Date().getTime();
+  var regexp = new RegExp("new_" + association, "g");
+  $(link).parent().before(content.replace(regexp, new_id));
+}
 
 function iconize(element, icon, text){
 	element.prepend('<i class="icon-'+icon+'"></i>  ');
