@@ -1,4 +1,7 @@
 class Player < ActiveRecord::Base
+  acts_as_paranoid
+  attr_protected :deleted_at
+
   validates :height, :numericality => {:greater_than => 0}
   validates :weight, :numericality => {:greater_than => 0}
   validates :number, :numericality => {:only_integer => true}
