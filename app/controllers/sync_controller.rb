@@ -24,10 +24,12 @@ class SyncController < ApplicationController
 	@output["injuries"] = []
 	@output["games"] 	= []
 	@output["events"] 	= []
+	@output["notes"] 	= []
 	@output["practices"] 	= []
-	@output["playersteams"] 	= []
+	@output["playersteams"] = []
 	@output["convocations"]	= []
 	@output["presences"]	= []
+	@output["substitutions"] = []
 	
 	@club_ids   = []
     @team_ids   = []
@@ -40,21 +42,23 @@ class SyncController < ApplicationController
 	##################
 	# Fetch Roles
 	##################
-	
-    Role.find_all_by_user_id(current_user.id)
+
+	#Role.with_deleted.where("user_id = ?", current_user.id)
+	Role.with_deleted.find_all_by_user_id(current_user.id)
 	.each do |v|
 		@club_ids << v.club_id
 		
 		if evaluateTime(v, @timeStartD, @timeNowD)
 			@var = {}
 			
-			@var["user_id"] = v.id
+			#@var["user_id"] = v.user_id
 			@var["club_id"] = v.club_id
 			@var["is_admin"] = v.is_admin.nil?? false : v.is_admin
 			@var["is_coach"] = v.is_coach.nil? ? false : v.is_coach
 			@var["is_doctor"] = v.is_doctor.nil? ? false : v.is_doctor
 			@var["is_manager"] = v.is_manager.nil? ? false : v.is_manager
 			
+			set_deleted_at( @var, v )
 			convert_time( @var, v )
 			@output["roles"] << @var
 		end
@@ -67,8 +71,8 @@ class SyncController < ApplicationController
 	# Fetch Clubs
 	##################
 	
-    Club.where("id IN (?) AND (created_at >= ? OR updated_at >= ?) AND created_at < ? AND updated_at < ?",
-					@club_ids, @timeStartD, @timeStartD, @timeNowD, @timeNowD )
+
+	Club.where("id IN (?)", @club_ids ).range_where( @timeStartD, @timeNowD )
 	.each do |v|      
 		@var = {}
 
@@ -76,6 +80,7 @@ class SyncController < ApplicationController
 		@var["name"] = v.name
 		@var["acronym"] = v.acronym
 
+		set_deleted_at( @var, v )
 		convert_time( @var, v )
 		@output["clubs"] << @var
     end
@@ -86,7 +91,7 @@ class SyncController < ApplicationController
 	# Fetch Clubs' Teams
 	##################
 	
-    Team.where("club_id IN (?)", @club_ids )
+    Team.with_deleted.where("club_id IN (?)", @club_ids )
     .each do |v|      
 		@team_ids << v.id
 
@@ -98,6 +103,7 @@ class SyncController < ApplicationController
 			@var["name"] = v.name
 			@var["club_id"] = v.club_id
 
+			set_deleted_at( @var, v )
 			convert_time( @var, v )
 			@output["teams"] << @var
 		end
@@ -110,7 +116,7 @@ class SyncController < ApplicationController
 	# Fetch Player's Team ids
 	##################
 	
-	Playersteam.where("team_id IN (?)", @team_ids)
+	Playersteam.with_deleted.where("team_id IN (?)", @team_ids)
 	.each do |v|
 		@player_ids << v.player_id
 		
@@ -120,6 +126,7 @@ class SyncController < ApplicationController
 			@var["team_id"] = v.team_id
 			@var["player_id"] = v.player_id
 
+			set_deleted_at( @var, v )
 			convert_time( @var, v )
 			@output["playersteams"] << @var
 		end
@@ -132,7 +139,7 @@ class SyncController < ApplicationController
 	# Fetch Games
 	##################
 	
-    Game.where("team_id IN (?)", @team_ids )
+    Game.with_deleted.where("team_id IN (?)", @team_ids )
     .each do |v|
 		@game_ids << v.id
 		
@@ -148,9 +155,11 @@ class SyncController < ApplicationController
 			@var["at_home"] = v.at_home
 			@var["played"] = v.played
 			@var["team_id"] = v.team_id
+			@var["lineup_selected"] = v.lineup_selected
 			@var["goals_scored"] = v.goals_scored
 			@var["goals_suffered"] = v.goals_suffered
 
+			set_deleted_at( @var, v )
 			convert_time( @var, v )
 			@output["games"] << @var
 		end
@@ -163,8 +172,7 @@ class SyncController < ApplicationController
 	# Fetch Events
 	##################
 	
-    Event.where("game_id IN (?) AND (created_at >= ? OR updated_at >= ?) AND created_at < ? AND updated_at < ?",
-					@game_ids, @timeStartD, @timeStartD, @timeNowD, @timeNowD )
+    Event.where("game_id IN (?)" , @game_ids ).range_where( @timeStartD, @timeNowD )
     .each do |v|      
 		@var = {}
 		
@@ -174,6 +182,7 @@ class SyncController < ApplicationController
 		@var["game_id"] = v.game_id
 		@var["player_id"] = v.player_id
 
+		set_deleted_at( @var, v )
 		convert_time( @var, v )
 		@output["events"] << @var
 	end
@@ -184,16 +193,16 @@ class SyncController < ApplicationController
 	# Fetch Player's Games
 	##################
 	
-	Convocation.where("game_id IN (?) AND (created_at >= ? OR updated_at >= ?) AND created_at < ? AND updated_at < ?",
-					@game_id, @timeStartD, @timeStartD, @timeNowD, @timeNowD )
+	Convocation.where("game_id IN (?)", @game_ids ).range_where( @timeStartD, @timeNowD )
 	.each do |v|
 		@var = {}
 
 		@var["called"] = v.called
-                @var["initial_condition"] = v.initial_condition
+        @var["initial_condition"] = v.initial_condition
 		@var["player_id"] = v.player_id
 		@var["game_id"] = v.game_id
 
+		set_deleted_at( @var, v )
 		convert_time( @var, v )
 		@output["convocations"] << @var
 	end
@@ -204,8 +213,7 @@ class SyncController < ApplicationController
 	# Fetch Players
 	##################
 	
-    Player.where("id IN (?) AND (created_at >= ? OR updated_at >= ?) AND created_at < ? AND updated_at < ?",
-					@player_ids, @timeStartD, @timeStartD, @timeNowD, @timeNowD )
+    Player.where("id IN (?)", @player_ids ).range_where( @timeStartD, @timeNowD )
     .each do |v|      
 		@var = {}
 		
@@ -219,6 +227,7 @@ class SyncController < ApplicationController
 		@var["weight"] = v.weight
 		@var["position"] = v.position
 
+		set_deleted_at( @var, v )
 		convert_time( @var, v )
 		@output["players"] << @var
 	end
@@ -229,8 +238,7 @@ class SyncController < ApplicationController
 	# Fetch Injuries
 	##################
 	
-    Injury.where("player_id IN (?) AND (created_at >= ? OR updated_at >= ?) AND created_at < ? AND updated_at < ?",
-					@player_ids, @timeStartD, @timeStartD, @timeNowD, @timeNowD )
+    Injury.where("player_id IN (?)", @player_ids ).range_where( @timeStartD, @timeNowD )
     .each do |v|      
 		@var = {}
 
@@ -244,6 +252,7 @@ class SyncController < ApplicationController
 		@var["description"] = v.description
 		@var["player_id"] = v.player_id
 
+		set_deleted_at( @var, v )
 		convert_time( @var, v )
 		@output["injuries"] << @var
 	end
@@ -254,7 +263,7 @@ class SyncController < ApplicationController
 	# Fetch Practices
 	##################
 	
-    Practice.where("team_id IN (?)", @team_ids )
+    Practice.with_deleted.where("team_id IN (?)", @team_ids )
     .each do |v|      
 		@practice_ids << v.id
 
@@ -266,9 +275,11 @@ class SyncController < ApplicationController
 			@var["hour"] = v.hour
 			@var["date_s"] = v.date.to_time.to_i
 			@var["hour_s"] = Time.at( v.hour ).to_i
+			@var["program"] = v.program
 			@var["presences_checked"] = v.presences_checked
 			@var["team_id"] = v.team_id
 
+			set_deleted_at( @var, v )
 			convert_time( @var, v )
 			@output["practices"] << @var
 		end
@@ -281,8 +292,7 @@ class SyncController < ApplicationController
 	# Fetch Presences
 	##################
 	
-    Presence.where("practice_id IN (?) AND (created_at >= ? OR updated_at >= ?) AND created_at < ? AND updated_at < ?",
-					@practice_ids, @timeStartD, @timeStartD, @timeNowD, @timeNowD )
+    Presence.where("practice_id IN (?)", @practice_ids ).range_where( @timeStartD, @timeNowD )
     .each do |v|      
 		@var = {}
 		
@@ -291,30 +301,95 @@ class SyncController < ApplicationController
 		@var["player_id"] = v.player_id
 		@var["practice_id"] = v.practice_id
 
+		set_deleted_at( @var, v )
 		convert_time( @var, v )
 		@output["presences"] << @var
 	end
 	
 	
+	
+	
+	##################
+	# Fetch Notes
+	##################
+	
+    Note.where("user_id = ?", current_user.id ).range_where( @timeStartD, @timeNowD )
+    .each do |v|      
+		@var = {}
+		
+		@var["id"] = v.id
+		@var["title"] = v.title
+		@var["text"] = v.text
 
+		set_deleted_at( @var, v )
+		convert_time( @var, v )
+		@output["notes"] << @var
+	end
+	
+	
+	
+	##################
+	# Substitutions
+	##################
+
+	Substitution.where("game_id IN (?)", @game_ids ).range_where( @timeStartD, @timeNowD )
+	.each do |v|      
+		@var = {}
+
+		@var["id"] = v.id
+		@var["minute"] = v.minute
+		@var["game_id"] = v.game_id
+		@var["player_in_id"] = v.player_in_id
+		@var["player_out_id"] = v.player_out_id
+
+		set_deleted_at( @var, v )
+		convert_time( @var, v )
+		@output["substitutions"] << @var
+    end
+	
+	
+	# and thats all
     render :status=>200, :json=> @output
 
   end
-  
+    
+
 
 	def kill_user_session
 	  if ! current_user.nil?
 		sign_out current_user
 	  end
 	end
-
+	
+	def time_to_i( t )
+	  if( t.nil? )
+		return nil
+	  end
+	  return Time.at( t ).to_i
+	end
+	
+	def set_deleted_at( var , vin )
+		var["deleted_at"] = time_to_i( vin.deleted_at )
+	end
+	
 	def convert_time(var, vin)
-	  var["created_at"] = Time.at( vin.created_at ).to_i
-	  var["updated_at"] = Time.at( vin.updated_at ).to_i
+	  var["created_at"] = time_to_i( vin.created_at )
+	  var["updated_at"] = time_to_i( vin.updated_at )
 	end
 
 	def evaluateTime( vin, timeS, timeN )
-		return ( ( vin.created_at >= timeS || vin.updated_at >= timeS ) && vin.created_at < timeN && vin.updated_at < timeN )
+	    @delS = ( !vin.deleted_at.nil? && vin.deleted_at >= timeS ) ? true : false
+		@delN = ( vin.deleted_at.nil? || vin.deleted_at < timeN ) ? true : false
+		
+		return ( ( vin.created_at >= timeS || vin.updated_at >= timeS || @delS ) && vin.created_at < timeN && vin.updated_at < timeN && @delN )
+	end
+	
+	class ActiveRecord::Base
+		def self.range_where ( timeS, timeN )
+			with_deleted.where(" (created_at >= ? OR updated_at >= ? OR (deleted_at IS NOT NULL AND deleted_at >= ?)) " <<
+									" AND created_at < ? AND updated_at < ? AND (deleted_at IS NULL OR deleted_at < ?) ",
+								timeS, timeS, timeS, timeN, timeN, timeN )
+		end
 	end
 
 end
