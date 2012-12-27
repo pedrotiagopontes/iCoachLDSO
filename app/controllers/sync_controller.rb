@@ -320,6 +320,7 @@ class SyncController < ApplicationController
 		@var["id"] = v.id
 		@var["title"] = v.title
 		@var["text"] = v.text
+                @var["user_id"] = v.user_id
 
 		set_deleted_at( @var, v )
 		convert_time( @var, v )
