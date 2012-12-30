@@ -265,6 +265,38 @@ i{
     }
 
 
+    .login-box{
+      background-color: whitesmoke;
+      background-image: url(bgnoise.png);
+
+      -webkit-box-shadow: $boxShadowLenght $textShadowColor;
+      -moz-box-shadow: $boxShadowLenght $textShadowColor;
+      box-shadow: $boxShadowLenght $textShadowColor;
+      border-radius: 10px;
+
+      width: 63%;
+      
+      position: absolute;
+      top: 380px;
+      left: 20%;
+
+      padding-top:12px;
+      padding-left: 10px;
+
+      h3 {
+        font-size: 24px;
+        line-height: 27px;
+        color: #747474;
+        margin-top: -7px;
+        text-shadow: none;
+      }
+
+      form{
+        margin-left: 10px;
+      }
+    }
+
+
 
     /* RESPONSIVE CSS
     -------------------------------------------------- */
@@ -298,6 +330,12 @@ i{
         float: none;
         max-width: 40%;
         margin: 0 auto 20px;
+      }
+
+      .login-box{
+        form{
+          margin-left: 0;
+        }
       }
     }
 
@@ -346,35 +384,8 @@ i{
         line-height: 1.5;
       }
 
-    }
-
-    .login-box{
-      background-color: whitesmoke;
-      background-image: url(bgnoise.png);
-
-      -webkit-box-shadow: $boxShadowLenght $textShadowColor;
-      -moz-box-shadow: $boxShadowLenght $textShadowColor;
-      box-shadow: $boxShadowLenght $textShadowColor;
-      border-radius: 10px;
-
-      width: 800px;
-      height: 160px;
-      position: absolute;
-      top: 380px;
-      left: 260px;
-
-      padding-top:12px;
-      padding-left: 10px;
-
-      h3 {
-        font-size: 24px;
-        line-height: 27px;
-        color: #747474;
-        margin-top: -7px;
-        text-shadow: none;
+      .login-box{
+        top: 180px;
       }
 
-      form{
-        margin-left: 10px;
-      }
     }
