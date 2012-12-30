@@ -1,4 +1,8 @@
-<%= render 'resume' %>
+<% if @game.played == false %> 
+  <%= render 'gameHeader' %>
+<% else %>
+  <%= render 'resume' %>
+<% end %>
 <div class="general">
 <%= link_to 'Edit', edit_club_team_game_path(@team.club, @team, @game), :class => 'editlink pull-right'%> 
 </br>
