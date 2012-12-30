@@ -10,6 +10,7 @@ class SyncController < ApplicationController
       return
     end
 
+    sleep 1.5
 
     @timeStartD = Time.at( Integer( params[:time].nil? ? 0 : params[:time] ) )
 	@timeNowD   = Time.new
@@ -347,7 +348,7 @@ class SyncController < ApplicationController
 		convert_time( @var, v )
 		@output["substitutions"] << @var
     end
-	
+
 	
 	# and thats all
     render :status=>200, :json=> @output
