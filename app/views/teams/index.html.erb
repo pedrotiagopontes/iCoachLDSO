@@ -1,7 +1,7 @@
 <div class="club-details container-fluid">
   <div class="row-fluid">
     <div class="span2">
-        <img src="http://placehold.it/140x140" class="img-circle">
+        <%= image_tag @club.avatar.url(:medium), :class => "img-circle" %>
     </div>
     <div class="span8">
         <h1><%= link_to @club.name%></h1>

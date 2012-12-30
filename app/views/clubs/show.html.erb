@@ -14,7 +14,7 @@
       <%= link_to 'Destroy', club_path(@club), confirm: 'Are you sure?', method: :delete, :class => 'destroylink' %>
     </div>
     <div class="span2">
-      <%= link_to 'Teams', club_teams_path(@club), :class =>'menulink' %>
+      <%= link_to 'New Team', new_club_team_path(@club), :class => 'newlink' %>
     </div>
     </div>
   </div>
