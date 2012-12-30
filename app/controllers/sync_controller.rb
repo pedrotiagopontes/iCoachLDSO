@@ -10,6 +10,7 @@ class SyncController < ApplicationController
       return
     end
 
+    sleep 1.5
 
     @timeStartD = Time.at( Integer( params[:time].nil? ? 0 : params[:time] ) )
 	@timeNowD   = Time.new
@@ -320,6 +321,7 @@ class SyncController < ApplicationController
 		@var["id"] = v.id
 		@var["title"] = v.title
 		@var["text"] = v.text
+                @var["user_id"] = v.user_id
 
 		set_deleted_at( @var, v )
 		convert_time( @var, v )
@@ -346,7 +348,7 @@ class SyncController < ApplicationController
 		convert_time( @var, v )
 		@output["substitutions"] << @var
     end
-	
+
 	
 	# and thats all
     render :status=>200, :json=> @output

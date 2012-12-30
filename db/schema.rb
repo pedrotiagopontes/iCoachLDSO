@@ -81,8 +81,8 @@ ActiveRecord::Schema.define(:version => 20121220045230) do
   add_index "injuries", ["player_id"], :name => "index_injuries_on_player_id"
 
   create_table "notes", :force => true do |t|
-    t.string   "title"
-    t.text     "text"
+    t.string   "title",      :null => false
+    t.text     "text",       :null => false
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

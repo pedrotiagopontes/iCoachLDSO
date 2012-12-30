@@ -137,6 +137,7 @@ class GamesController < ApplicationController
     #if the players were already chosen it redirects automatically to the new event page
     if @convocations.where(:initial_condition => 1).count > 0
       redirect_to new_club_team_game_event_path(@team.club, @team, @game)
+      return
     end
 
     if @called.count < 12
