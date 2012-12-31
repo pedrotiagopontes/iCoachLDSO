@@ -149,19 +149,19 @@ class SynchelperController < ApplicationController
 		@goals_suffered = params[:goals_suffered]
 
 		if ! @played.nil?
-			game.played = @played
+			@game.played = @played
 		end
 
 		if ! @lineup_selected.nil?
-			game.lineup_selected = @lineup_selected
+			@game.lineup_selected = @lineup_selected
 		end
 		
 		if ! @goals_scored.nil?
-			game.goals_scored = @goals_scored
+			@game.goals_scored = @goals_scored
 		end
 		
 		if ! @goals_suffered.nil?
-			game.goals_suffered = @goals_suffered
+			@game.goals_suffered = @goals_suffered
 		end
 		
 		game.save
