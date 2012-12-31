@@ -164,7 +164,7 @@ class SynchelperController < ApplicationController
 			@game.goals_suffered = @goals_suffered
 		end
 		
-		game.save
+		@game.save
 		head :no_content
 	
 	end
