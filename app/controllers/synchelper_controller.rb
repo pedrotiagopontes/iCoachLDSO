@@ -82,15 +82,16 @@ class SynchelperController < ApplicationController
 	
 	def event_create
 		@game = Game.find(params[:game_id])
-		@player = @game.convocations.where(:player_id => params[:player_id]).first
+		@player_id = params[:player_id]
+		@convocation = @game.convocations.where(:player_id => @player_id).first
 		
-		if @player.nil?
+		if @convocation.nil?
 			head :not_found
 
 		else
 		
 			event = @game.events.new
-			event.player_id = @player.id
+			event.player_id = @player_id
 			event.minute = params[:minute]
 			event.code = params[:code]
 			
