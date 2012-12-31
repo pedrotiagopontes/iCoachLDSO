@@ -103,6 +103,36 @@ class SynchelperController < ApplicationController
 	end
 	
 	
+	########################################################################################################################
+	#	Substitutions
+	########################################################################################################################
+	
+	def subst_create
+	
+		@game = Game.find(params[:game_id])
+		@player_in_id = params[:player_in_id]
+		@player_out_id = params[:player_out_id]
+		
+		@convocation_in = @game.convocations.where(:player_id => @player_in_id).first
+		@convocation_out = @game.convocations.where(:player_id => @player_out_id).first
+
+		if @convocation_in.nil? || @convocation_out.nil?
+			head :not_found
+
+		else
+		
+			subst = @game.substitutions.new
+			subst.player_in_id = @player_in_id
+			subst.player_out_id = @player_out_id
+			subst.minute = params[:minute]
+			
+			subst.save
+			
+			render :state => :created, :json => subst
+			
+		end
+	end
+	
 	
   
 	def kill_user_session

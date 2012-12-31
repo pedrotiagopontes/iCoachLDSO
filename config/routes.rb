@@ -13,6 +13,7 @@ Icoach::Application.routes.draw do
   match '/sync/convocations' => 'synchelper#conv_create', :controller => 'synchelper', :via => :post
   match '/sync/convocations' => 'synchelper#conv_destroy', :controller => 'synchelper', :via => :delete
   match '/sync/events' => 'synchelper#event_create', :controller => 'synchelper', :via => :post
+  match '/sync/substitutions' => 'synchelper#subst_create', :controller => 'synchelper', :via => :post
 
   resources :notes
   resources :clubs do
