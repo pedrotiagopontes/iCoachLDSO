@@ -134,6 +134,41 @@ class SynchelperController < ApplicationController
 	end
 	
 	
+	
+	########################################################################################################################
+	#	Update game state
+	########################################################################################################################
+	
+
+	def game_update_state
+		@game = Game.find(params[:game_id])
+
+		@played = params[:played]
+		@lineup_selected = params[:lineup_selected]
+		@goals_scored = params[:goals_scored]
+		@goals_suffered = params[:goals_suffered]
+
+		if ! @played.nil?
+			game.played = @played
+		end
+
+		if ! @lineup_selected.nil?
+			game.lineup_selected = @lineup_selected
+		end
+		
+		if ! @goals_scored.nil?
+			game.goals_scored = @goals_scored
+		end
+		
+		if ! @goals_suffered.nil?
+			game.goals_suffered = @goals_suffered
+		end
+		
+		game.save
+		head :no_content
+	
+	end
+	
   
 	def kill_user_session
 	  if ! current_user.nil?
