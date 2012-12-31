@@ -8,7 +8,11 @@ Icoach::Application.routes.draw do
   
   resources :tokens,:only => [:create, :destroy]
   resources :sync, :controller => 'sync', :only => [:index]
-  resource :syncconv, :controller => 'syncconv', :only => [:create, :destroy]
+  #resource :syncconv, :controller => 'syncconv', :only => [:create, :destroy]
+  
+  match '/sync/convocations' => 'synchelper#conv_create', :via => :post
+  match '/sync/convocations' => 'synchelper#conv_destroy', :via => :delete
+  match '/sync/events' => 'synchelper#event_destroy', :via => :post
 
   resources :notes
   resources :clubs do

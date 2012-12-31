@@ -1,9 +1,13 @@
-class SyncconvController < ApplicationController
+class SynchelperController < ApplicationController
   before_filter :kill_user_session, :authenticate_user!
 
   respond_to :json
-
-	def create
+  
+	########################################################################################################################
+	#	Convocations
+	########################################################################################################################
+	
+  	def conv_create
 
 		@game = Game.find(params[:game_id])
 		@team = @game.team
@@ -53,7 +57,7 @@ class SyncconvController < ApplicationController
 
 	end
 	
-	def destroy
+	def conv_destroy
 	
 		@game = Game.find(params[:game_id])
 		convocation = @game.convocations.where(:player_id => params[:player_id]).first
@@ -70,6 +74,32 @@ class SyncconvController < ApplicationController
 		end
 		
 	end
+	
+
+	########################################################################################################################
+	#	Events
+	########################################################################################################################
+	
+	def event_create
+		@game = Game.find(params[:game_id])
+		@player = @game.convocations.where(:player_id => params[:player_id]).first
+		
+		if @player.nil?
+			head :not_found
+
+		else
+		
+			event = @game.events.new
+			event.player_id = player.id
+			event.code = params[:code]
+			
+			event.save
+			
+			render :state => :created, :json => event
+			
+		end
+	end
+	
 	
 	
   
