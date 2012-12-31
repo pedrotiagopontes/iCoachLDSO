@@ -90,7 +90,7 @@ class SynchelperController < ApplicationController
 		else
 		
 			event = @game.events.new
-			event.player_id = player.id
+			event.player_id = @player.id
 			event.minute = params[:minute]
 			event.code = params[:code]
 			
