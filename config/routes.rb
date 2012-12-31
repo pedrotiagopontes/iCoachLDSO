@@ -8,6 +8,7 @@ Icoach::Application.routes.draw do
   
   resources :tokens,:only => [:create, :destroy]
   resources :sync, :controller => 'sync', :only => [:index]
+  resource :syncconv, :controller => 'syncconv', :only => [:create, :destroy]
 
   resources :notes
   resources :clubs do
