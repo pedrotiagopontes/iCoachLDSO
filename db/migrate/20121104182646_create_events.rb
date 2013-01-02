@@ -1,10 +1,10 @@
 class CreateEvents < ActiveRecord::Migration
   def change
     create_table :events do |t|
-      t.integer :code
-      t.integer :minute
-      t.references :game
-      t.references :player
+      t.integer :code, :null => false
+      t.integer :minute, :null => false
+      t.references :game, :null => false
+      t.references :player, :null => false
 
       t.timestamps
     end

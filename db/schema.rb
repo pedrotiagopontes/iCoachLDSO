@@ -38,10 +38,10 @@ ActiveRecord::Schema.define(:version => 20121220045230) do
   add_index "convocations", ["game_id", "player_id"], :name => "index_convocations_on_game_id_and_player_id", :unique => true
 
   create_table "events", :force => true do |t|
-    t.integer  "code"
-    t.integer  "minute"
-    t.integer  "game_id"
-    t.integer  "player_id"
+    t.integer  "code",       :null => false
+    t.integer  "minute",     :null => false
+    t.integer  "game_id",    :null => false
+    t.integer  "player_id",  :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.datetime "deleted_at"
@@ -160,10 +160,10 @@ ActiveRecord::Schema.define(:version => 20121220045230) do
   add_index "roles", ["user_id"], :name => "index_roles_on_user_id"
 
   create_table "substitutions", :force => true do |t|
-    t.integer  "minute"
-    t.integer  "game_id"
-    t.integer  "player_in_id"
-    t.integer  "player_out_id"
+    t.integer  "minute",        :null => false
+    t.integer  "game_id",       :null => false
+    t.integer  "player_in_id",  :null => false
+    t.integer  "player_out_id", :null => false
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.datetime "deleted_at"
