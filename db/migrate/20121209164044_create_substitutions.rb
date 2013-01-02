@@ -1,10 +1,10 @@
 class CreateSubstitutions < ActiveRecord::Migration
   def change
     create_table :substitutions do |t|
-      t.integer :minute
-      t.references :game
-      t.references :player_in
-      t.references :player_out
+      t.integer :minute, :null => false
+      t.references :game, :null => false
+      t.references :player_in, :null => false
+      t.references :player_out, :null => false
 
       t.timestamps
     end
